@@ -1,0 +1,162 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "legal": {
+      "type": "annvaya-legal-page",
+      "settings": {
+        "eyebrow": "Legal",
+        "page_heading": "Privacy Policy",
+        "page_subheading": "How AnnVaya collects, uses and protects your personal information when you shop with us.",
+        "last_updated": "August 2026",
+        "hero_bg_color": "#2C3B28",
+        "hero_text_color": "#F5F2EB",
+        "hero_padding_top": 60,
+        "hero_padding_bottom": 60,
+        "body_bg_color": "#F5F2EB",
+        "padding_top": 48,
+        "padding_bottom": 64,
+        "company_name": "AnnVaya",
+        "legal_entity_name": "",
+        "registered_address": "",
+        "gstin": "",
+        "fssai_license": "",
+        "pan": "",
+        "cin": "",
+        "email": "hello@annvaya.com",
+        "phone": "",
+        "grievance_name": "",
+        "grievance_designation": "Grievance Officer",
+        "grievance_email": "",
+        "grievance_phone": "",
+        "grievance_address": ""
+      },
+      "blocks": {
+        "info_card": {
+          "type": "info_card",
+          "settings": {}
+        },
+        "s1": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "1. About This Policy",
+            "content": "<p>This Privacy Policy describes how AnnVaya (\u201cwe\u201d, \u201cus\u201d, or \u201cour\u201d) collects, uses, processes, stores, and discloses your personal data when you visit our website (annvaya.com), create an account, or place an order with us. This policy applies to all interactions you have with us online and offline in connection with our products and services.</p><p>This policy is published in compliance with the following Indian laws and regulations:</p><ul><li><strong>Information Technology Act, 2000</strong> and the <strong>IT (Sensitive Personal Data or Information) Rules, 2011</strong> (SPDI Rules)</li><li><strong>IT (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021</strong></li><li><strong>Digital Personal Data Protection Act, 2023</strong> (DPDP Act) and the <strong>Digital Personal Data Protection Rules, 2025</strong> (DPDP Rules)</li><li><strong>Consumer Protection Act, 2019</strong> and the <strong>Consumer Protection (E-Commerce) Rules, 2020</strong></li></ul><p>By using our website or purchasing our products, you acknowledge that you have read, understood, and consent to the practices described in this Privacy Policy. If you do not agree, please discontinue use of our website and services.</p><p>We act as a <strong>Data Fiduciary</strong> as defined under the DPDP Act, 2023 and are responsible for all personal data processed through our platform. Our Data Processor for payments is Razorpay Software Pvt Ltd, and our hosting platform is Shopify Inc., both of whom process data on our behalf under contractual arrangements.</p>"
+          }
+        },
+        "s2": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "2. Personal Data We Collect",
+            "content": "<p>We collect the following categories of personal data when you interact with AnnVaya:</p><p><strong>a) Identity and Contact Data</strong><br>Full name, email address, mobile phone number, delivery address (including street, city, state, and PIN code), and billing address. This data is collected when you register an account, place an order, or contact us.</p><p><strong>b) Order and Transaction Data</strong><br>Details of products purchased, order value, order history, quantities, discount codes applied, delivery preferences, and order status information.</p><p><strong>c) Payment Data</strong><br>Payment is processed exclusively by Razorpay Software Pvt Ltd, an RBI-authorised Payment Aggregator. We do not receive, store, or process raw card numbers, CVV codes, bank account numbers, UPI PINs, or any other payment credentials. Razorpay processes this data under its own Privacy Policy and PCI-DSS compliance framework.</p><p><strong>d) Account Data</strong><br>Username, hashed password, account preferences, wishlist items, and saved addresses if you create an account on our platform.</p><p><strong>e) Technical and Device Data</strong><br>IP address, browser type and version, device type and operating system, pages visited, time spent on pages, referral URL, and other standard web server log data collected automatically via Shopify and analytics tools.</p><p><strong>f) Communication Data</strong><br>Records of your correspondence with us including emails, WhatsApp messages, and support tickets, including the content of your queries and our responses.</p><p><strong>g) Marketing Preferences</strong><br>Your opt-in or opt-out preferences for marketing communications, including email newsletters, promotional SMS, and WhatsApp marketing messages.</p>"
+          }
+        },
+        "s3": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "3. How We Collect Your Data",
+            "content": "<p>We collect personal data through the following means:</p><p><strong>a) Direct Interactions</strong><br>When you create an account, place an order, fill in a contact or inquiry form, subscribe to our newsletter, participate in a survey or promotion, or contact our customer support team, you directly provide us with personal data.</p><p><strong>b) Automated Technologies and Cookies</strong><br>When you browse our website, we automatically collect technical data using cookies, web beacons, pixels, and similar tracking technologies. This includes session data, browsing behaviour, product views, and cart activity. Please refer to Section 10 (Cookies and Tracking) for full details.</p><p><strong>c) Third-Party Sources</strong><br>We may receive data from the following third-party services operating on our website:</p><ul><li><strong>Google Analytics (Google LLC)</strong> \u2014 provides aggregated website usage statistics with IP anonymisation enabled. Data is transmitted to Google servers.</li><li><strong>Meta Pixel (Meta Platforms, Inc.)</strong> \u2014 tracks conversions from Facebook and Instagram advertisements. Data is processed by Meta under its own data policy.</li><li><strong>Shopify Inc.</strong> \u2014 our e-commerce platform provider that processes order, payment, and customer data on our behalf as a Data Processor.</li><li><strong>Razorpay Software Pvt Ltd</strong> \u2014 RBI-authorised Payment Aggregator that processes payment data as an independent controller.</li></ul><p>We do not purchase personal data from third-party data brokers or marketing lists.</p>"
+          }
+        },
+        "s4": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "4. Purposes and Legal Basis for Processing",
+            "content": "<p>We process your personal data only for specific, lawful purposes. Each purpose and its legal basis under the DPDP Act, 2023 and SPDI Rules, 2011 is listed below:</p><ul><li><strong>Order fulfilment:</strong> Processing and delivering your orders. Data used: identity, contact, order, payment data. Legal basis: Contractual necessity.</li><li><strong>Customer support:</strong> Responding to queries, complaints and return requests. Data used: identity, contact, communication data. Legal basis: Contractual necessity.</li><li><strong>Payment processing and fraud prevention:</strong> Facilitating secure payment via Razorpay. Data used: order and payment data. Legal basis: Contractual necessity and legal obligation.</li><li><strong>Account management:</strong> Maintaining your registered account. Data used: account, identity, contact data. Legal basis: Contractual necessity.</li><li><strong>Marketing communications:</strong> Sending promotional emails or messages — only if you opt in. Data used: contact and marketing preference data. Legal basis: Consent (opt-in only).</li><li><strong>Analytics and improvement:</strong> Understanding website usage to improve our services. Data used: technical and device data. Legal basis: Legitimate interest.</li><li><strong>Legal compliance:</strong> Meeting GST, Companies Act and IT Rules obligations. Data used: identity, order, transaction data. Legal basis: Legal obligation.</li><li><strong>Grievance redressal:</strong> Addressing complaints under IT Rules 2021 and CPA 2019. Data used: identity and communication data. Legal basis: Legal obligation.</li></ul><p><strong>Important:</strong> We will not use your personal data for any purpose beyond those listed above without first obtaining your explicit prior consent. You have the right to withdraw consent at any time for consent-based processing without affecting the lawfulness of prior processing.</p>"
+          }
+        },
+        "s5": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "5. Sensitive Personal Data or Information (SPDI)",
+            "content": "<p>Under the <strong>IT (Sensitive Personal Data or Information) Rules, 2011</strong>, certain categories of data are classified as Sensitive Personal Data or Information (SPDI) and require heightened protection and explicit consent for collection.</p><p><strong>Financial Information:</strong> Payment card details, bank account numbers, and related financial credentials are classified as SPDI. This data is processed exclusively by <strong>Razorpay Software Pvt Ltd</strong> under PCI-DSS compliance. We do not receive, store, or have access to your raw financial credentials at any point during a transaction. Razorpay acts as an independent data controller for payment data.</p><p><strong>Passwords:</strong> If you create an AnnVaya account, your password is stored in a one-way cryptographic hash form. We cannot view, access, or recover your plain-text password.</p><p><strong>Data We Do Not Collect:</strong> We do not knowingly collect biometric data, health or medical records, sexual orientation, physical or mental health conditions, caste or community information, or any other SPDI beyond what is described above. Our products are natural food items and we do not require any health or medical information from you to process your order.</p><p>If you believe we have inadvertently collected SPDI beyond what is described here, please contact our Grievance Officer immediately and we will take corrective action within 48 hours of receiving your notice.</p>"
+          }
+        },
+        "s6": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "6. Data Sharing and Third Parties",
+            "content": "<p>We do not sell, rent, or trade your personal data to any third party for their independent marketing or commercial purposes. We share your data only in the following limited circumstances:</p><p><strong>a) Razorpay Software Pvt Ltd (Payment Processing)</strong><br>Your payment data is shared with Razorpay, our RBI-authorised Payment Aggregator, solely to process transactions. Razorpay is an independent data controller for payment data and operates under its own Privacy Policy at razorpay.com/privacy. We have no access to your card or banking credentials.</p><p><strong>b) Shopify Inc. (Platform Infrastructure)</strong><br>Our website is hosted on Shopify\u2019s e-commerce platform. Shopify processes order, customer, and operational data on our behalf as a Data Processor under a Data Processing Agreement. Shopify implements enterprise-grade security and is subject to applicable data protection standards.</p><p><strong>c) Logistics and Courier Partners</strong><br>We share your name, delivery address, and mobile phone number with our logistics and courier partners solely for the purpose of delivering your order. These partners are contractually prohibited from using your data for any other purpose.</p><p><strong>d) Analytics and Advertising Platforms</strong><br><strong>Google Analytics</strong>: We use Google Analytics with IP anonymisation enabled. Opt out at <a href=\"https://tools.google.com/dlpage/gaoptout\" target=\"_blank\" rel=\"noopener noreferrer\">tools.google.com/dlpage/gaoptout</a>.<br><strong>Meta Pixel</strong>: We use Meta Pixel to measure advertising effectiveness. Manage preferences at <a href=\"https://www.facebook.com/ads/preferences\" target=\"_blank\" rel=\"noopener noreferrer\">facebook.com/ads/preferences</a>.</p><p><strong>e) Government and Regulatory Authorities</strong><br>We will disclose your data to law enforcement, courts, regulators (including FSSAI, tax authorities, and the Data Protection Board of India), or other government bodies when required by a lawful order, legal obligation, or court direction under Indian law.</p><p><strong>f) Business Transfers</strong><br>In the event of a merger, acquisition, or sale of business assets, your data may be transferred to the acquiring entity subject to equivalent data protection obligations.</p>"
+          }
+        },
+        "s7": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "7. Data Retention",
+            "content": "<p>We retain your personal data only for as long as necessary for the purpose collected or as required by law:</p><ul><li><strong>Order and transaction records:</strong> 7 years from date of transaction (GST Act, Companies Act, Income Tax Act)</li><li><strong>Active account data:</strong> Duration of account plus 6 months after account deletion (Contractual necessity and IT Rules 2021)</li><li><strong>Marketing consent and preferences:</strong> Until withdrawal of consent plus 30 days for processing (DPDP Act, 2023)</li><li><strong>Customer support communications:</strong> 2 years from last communication (Legitimate interest and CPA 2019)</li><li><strong>Technical and server log data:</strong> 12 months (IT Rules, 2021)</li><li><strong>Cancelled or deleted account data:</strong> Minimum 180 days post deletion (IT (Intermediary Guidelines) Rules, 2021 — mandatory)</li><li><strong>Grievance records:</strong> 3 years from resolution (Consumer Protection Act, 2019)</li></ul><p>After the applicable retention period expires, we will securely delete or anonymise your personal data in a manner that prevents reconstruction or re-identification.</p>"
+          }
+        },
+        "s8": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "8. Your Rights Under the DPDP Act, 2023",
+            "content": "<p>As a Data Principal under the <strong>Digital Personal Data Protection Act, 2023</strong>, you have the following rights with respect to your personal data held by us:</p><p><strong>a) Right to Access Information</strong><br>You may request a summary of the personal data we process about you, the purposes for which it is processed, and the identities of any Data Processors or third parties with whom it has been shared.</p><p><strong>b) Right to Correction and Updation</strong><br>You may request correction of inaccurate, incomplete, or outdated personal data. Most account details can be updated directly in your AnnVaya account dashboard.</p><p><strong>c) Right to Erasure</strong><br>You may request erasure of personal data no longer necessary for its original purpose, subject to our legal obligations (for example, transaction records required for GST compliance). We will process erasure requests within 30 days and notify you of the outcome.</p><p><strong>d) Right to Withdraw Consent</strong><br>Where we process data on the basis of consent (for example, marketing communications), you may withdraw consent at any time using the unsubscribe link in our emails, or by contacting us. Withdrawal does not affect the lawfulness of processing that occurred prior to withdrawal.</p><p><strong>e) Right to Grievance Redressal</strong><br>You may raise grievances with us regarding our data practices. We acknowledge within 48 hours and resolve within 30 days as required by the DPDP Act and IT Rules, 2021.</p><p><strong>f) Right to Nominate</strong><br>Under the DPDP Act, 2023, you may nominate another individual to exercise your data rights in the event of your death or incapacity. Contact our Grievance Officer to register a nomination.</p><p><strong>Rights under SPDI Rules, 2011:</strong> You also have the right to review personal data (including SPDI) we hold about you and to request correction of inaccuracies by submitting a written request to our Grievance Officer.</p><p>To exercise any right, email our Grievance Officer with the subject line \u201cData Rights Request \u2014 [Your Name]\u201d with proof of identity. We will respond within the timelines prescribed by applicable law.</p>"
+          }
+        },
+        "s9": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "9. Children\u2019s Privacy",
+            "content": "<p>Our website, products, and services are intended for individuals who are <strong>18 years of age or older</strong>. We do not knowingly collect, process, or store personal data of minors (persons under 18 years) without verifiable parental or guardian consent.</p><p>Under the <strong>Digital Personal Data Protection Act, 2023</strong>, processing personal data of children (persons below 18 years) requires <strong>verifiable consent from a parent or lawful guardian</strong> before any processing occurs. We do not conduct behavioural tracking or serve targeted advertising directed at children.</p><p>If you are under 18, please do not use our website or submit personal information without the explicit supervision and consent of a parent or guardian.</p><p>If we become aware that we have inadvertently collected personal data from a minor without verifiable parental consent, we will immediately delete such data from our systems. If you believe we may have collected data about a minor, please contact our Grievance Officer and we will act within 48 hours of receiving your report.</p>"
+          }
+        },
+        "s10": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "10. Cookies and Tracking Technologies",
+            "content": "<p>Our website uses cookies and similar tracking technologies to operate, improve, and personalise your experience. The following categories of cookies are used:</p><p><strong>a) Essential / Strictly Necessary Cookies (Cannot be disabled)</strong><br>Required for the website to function correctly, including maintaining your shopping cart, processing checkout, managing login sessions, and ensuring website security. These cookies do not track you for advertising purposes and cannot be disabled while using the site.</p><p><strong>b) Analytics Cookies (Opt-out available)</strong><br>We use <strong>Google Analytics</strong> with IP anonymisation to understand how visitors use our website. Google may transfer this data to its servers outside India. Opt out using the <a href=\"https://tools.google.com/dlpage/gaoptout\" target=\"_blank\" rel=\"noopener noreferrer\">Google Analytics Opt-out Browser Add-on</a>.</p><p><strong>c) Marketing and Advertising Cookies (Consent required)</strong><br>We use <strong>Meta Pixel</strong> and <strong>Google Ads</strong> tracking to measure advertising campaign effectiveness and enable retargeting. You may manage these preferences through:</p><ul><li>Your browser settings (delete or block third-party cookies)</li><li><a href=\"https://www.facebook.com/ads/preferences\" target=\"_blank\" rel=\"noopener noreferrer\">Meta Ad Preferences</a></li><li><a href=\"https://adssettings.google.com\" target=\"_blank\" rel=\"noopener noreferrer\">Google Ads Settings</a></li></ul><p><strong>Managing Cookies:</strong> You may control and delete cookies through your browser settings. Disabling certain cookies may affect website functionality. We seek your consent before placing non-essential cookies on your device as required by applicable Indian law.</p>"
+          }
+        },
+        "s11": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "11. Data Security",
+            "content": "<p>We implement appropriate technical and organisational measures to protect your personal data against unauthorised access, loss, destruction, alteration, or disclosure:</p><ul><li><strong>HTTPS Encryption:</strong> All data transmitted between your browser and our website is encrypted using TLS (HTTPS).</li><li><strong>Razorpay PCI-DSS Compliance:</strong> Payment data is handled by Razorpay, certified to the Payment Card Industry Data Security Standard (PCI-DSS Level 1).</li><li><strong>Shopify Security Infrastructure:</strong> Our platform implements enterprise-grade security including encryption at rest, regular security audits, and SOC 2 Type II compliance.</li><li><strong>Password Hashing:</strong> Account passwords are stored as irreversible cryptographic hashes. We cannot access or recover your plain-text password.</li><li><strong>Access Controls:</strong> Access to customer data is restricted on a need-to-know basis within our organisation, and team members are bound by confidentiality obligations.</li><li><strong>Regular Security Reviews:</strong> We periodically review our data handling practices and security controls.</li></ul><p><strong>Data Breach Notification:</strong> In the event of a personal data breach likely to cause harm to you, we will notify you and the Data Protection Board of India (once operational) within the timelines prescribed under the DPDP Act, 2023. Breach notifications will be sent to your registered email address.</p><p>While we implement robust safeguards, no transmission or storage method is completely secure. We encourage you to use a strong, unique password and to log out from shared devices.</p>"
+          }
+        },
+        "s12": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "12. Changes to This Privacy Policy",
+            "content": "<p>We may update this Privacy Policy to reflect changes in our practices, services, or applicable law. When changes are made, we will update the \u201cLast Updated\u201d date at the top of this page.</p><p>For <strong>material changes</strong> that significantly affect your rights or our data practices, we will provide at least <strong>30 days\u2019 advance notice</strong> by email to your registered address, as required under the <strong>IT (Intermediary Guidelines) Rules, 2021</strong>.</p><p>Your continued use of our website or services after the effective date of any updated policy constitutes your acceptance of the revised terms. If you do not agree, you may close your account and discontinue use of our services before the effective date.</p><p>We recommend reviewing this page periodically to remain informed about how we protect your information.</p>"
+          }
+        },
+        "s13": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "13. Data Protection Board of India",
+            "content": "<p>The <strong>Digital Personal Data Protection Act, 2023</strong> establishes the <strong>Data Protection Board of India (DPBI)</strong> as the nodal regulatory authority for personal data protection in India.</p><p>If you are dissatisfied with our response to your data rights request or grievance after first escalating to our Grievance Officer, you have the right to lodge a complaint with the Data Protection Board of India once it becomes operational. Information about the DPBI, its complaint procedures, and contact details will be updated on this page as the DPBI becomes fully operational. For official updates, refer to the Ministry of Electronics and Information Technology (MeitY) website at <a href=\"https://www.meity.gov.in\" target=\"_blank\" rel=\"noopener noreferrer\">meity.gov.in</a>.</p><p>Separately, for issues related to defective products, unfair trade practices, or e-commerce order disputes, you may also approach the <strong>National Consumer Helpline</strong> at 1800-11-4000 or the <strong>District Consumer Disputes Redressal Commission</strong> in your jurisdiction under the Consumer Protection Act, 2019.</p>"
+          }
+        },
+        "grievance_block": {
+          "type": "grievance_block",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "info_card",
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "grievance_block"
+      ]
+    }
+  },
+  "order": ["legal"]
+}

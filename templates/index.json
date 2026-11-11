@@ -1,0 +1,367 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_banner": {
+      "type": "annvaya-hero",
+      "blocks": {
+        "slide_2": {
+          "type": "slide",
+          "settings": {}
+        },
+        "slide_3": {
+          "type": "slide",
+          "settings": {}
+        }
+      },
+      "block_order": ["slide_2", "slide_3"],
+      "settings": {
+        "variant": "slider-carousel",
+        "image_position": "center center",
+        "heading": "Daily Nutrition, <em>Naturally.</em>",
+        "subheading": "Pure moringa leaf powder for a healthier tomorrow.",
+        "btn1_label": "Shop Moringa \u2192",
+        "btn1_link": "shopify:\/\/collections\/all",
+        "btn2_label": "Why Annvaya \u2192",
+        "btn2_link": "shopify:\/\/pages\/about",
+        "height": 700,
+        "autoplay_speed": 5
+      }
+    },
+    "trust_strip": {
+      "type": "multicolumn",
+      "blocks": {
+        "icon_1": {
+          "type": "column",
+          "settings": {
+            "title": "100% Natural",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "icon_2": {
+          "type": "column",
+          "settings": {
+            "title": "No Preservatives",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "icon_3": {
+          "type": "column",
+          "settings": {
+            "title": "FSSAI Licensed",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "icon_4": {
+          "type": "column",
+          "settings": {
+            "title": "Small Batch Made",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "icon_5": {
+          "type": "column",
+          "settings": {
+            "title": "Free Shipping 499+",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_1",
+        "icon_2",
+        "icon_3",
+        "icon_4",
+        "icon_5"
+      ],
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "columns_desktop": 5,
+        "color_scheme": "scheme-5",
+        "column_alignment": "center",
+        "background_style": "primary",
+        "button_label": "",
+        "button_link": "",
+        "swipe_on_mobile": true,
+        "columns_mobile": "2",
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
+    "featured_products": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Bestsellers",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "all",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": true,
+        "swipe_on_mobile": true,
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "padding_top": 52,
+        "padding_bottom": 36
+      }
+    },
+    "categories": {
+      "type": "annvaya-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "collection": "kitchen-essentials",
+            "tagline": "Replace your chopping — 1 tsp = 1 fresh vegetable",
+            "emoji": "🥦"
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "collection": "baby-food",
+            "tagline": "Pure nutrition for your little one",
+            "emoji": "🌾"
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "collection": "superfoods-wellness",
+            "tagline": "Plant-based power for your health",
+            "emoji": "🌿"
+          }
+        },
+        "cat_4": {
+          "type": "category",
+          "settings": {
+            "collection": "fruit-powders",
+            "tagline": "Natural sweetness from real fruits",
+            "emoji": "🍓"
+          }
+        }
+      },
+      "block_order": ["cat_1", "cat_2", "cat_3", "cat_4"],
+      "settings": {
+        "title": "Shop by Category",
+        "color_scheme": "scheme-2",
+        "padding_top": 52,
+        "padding_bottom": 52
+      }
+    },
+    "brand_story": {
+      "type": "annvaya-brand-story",
+      "settings": {
+        "image": "shopify://shop_images/pexels-photo-6220710.jpg",
+        "eyebrow": "Our Story",
+        "heading": "<p>From Farm<br>to Your Kitchen.</p>",
+        "body_text": "Every AnnVaya product starts with fresh vegetables and fruits sourced from local farms. We naturally dehydrate and grind them in small batches \u2014 preserving nutrition without a single chemical. No preservatives. No additives. Just pure nature, powdered.",
+        "value_1": "Carefully Sourced",
+        "value_2": "Gently Prepared",
+        "value_3": "Simply Wholesome",
+        "btn_label": "Read Our Story",
+        "btn_link": "shopify:\/\/pages\/about",
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "baby_food_highlight": {
+      "type": "annvaya-baby-food",
+      "settings": {
+        "image": "shopify://shop_images/pexels-photo-5692250.jpg",
+        "eyebrow": "For Little Beginnings",
+        "heading_line1": "Better Than Cereal.",
+        "heading_line2": "Made by Nature.",
+        "micro_text": "Real food \u00b7 Simple ingredients \u00b7 No shortcuts",
+        "body_text": "Simple, wholesome nutrition made from ingredients you can recognise. Thoughtfully prepared for little appetites, growing bodies and everyday family moments.",
+        "trust_1_label": "Real Ingredients",
+        "trust_1_desc": "Nothing unnecessary.",
+        "trust_2_label": "No Added Sugar",
+        "trust_2_desc": "Simple food, naturally.",
+        "trust_3_label": "Made for Little Ones",
+        "trust_3_desc": "Gentle everyday nutrition.",
+        "btn_label": "Explore Baby Food",
+        "btn_link": "shopify:\/\/collections\/baby-food",
+        "color_scheme": "scheme-1",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "social_proof": {
+      "type": "multicolumn",
+      "blocks": {
+        "stat_1": {
+          "type": "column",
+          "settings": {
+            "title": "100%",
+            "text": "<p>Natural Ingredients<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "stat_2": {
+          "type": "column",
+          "settings": {
+            "title": "0",
+            "text": "<p>Preservatives Added<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "stat_3": {
+          "type": "column",
+          "settings": {
+            "title": "36+",
+            "text": "<p>Products Available<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "stat_4": {
+          "type": "column",
+          "settings": {
+            "title": "Made in",
+            "text": "<p>India \ud83c\uddee\ud83c\uddf3<\/p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ],
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "columns_desktop": 4,
+        "color_scheme": "scheme-3",
+        "column_alignment": "center",
+        "background_style": "primary",
+        "button_label": "",
+        "button_link": "",
+        "swipe_on_mobile": false,
+        "columns_mobile": "2",
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
+    "kitchen_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Kitchen Essentials",
+        "heading_size": "h1",
+        "description": "<p>Replace your daily chopping. 1 tsp powder = 1 fresh vegetable.<\/p>",
+        "show_description": true,
+        "description_style": "body",
+        "collection": "kitchen-essentials",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": true,
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "padding_top": 52,
+        "padding_bottom": 36
+      }
+    },
+    "superfoods_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Superfoods & Wellness",
+        "heading_size": "h1",
+        "description": "<p>Plant-based superfood powders for your daily health routine.<\/p>",
+        "show_description": true,
+        "description_style": "body",
+        "collection": "superfoods-wellness",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": true,
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "standard",
+        "columns_mobile": "2",
+        "padding_top": 52,
+        "padding_bottom": 36
+      }
+    },
+    "homepage_blog": {
+      "type": "annvaya-homepage-blog",
+      "settings": {
+        "blog": "news",
+        "eyebrow": "From Our Kitchen & Health Journal",
+        "heading": "Recipes & Wellness Reads",
+        "subheading": "Discover how to use AnnVaya powders in everyday cooking and your wellness routine.",
+        "articles_to_show": 3,
+        "bg_color": "#2C2416",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    }
+  },
+  "order": [
+    "hero_banner",
+    "trust_strip",
+    "featured_products",
+    "categories",
+    "brand_story",
+    "baby_food_highlight",
+    "social_proof",
+    "kitchen_collection",
+    "superfoods_collection",
+    "homepage_blog"
+  ]
+}

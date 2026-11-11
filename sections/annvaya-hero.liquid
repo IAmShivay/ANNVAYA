@@ -1,0 +1,824 @@
+{%- comment -%}
+  ANNVAYA — Premium Hero (5 Switchable Variants)
+  Each variant has its own HTML layout, not just CSS color changes.
+  V1: Product First — product image centered, text below, gold CTA, carousel dots
+  V2: Benefit First — lifestyle bg, bold left text overlay, dark forest CTA
+  V3: Slider Carousel — rotating bg slides with arrows/dots, left text
+  V4: Story + Trust — editorial minimal, centered content, product in frame, dark green CTA
+  V5: Split Hero — 50/50 two-column, text left + image right with carousel
+{%- endcomment -%}
+
+{%- liquid
+  assign variant = section.settings.variant | default: 'benefit-first'
+  assign hero_img = blank
+  if section.settings.image != blank
+    assign hero_img = section.settings.image | image_url: width: 2400
+    assign hero_img_alt = section.settings.image.alt | escape | default: "AnnVaya Hero"
+    assign img_width  = section.settings.image.width
+    assign img_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio | round
+  endif
+  assign btn1_link = section.settings.btn1_link | default: '/collections/all'
+  assign btn2_link = section.settings.btn2_link | default: '/pages/about'
+  assign eyebrow_text = section.settings.eyebrow
+  assign heading_text = section.settings.heading
+  assign sub_text = section.settings.subheading
+  assign btn1_label = section.settings.btn1_label | default: 'Shop Moringa'
+  assign btn2_label = section.settings.btn2_label | default: 'Why Annvaya'
+  assign tagline = section.settings.tagline
+-%}
+
+{%- style -%}
+/* ═══════════════════════════════════════════════════════════════
+   SHARED RESETS & TOKENS
+   ═══════════════════════════════════════════════════════════════ */
+.avh-{{ section.id }} { --cream: #F5F2EB; --forest: #4A7358; --dark: #2E3B33; --gold: #C8953A; --coral: #C45C3E; --muted: #5A5A57; position: relative; z-index: 1; }
+.avh-{{ section.id }} * { box-sizing: border-box; }
+@keyframes avhUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── shared text ── */
+.avh-{{ section.id }} .avh__eyebrow {
+  display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:0 0 20px;
+  font-family:var(--font-body-family);font-size:11px;font-weight:600;
+  letter-spacing:0.12em;text-transform:uppercase;color:#A67C52;
+}
+.avh-{{ section.id }} .avh__eyebrow-dot { opacity:.5;font-size:10px; }
+.avh-{{ section.id }} .avh__heading {
+  margin:0 0 18px;font-family:var(--font-heading-family);
+  font-size:clamp(36px,4.2vw,58px);font-weight:var(--font-heading-weight,600);
+  line-height:1.12;color:var(--dark);letter-spacing:-0.01em;
+}
+.avh-{{ section.id }} .avh__heading em { font-style:italic;color:var(--forest); }
+.avh-{{ section.id }} .avh__sub {
+  margin:0 0 24px;font-family:var(--font-body-family);font-size:16px;
+  line-height:1.65;color:#3D3D3A;max-width:440px;
+}
+.avh-{{ section.id }} .avh__trust {
+  list-style:none;margin:0 0 28px;padding:0;display:flex;flex-wrap:wrap;gap:10px 20px;
+}
+.avh-{{ section.id }} .avh__trust li {
+  display:flex;align-items:center;gap:6px;font-family:var(--font-body-family);
+  font-size:13px;font-weight:500;color:var(--dark);white-space:nowrap;
+}
+.avh-{{ section.id }} .avh__trust-icon { flex-shrink:0;width:16px;height:16px;color:var(--forest); }
+.avh-{{ section.id }} .avh__ctas { display:flex;flex-wrap:wrap;gap:12px;align-items:center; }
+.avh-{{ section.id }} .avh__btn {
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:14px 32px;border-radius:12px;font-family:var(--font-body-family);
+  font-size:15px;font-weight:600;text-decoration:none;letter-spacing:0.02em;
+  cursor:pointer;white-space:nowrap;
+  transition:background .22s,color .22s,border-color .22s,transform .18s,box-shadow .22s;
+}
+.avh-{{ section.id }} .avh__tagline { display:none; }
+
+/* ── wavy bottom edge on mobile (all variants) ── */
+.avh-{{ section.id }} .avh__wave {
+  display:none;
+}
+@media(max-width:749px) {
+  .avh-{{ section.id }} .avh__wave {
+    display:block;position:absolute;bottom:-2px;left:0;width:100%;z-index:4;
+    line-height:0;pointer-events:none;
+  }
+  .avh-{{ section.id }} .avh__wave svg {
+    display:block;width:100%;height:auto;
+  }
+}
+
+/* ── carousel shared ── */
+.avh-{{ section.id }} .avh__dot {
+  width:10px;height:10px;border-radius:50%;background:#C4BFB4;border:none;
+  cursor:pointer;padding:0;transition:background .3s,transform .2s;
+}
+.avh-{{ section.id }} .avh__dot.active { background:var(--forest);transform:scale(1.2); }
+.avh-{{ section.id }} .avh__nav-btn {
+  width:44px;height:44px;border-radius:50%;background:rgba(245,242,235,.85);
+  border:1px solid rgba(46,59,51,.15);color:var(--dark);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,transform .15s;box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+.avh-{{ section.id }} .avh__nav-btn:hover { background:#fff;transform:scale(1.08); }
+
+/* ═══════════════════════════════════════════════════════════════
+   V1: PRODUCT FIRST — product centered, text below image
+   Desktop: 50/50 split — image right, text left
+   Mobile:  image top (large, centered product), text below
+   ═══════════════════════════════════════════════════════════════ */
+.avh--v1-{{ section.id }} {
+  display:flex;align-items:center;min-height:{{ section.settings.height | default: 700 }}px;
+  background:var(--cream);overflow:hidden;position:relative;width:100%;
+}
+.avh--v1-{{ section.id }} .avh__v1-wrap {
+  display:flex;align-items:center;width:100%;max-width:var(--page-width,1400px);
+  margin:0 auto;padding:0 4rem;gap:40px;
+}
+.avh--v1-{{ section.id }} .avh__v1-content {
+  flex:1;min-width:0;max-width:520px;animation:avhUp .75s cubic-bezier(.22,.61,.36,1) both;
+}
+.avh--v1-{{ section.id }} .avh__v1-image {
+  flex:1;min-width:0;display:flex;align-items:center;justify-content:center;
+}
+.avh--v1-{{ section.id }} .avh__v1-image img {
+  max-width:100%;max-height:520px;object-fit:contain;border-radius:16px;
+  filter:drop-shadow(0 12px 40px rgba(46,59,51,.15));
+}
+.avh--v1-{{ section.id }} .avh__heading { font-size:clamp(36px,4.2vw,56px); }
+.avh--v1-{{ section.id }} .avh__heading em { font-style:italic;color:var(--forest); }
+.avh--v1-{{ section.id }} .avh__btn--primary {
+  background:var(--gold);color:#fff;border:2px solid var(--gold);
+  box-shadow:0 2px 12px rgba(200,149,58,.28);
+}
+.avh--v1-{{ section.id }} .avh__btn--primary:hover {
+  background:#B07E2E;border-color:#B07E2E;transform:translateY(-1px);
+  box-shadow:0 6px 20px rgba(200,149,58,.38);
+}
+.avh--v1-{{ section.id }} .avh__btn--secondary {
+  background:rgba(245,242,235,.6);color:var(--dark);border:2px solid var(--forest);
+  backdrop-filter:blur(4px);
+}
+.avh--v1-{{ section.id }} .avh__btn--secondary:hover {
+  background:rgba(245,242,235,.9);transform:translateY(-1px);
+}
+.avh--v1-{{ section.id }} .avh__v1-dots {
+  display:flex;gap:8px;margin-top:18px;
+}
+@media(max-width:749px) {
+  .avh--v1-{{ section.id }} { min-height:0; }
+  .avh--v1-{{ section.id }} .avh__v1-wrap { flex-direction:column;padding:0;gap:0; }
+  .avh--v1-{{ section.id }} .avh__v1-image {
+    position:relative;width:100%;height:clamp(280px,75vw,360px);overflow:hidden;
+    background:linear-gradient(135deg,#e8e4db 0%,#ddd8cc 100%);
+  }
+  .avh--v1-{{ section.id }} .avh__v1-image img {
+    width:100%;height:100%;object-fit:cover;border-radius:0;max-height:none;filter:none;
+  }
+  .avh--v1-{{ section.id }} .avh__v1-content {
+    max-width:100%;padding:24px 22px 44px;animation:none;background:var(--cream);
+  }
+  .avh--v1-{{ section.id }} .avh__heading { font-size:clamp(32px,8vw,40px); }
+  .avh--v1-{{ section.id }} .avh__ctas { flex-direction:column;align-items:stretch; }
+  .avh--v1-{{ section.id }} .avh__btn { width:100%;justify-content:center; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   V2: BENEFIT FIRST — full-bleed lifestyle bg, bold left text
+   Desktop: full bg image, left-aligned overlay, dark CTA
+   Mobile:  image top, text below with cream bg
+   ═══════════════════════════════════════════════════════════════ */
+.avh--v2-{{ section.id }} {
+  position:relative;width:100%;min-height:{{ section.settings.height | default: 700 }}px;
+  display:flex;align-items:center;overflow:hidden;background:var(--cream);
+}
+.avh--v2-{{ section.id }} .avh__media {
+  position:absolute;inset:0;z-index:0;
+}
+.avh--v2-{{ section.id }} .avh__media img {
+  width:100%;height:100%;object-fit:cover;
+  object-position:{{ section.settings.image_position | default: 'center center' }};
+}
+.avh--v2-{{ section.id }} .avh__gradient {
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(100deg,rgba(245,242,235,.82) 0%,rgba(245,242,235,.60) 28%,rgba(245,242,235,.22) 48%,transparent 64%);
+}
+.avh--v2-{{ section.id }} .avh__outer {
+  position:relative;z-index:2;width:100%;max-width:var(--page-width,1400px);
+  margin:0 auto;padding:0 4rem;
+}
+.avh--v2-{{ section.id }} .avh__inner {
+  max-width:520px;padding:64px 0;animation:avhUp .75s cubic-bezier(.22,.61,.36,1) both;
+}
+.avh--v2-{{ section.id }} .avh__heading {
+  font-size:clamp(38px,4.5vw,62px);font-weight:700;line-height:1.08;letter-spacing:-0.02em;
+}
+.avh--v2-{{ section.id }} .avh__btn--primary {
+  background:var(--dark);color:#fff;border:2px solid var(--dark);
+  box-shadow:0 2px 12px rgba(46,59,51,.25);
+}
+.avh--v2-{{ section.id }} .avh__btn--primary:hover {
+  background:#1E2A23;border-color:#1E2A23;transform:translateY(-1px);
+  box-shadow:0 6px 20px rgba(46,59,51,.35);
+}
+.avh--v2-{{ section.id }} .avh__btn--secondary {
+  background:none;border:none;padding:8px 0;color:var(--dark);
+  font-weight:500;font-size:14px;text-decoration:underline;text-underline-offset:3px;
+  box-shadow:none;backdrop-filter:none;
+}
+.avh--v2-{{ section.id }} .avh__btn--secondary:hover { color:var(--forest);background:none;transform:none; }
+@media(max-width:749px) {
+  .avh--v2-{{ section.id }} { flex-direction:column;align-items:stretch;min-height:0; }
+  .avh--v2-{{ section.id }} .avh__media {
+    order:1;position:relative;inset:auto;height:clamp(300px,80vw,370px);flex-shrink:0;overflow:visible;z-index:1;
+  }
+  .avh--v2-{{ section.id }} .avh__media img {
+    width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;
+  }
+  .avh--v2-{{ section.id }} .avh__gradient { display:none; }
+  .avh--v2-{{ section.id }} .avh__outer { background:var(--cream); }
+  .avh--v2-{{ section.id }} .avh__outer {
+    order:2;width:100%;max-width:100%;margin:0;padding:20px 22px 44px;background:var(--cream);
+  }
+  .avh--v2-{{ section.id }} .avh__inner { max-width:100%;padding:0;animation:none; }
+  .avh--v2-{{ section.id }} .avh__heading { font-size:clamp(34px,8.5vw,42px); }
+  .avh--v2-{{ section.id }} .avh__ctas { flex-direction:column;gap:10px;align-items:stretch; }
+  .avh--v2-{{ section.id }} .avh__btn--primary { width:100%;height:52px;justify-content:center;display:flex; }
+  .avh--v2-{{ section.id }} .avh__btn--secondary { width:auto;justify-content:flex-start; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   V3: SLIDER CAROUSEL — rotating bg images, arrows, dots
+   Desktop: full bg slides + left text + nav arrows
+   Mobile:  slides top, text below, dots only (no arrows)
+   ═══════════════════════════════════════════════════════════════ */
+.avh--v3-{{ section.id }} {
+  position:relative;width:100%;min-height:{{ section.settings.height | default: 700 }}px;
+  display:flex;align-items:center;overflow:hidden;background:var(--cream);
+}
+.avh--v3-{{ section.id }} .avh__media { position:absolute;inset:0;z-index:0; }
+.avh--v3-{{ section.id }} .avh__slide {
+  position:absolute;inset:0;opacity:0;transition:opacity .8s ease-in-out;z-index:0;
+}
+.avh--v3-{{ section.id }} .avh__slide.active { opacity:1;z-index:1; }
+.avh--v3-{{ section.id }} .avh__slide img { width:100%;height:100%;object-fit:cover;display:block; }
+.avh--v3-{{ section.id }} .avh__gradient {
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(100deg,rgba(245,242,235,.80) 0%,rgba(245,242,235,.55) 30%,rgba(245,242,235,.15) 50%,transparent 65%);
+}
+.avh--v3-{{ section.id }} .avh__nav {
+  position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:100%;
+  display:flex;justify-content:space-between;padding:0 16px;pointer-events:none;
+}
+.avh--v3-{{ section.id }} .avh__nav-btn { pointer-events:all; }
+.avh--v3-{{ section.id }} .avh__outer {
+  position:relative;z-index:3;width:100%;max-width:var(--page-width,1400px);
+  margin:0 auto;padding:0 4rem;
+}
+.avh--v3-{{ section.id }} .avh__inner {
+  max-width:520px;padding:64px 0;animation:avhUp .75s cubic-bezier(.22,.61,.36,1) both;
+}
+.avh--v3-{{ section.id }} .avh__dots { display:flex;gap:8px;margin-top:20px; }
+.avh--v3-{{ section.id }} .avh__btn--primary {
+  background:var(--dark);color:#fff;border:2px solid var(--dark);box-shadow:0 2px 12px rgba(46,59,51,.25);
+}
+.avh--v3-{{ section.id }} .avh__btn--primary:hover { background:#1E2A23;border-color:#1E2A23;transform:translateY(-1px); }
+.avh--v3-{{ section.id }} .avh__btn--secondary {
+  background:none;border:none;padding:8px 0;color:var(--dark);font-weight:500;
+  font-size:14px;text-decoration:underline;text-underline-offset:3px;box-shadow:none;
+}
+@media(max-width:749px) {
+  .avh--v3-{{ section.id }} { flex-direction:column;align-items:stretch;min-height:0; }
+  .avh--v3-{{ section.id }} .avh__media {
+    order:1;position:relative;inset:auto;height:clamp(300px,80vw,370px);flex-shrink:0;overflow:visible;z-index:1;
+  }
+  .avh--v3-{{ section.id }} .avh__slide { position:absolute;inset:0; }
+  .avh--v3-{{ section.id }} .avh__gradient { display:none; }
+  .avh--v3-{{ section.id }} .avh__outer { background:var(--cream); }
+  .avh--v3-{{ section.id }} .avh__nav { display:none; }
+  .avh--v3-{{ section.id }} .avh__outer {
+    order:2;width:100%;max-width:100%;padding:20px 22px 44px;background:var(--cream);
+  }
+  .avh--v3-{{ section.id }} .avh__inner { max-width:100%;padding:0;animation:none; }
+  .avh--v3-{{ section.id }} .avh__heading { font-size:clamp(34px,8.5vw,42px); }
+  .avh--v3-{{ section.id }} .avh__ctas { flex-direction:column;gap:10px;align-items:stretch; }
+  .avh--v3-{{ section.id }} .avh__btn--primary { width:100%;height:52px;justify-content:center;display:flex; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   V4: STORY + TRUST — editorial minimal, centered content
+   Desktop: centered text, product image in a contained frame
+   Mobile:  product image top, centered text below
+   ═══════════════════════════════════════════════════════════════ */
+.avh--v4-{{ section.id }} {
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  min-height:{{ section.settings.height | default: 700 }}px;
+  background:var(--cream);overflow:hidden;position:relative;width:100%;
+}
+.avh--v4-{{ section.id }} .avh__media {
+  position:absolute;inset:0;z-index:0;
+}
+.avh--v4-{{ section.id }} .avh__media img {
+  width:100%;height:100%;object-fit:cover;
+  object-position:{{ section.settings.image_position | default: 'center center' }};
+}
+.avh--v4-{{ section.id }} .avh__gradient {
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(100deg,rgba(245,242,235,.78) 0%,rgba(245,242,235,.55) 30%,rgba(245,242,235,.18) 52%,transparent 68%);
+}
+.avh--v4-{{ section.id }} .avh__outer {
+  position:relative;z-index:2;width:100%;max-width:var(--page-width,1400px);
+  margin:0 auto;padding:0 4rem;
+}
+.avh--v4-{{ section.id }} .avh__inner {
+  max-width:560px;padding:64px 0;animation:avhUp .75s cubic-bezier(.22,.61,.36,1) both;
+}
+.avh--v4-{{ section.id }} .avh__eyebrow {
+  font-size:10px;letter-spacing:.18em;color:#6B6B68;font-weight:700;margin-bottom:24px;
+}
+.avh--v4-{{ section.id }} .avh__heading {
+  font-size:clamp(40px,5vw,68px);font-weight:700;line-height:1.05;letter-spacing:-0.02em;margin-bottom:14px;
+}
+.avh--v4-{{ section.id }} .avh__sub {
+  font-size:18px;color:var(--muted);font-weight:400;letter-spacing:.01em;max-width:400px;margin-bottom:28px;
+}
+.avh--v4-{{ section.id }} .avh__trust { margin-bottom:36px; }
+.avh--v4-{{ section.id }} .avh__ctas { gap:14px; }
+.avh--v4-{{ section.id }} .avh__btn--primary {
+  background:#2E4A3A;color:#fff;border:2px solid #2E4A3A;
+  box-shadow:0 2px 12px rgba(46,74,58,.22);padding:16px 40px;font-size:15px;
+}
+.avh--v4-{{ section.id }} .avh__btn--primary:hover {
+  background:#1E3529;border-color:#1E3529;transform:translateY(-1px);
+  box-shadow:0 6px 20px rgba(46,74,58,.32);
+}
+.avh--v4-{{ section.id }} .avh__btn--secondary {
+  background:none;border:none;padding:8px 0;color:var(--dark);font-weight:500;
+  font-size:14px;text-decoration:underline;text-underline-offset:3px;box-shadow:none;
+}
+.avh--v4-{{ section.id }} .avh__btn--secondary:hover { color:var(--forest);background:none; }
+@media(max-width:749px) {
+  .avh--v4-{{ section.id }} { flex-direction:column;align-items:stretch;min-height:0; }
+  .avh--v4-{{ section.id }} .avh__media {
+    order:1;position:relative;inset:auto;height:clamp(300px,80vw,370px);flex-shrink:0;overflow:visible;z-index:1;
+  }
+  .avh--v4-{{ section.id }} .avh__media img {
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .avh--v4-{{ section.id }} .avh__gradient { display:none; }
+  .avh--v4-{{ section.id }} .avh__outer { background:var(--cream); }
+  .avh--v4-{{ section.id }} .avh__outer {
+    order:2;width:100%;max-width:100%;padding:20px 22px 44px;background:var(--cream);
+    text-align:left;
+  }
+  .avh--v4-{{ section.id }} .avh__inner { max-width:100%;padding:0;animation:none; }
+  .avh--v4-{{ section.id }} .avh__heading { font-size:clamp(34px,8.5vw,42px); }
+  .avh--v4-{{ section.id }} .avh__sub { max-width:100%; }
+  .avh--v4-{{ section.id }} .avh__ctas { flex-direction:column;gap:10px;align-items:stretch; }
+  .avh--v4-{{ section.id }} .avh__btn--primary { width:100%;height:52px;justify-content:center;display:flex; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   V5: SPLIT HERO — 50/50 two columns, text left, image right
+   Desktop: true side-by-side split, image with carousel
+   Mobile:  image top, text below, stacked
+   ═══════════════════════════════════════════════════════════════ */
+.avh--v5-{{ section.id }} {
+  display:flex;align-items:stretch;min-height:{{ section.settings.height | default: 700 }}px;
+  background:var(--cream);overflow:hidden;width:100%;
+}
+.avh--v5-{{ section.id }} .avh__v5-left {
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:64px 4rem;
+}
+.avh--v5-{{ section.id }} .avh__v5-left-inner {
+  max-width:480px;animation:avhUp .75s cubic-bezier(.22,.61,.36,1) both;
+}
+.avh--v5-{{ section.id }} .avh__v5-right {
+  flex:1;position:relative;overflow:hidden;min-height:400px;
+}
+.avh--v5-{{ section.id }} .avh__v5-right img {
+  width:100%;height:100%;object-fit:cover;display:block;
+  object-position:{{ section.settings.image_position | default: 'center center' }};
+}
+.avh--v5-{{ section.id }} .avh__v5-nav {
+  position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:100%;
+  display:flex;justify-content:space-between;padding:0 12px;pointer-events:none;
+}
+.avh--v5-{{ section.id }} .avh__v5-nav .avh__nav-btn { pointer-events:all; }
+.avh--v5-{{ section.id }} .avh__v5-dots {
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+  display:flex;gap:8px;z-index:3;
+}
+.avh--v5-{{ section.id }} .avh__v5-slide {
+  position:absolute;inset:0;opacity:0;transition:opacity .8s ease-in-out;z-index:0;
+}
+.avh--v5-{{ section.id }} .avh__v5-slide.active { opacity:1;z-index:1; }
+.avh--v5-{{ section.id }} .avh__v5-slide img { width:100%;height:100%;object-fit:cover;display:block; }
+.avh--v5-{{ section.id }} .avh__heading {
+  font-size:clamp(34px,3.8vw,52px);font-weight:700;line-height:1.1;
+}
+.avh--v5-{{ section.id }} .avh__tagline {
+  display:block;font-family:var(--font-heading-family);
+  font-size:clamp(20px,2.5vw,28px);font-weight:600;font-style:italic;
+  color:var(--forest);margin:0 0 20px;line-height:1.3;
+}
+.avh--v5-{{ section.id }} .avh__btn--primary {
+  background:var(--coral);color:#fff;border:2px solid var(--coral);
+  box-shadow:0 2px 12px rgba(196,92,62,.28);
+}
+.avh--v5-{{ section.id }} .avh__btn--primary:hover {
+  background:#A84D32;border-color:#A84D32;transform:translateY(-1px);
+  box-shadow:0 6px 20px rgba(196,92,62,.38);
+}
+.avh--v5-{{ section.id }} .avh__btn--secondary {
+  background:rgba(245,242,235,.6);color:var(--dark);border:2px solid var(--forest);
+  backdrop-filter:blur(4px);
+}
+.avh--v5-{{ section.id }} .avh__btn--secondary:hover {
+  background:rgba(245,242,235,.9);transform:translateY(-1px);
+}
+@media(max-width:749px) {
+  .avh--v5-{{ section.id }} { flex-direction:column;min-height:0; }
+  .avh--v5-{{ section.id }} .avh__v5-right {
+    order:1;width:100%;height:clamp(280px,75vw,360px);min-height:0;flex:none;overflow:hidden;
+  }
+  .avh--v5-{{ section.id }} .avh__v5-left {
+    order:2;padding:24px 22px 44px;flex:none;background:var(--cream);
+  }
+  .avh--v5-{{ section.id }} .avh__v5-left-inner { max-width:100%;animation:none; }
+  .avh--v5-{{ section.id }} .avh__v5-nav { display:none; }
+  .avh--v5-{{ section.id }} .avh__heading { font-size:clamp(32px,8vw,40px); }
+  .avh--v5-{{ section.id }} .avh__ctas { flex-direction:column;align-items:stretch; }
+  .avh--v5-{{ section.id }} .avh__btn { width:100%;justify-content:center; }
+}
+{%- endstyle -%}
+
+{%- comment -%}
+  ═══════════════════════ SHARED PARTIALS ═══════════════════════
+{%- endcomment -%}
+
+{%- capture wave_svg -%}
+<div class="avh__wave" aria-hidden="true">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,45 Q720,0 1440,45 L1440,60 L0,60 Z" fill="#F5F2EB"/>
+  </svg>
+</div>
+{%- endcapture -%}
+
+{%- capture trust_badges -%}
+<ul class="avh__trust" aria-label="Product trust indicators">
+  <li><svg class="avh__trust-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.4"/><path d="M5 8.2l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>100% Natural</li>
+  <li><svg class="avh__trust-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.4"/><path d="M5 8.2l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>No Preservatives</li>
+  <li><svg class="avh__trust-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.4"/><path d="M5 8.2l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>No Added Sugar</li>
+</ul>
+{%- endcapture -%}
+
+{%- capture eyebrow_html -%}
+<p class="avh__eyebrow" aria-label="Trust line">
+  {%- if eyebrow_text != blank -%}
+    {{ eyebrow_text }}
+  {%- else -%}
+    <span>100% Natural</span><span class="avh__eyebrow-dot" aria-hidden="true">&bull;</span>
+    <span>No Preservatives</span><span class="avh__eyebrow-dot" aria-hidden="true">&bull;</span>
+    <span>No Added Sugar</span>
+  {%- endif -%}
+</p>
+{%- endcapture -%}
+
+{%- capture heading_html -%}
+<h1 class="avh__heading">
+  {%- if heading_text != blank -%}{{ heading_text }}{%- else -%}Nature&rsquo;s Goodness, <em>Made for Every Generation.</em>{%- endif -%}
+</h1>
+{%- endcapture -%}
+
+{%- capture sub_html -%}
+<p class="avh__sub">
+  {%- if sub_text != blank -%}{{ sub_text }}{%- else -%}Wholesome, naturally crafted nutrition made from real ingredients for your family&rsquo;s everyday wellness.{%- endif -%}
+</p>
+{%- endcapture -%}
+
+{%- capture cta_html -%}
+<div class="avh__ctas">
+  <a href="{{ btn1_link }}" class="avh__btn avh__btn--primary">{{ btn1_label }}</a>
+  <a href="{{ btn2_link }}" class="avh__btn avh__btn--secondary">{{ btn2_label }}</a>
+</div>
+{%- endcapture -%}
+
+{%- comment -%} ═══════════ V1: PRODUCT FIRST ═══════════ {%- endcomment -%}
+{%- if variant == 'product-first' -%}
+<section class="avh-{{ section.id }} avh--v1-{{ section.id }}" id="AnnvayaHero-{{ section.id }}" aria-label="{{ heading_text | default: 'AnnVaya Hero' | strip_html | truncate: 60 }}">
+  <div class="avh__v1-wrap">
+    <div class="avh__v1-content">
+      {{ eyebrow_html }}
+      {{ heading_html }}
+      {{ sub_html }}
+      {{ trust_badges }}
+      {{ cta_html }}
+      <div class="avh__v1-dots">
+        <button class="avh__dot active" aria-label="Slide 1"></button>
+        <button class="avh__dot" aria-label="Slide 2"></button>
+        <button class="avh__dot" aria-label="Slide 3"></button>
+      </div>
+    </div>
+    <div class="avh__v1-image">
+      {%- if hero_img != blank -%}
+        <img src="{{ hero_img }}" alt="{{ hero_img_alt }}" width="{{ img_width }}" height="{{ img_height }}" loading="eager" fetchpriority="high" decoding="async">
+      {%- else -%}
+        <div style="width:360px;height:420px;background:linear-gradient(135deg,#4A7358,#2E3B33);border-radius:16px;"></div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- comment -%} ═══════════ V2: BENEFIT FIRST ═══════════ {%- endcomment -%}
+{%- elsif variant == 'benefit-first' -%}
+<section class="avh-{{ section.id }} avh--v2-{{ section.id }}" id="AnnvayaHero-{{ section.id }}" aria-label="{{ heading_text | default: 'AnnVaya Hero' | strip_html | truncate: 60 }}">
+  <div class="avh__media" aria-hidden="true">
+    {%- if hero_img != blank -%}
+      <img src="{{ hero_img }}" alt="{{ hero_img_alt }}" width="{{ img_width }}" height="{{ img_height }}" loading="eager" fetchpriority="high" decoding="async" sizes="100vw">
+    {%- else -%}
+      <div style="width:100%;height:100%;background:linear-gradient(135deg,#4A7358,#2E3B33);"></div>
+    {%- endif -%}
+    <div class="avh__gradient"></div>
+    {{ wave_svg }}
+  </div>
+  <div class="avh__outer">
+    <div class="avh__inner">
+      {{ eyebrow_html }}
+      {{ heading_html }}
+      {{ sub_html }}
+      {{ trust_badges }}
+      {{ cta_html }}
+    </div>
+  </div>
+</section>
+
+{%- comment -%} ═══════════ V3: SLIDER CAROUSEL ═══════════ {%- endcomment -%}
+{%- elsif variant == 'slider-carousel' -%}
+<section class="avh-{{ section.id }} avh--v3-{{ section.id }}" id="AnnvayaHero-{{ section.id }}" aria-label="{{ heading_text | default: 'AnnVaya Hero' | strip_html | truncate: 60 }}">
+  <div class="avh__media" aria-hidden="true">
+    {%- assign slide_index = 0 -%}
+    {%- if hero_img != blank -%}
+      <div class="avh__slide active" data-slide="0">
+        <img src="{{ hero_img }}" alt="{{ hero_img_alt }}" width="{{ img_width }}" height="{{ img_height }}" loading="eager" fetchpriority="high" decoding="async" sizes="100vw">
+      </div>
+      {%- assign slide_index = 1 -%}
+    {%- endif -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'slide' and block.settings.slide_image != blank -%}
+        <div class="avh__slide{% if slide_index == 0 %} active{% endif %}" data-slide="{{ slide_index }}" {{ block.shopify_attributes }}>
+          <img src="{{ block.settings.slide_image | image_url: width: 2400 }}" alt="{{ block.settings.slide_image.alt | escape | default: 'AnnVaya Slide' }}" width="{{ block.settings.slide_image.width }}" height="{{ block.settings.slide_image.width | divided_by: block.settings.slide_image.aspect_ratio | round }}" loading="lazy" decoding="async" sizes="100vw">
+        </div>
+        {%- assign slide_index = slide_index | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+    <div class="avh__gradient"></div>
+    {{ wave_svg }}
+  </div>
+  <div class="avh__nav">
+    <button class="avh__nav-btn avh__nav-prev" aria-label="Previous slide"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9L11 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="avh__nav-btn avh__nav-next" aria-label="Next slide"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4L12 9L7 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+  <div class="avh__outer">
+    <div class="avh__inner">
+      {{ eyebrow_html }}
+      {{ heading_html }}
+      {{ sub_html }}
+      {{ trust_badges }}
+      {{ cta_html }}
+      <div class="avh__dots">
+        {%- assign total_slides = 0 -%}
+        {%- if hero_img != blank -%}{%- assign total_slides = 1 -%}{%- endif -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'slide' and block.settings.slide_image != blank -%}
+            {%- assign total_slides = total_slides | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- for i in (1..total_slides) -%}
+          {%- assign dot_index = i | minus: 1 -%}
+          <button class="avh__dot{% if dot_index == 0 %} active{% endif %}" data-dot="{{ dot_index }}" aria-label="Go to slide {{ i }}"></button>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} ═══════════ V4: STORY + TRUST ═══════════ {%- endcomment -%}
+{%- elsif variant == 'story-trust' -%}
+<section class="avh-{{ section.id }} avh--v4-{{ section.id }}" id="AnnvayaHero-{{ section.id }}" aria-label="{{ heading_text | default: 'AnnVaya Hero' | strip_html | truncate: 60 }}">
+  <div class="avh__media" aria-hidden="true">
+    {%- if hero_img != blank -%}
+      <img src="{{ hero_img }}" alt="{{ hero_img_alt }}" width="{{ img_width }}" height="{{ img_height }}" loading="eager" fetchpriority="high" decoding="async" sizes="100vw">
+    {%- else -%}
+      <div style="width:100%;height:100%;background:linear-gradient(135deg,#4A7358,#2E3B33);"></div>
+    {%- endif -%}
+    <div class="avh__gradient"></div>
+    {{ wave_svg }}
+  </div>
+  <div class="avh__outer">
+    <div class="avh__inner">
+      {{ eyebrow_html }}
+      {{ heading_html }}
+      {{ sub_html }}
+      {{ trust_badges }}
+      {{ cta_html }}
+    </div>
+  </div>
+</section>
+
+{%- comment -%} ═══════════ V5: SPLIT HERO ═══════════ {%- endcomment -%}
+{%- elsif variant == 'split-hero' -%}
+<section class="avh-{{ section.id }} avh--v5-{{ section.id }}" id="AnnvayaHero-{{ section.id }}" aria-label="{{ heading_text | default: 'AnnVaya Hero' | strip_html | truncate: 60 }}">
+  <div class="avh__v5-left">
+    <div class="avh__v5-left-inner">
+      {{ eyebrow_html }}
+      {{ heading_html }}
+      {%- if tagline != blank -%}
+        <p class="avh__tagline">{{ tagline }}</p>
+      {%- endif -%}
+      {{ sub_html }}
+      {{ trust_badges }}
+      {{ cta_html }}
+    </div>
+  </div>
+  <div class="avh__v5-right">
+    {%- assign v5_slide_index = 0 -%}
+    {%- if hero_img != blank -%}
+      <div class="avh__v5-slide active" data-slide="0">
+        <img src="{{ hero_img }}" alt="{{ hero_img_alt }}" width="{{ img_width }}" height="{{ img_height }}" loading="eager" fetchpriority="high" decoding="async" sizes="50vw">
+      </div>
+      {%- assign v5_slide_index = 1 -%}
+    {%- endif -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'slide' and block.settings.slide_image != blank -%}
+        <div class="avh__v5-slide{% if v5_slide_index == 0 %} active{% endif %}" data-slide="{{ v5_slide_index }}" {{ block.shopify_attributes }}>
+          <img src="{{ block.settings.slide_image | image_url: width: 1200 }}" alt="{{ block.settings.slide_image.alt | escape | default: 'AnnVaya' }}" loading="lazy" decoding="async" sizes="50vw">
+        </div>
+        {%- assign v5_slide_index = v5_slide_index | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if hero_img == blank -%}
+      <div style="width:100%;height:100%;background:linear-gradient(135deg,#4A7358,#2E3B33);"></div>
+    {%- endif -%}
+    <div class="avh__v5-nav">
+      <button class="avh__nav-btn avh__v5-prev" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9L11 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="avh__nav-btn avh__v5-next" aria-label="Next"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4L12 9L7 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+    {%- assign v5_total = 0 -%}
+    {%- if hero_img != blank -%}{%- assign v5_total = 1 -%}{%- endif -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'slide' and block.settings.slide_image != blank -%}{%- assign v5_total = v5_total | plus: 1 -%}{%- endif -%}
+    {%- endfor -%}
+    {%- if v5_total > 1 -%}
+    <div class="avh__v5-dots">
+      {%- for i in (1..v5_total) -%}
+        {%- assign di = i | minus: 1 -%}
+        <button class="avh__dot{% if di == 0 %} active{% endif %}" data-dot="{{ di }}" aria-label="Slide {{ i }}"></button>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}
+
+{%- comment -%} ── Carousel JS for V3 and V5 ── {%- endcomment -%}
+{%- if variant == 'slider-carousel' -%}
+<script>
+(function(){
+  var s=document.getElementById('AnnvayaHero-{{ section.id }}');if(!s)return;
+  var slides=s.querySelectorAll('.avh__slide'),dots=s.querySelectorAll('.avh__dot'),
+      prev=s.querySelector('.avh__nav-prev'),next=s.querySelector('.avh__nav-next');
+  if(slides.length<2)return;var c=0,t=slides.length,iv={{ section.settings.autoplay_speed | default: 5 }}*1000,tm;
+  function go(i){slides[c].classList.remove('active');if(dots[c])dots[c].classList.remove('active');
+    c=((i%t)+t)%t;slides[c].classList.add('active');if(dots[c])dots[c].classList.add('active');}
+  function start(){stop();tm=setInterval(function(){go(c+1)},iv);}function stop(){clearInterval(tm);}
+  if(next)next.onclick=function(){stop();go(c+1);start();};
+  if(prev)prev.onclick=function(){stop();go(c-1);start();};
+  dots.forEach(function(d){d.onclick=function(){stop();go(+d.dataset.dot);start();};});
+  start();
+})();
+</script>
+{%- endif -%}
+
+{%- if variant == 'split-hero' -%}
+<script>
+(function(){
+  var s=document.getElementById('AnnvayaHero-{{ section.id }}');if(!s)return;
+  var slides=s.querySelectorAll('.avh__v5-slide'),dots=s.querySelectorAll('.avh__v5-dots .avh__dot'),
+      prev=s.querySelector('.avh__v5-prev'),next=s.querySelector('.avh__v5-next');
+  if(slides.length<2)return;var c=0,t=slides.length,iv={{ section.settings.autoplay_speed | default: 5 }}*1000,tm;
+  function go(i){slides[c].classList.remove('active');if(dots[c])dots[c].classList.remove('active');
+    c=((i%t)+t)%t;slides[c].classList.add('active');if(dots[c])dots[c].classList.add('active');}
+  function start(){stop();tm=setInterval(function(){go(c+1)},iv);}function stop(){clearInterval(tm);}
+  if(next)next.onclick=function(){stop();go(c+1);start();};
+  if(prev)prev.onclick=function(){stop();go(c-1);start();};
+  dots.forEach(function(d){d.onclick=function(){stop();go(+d.dataset.dot);start();};});
+  start();
+})();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "AnnVaya Hero",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    {
+      "type": "select",
+      "id": "variant",
+      "label": "Hero variant",
+      "info": "Each variant has a completely different layout.",
+      "options": [
+        { "value": "product-first",    "label": "V1 \u2014 Product First (Clean & Bold)" },
+        { "value": "benefit-first",    "label": "V2 \u2014 Benefit First (Lifestyle Focus)" },
+        { "value": "slider-carousel",  "label": "V3 \u2014 Slider Carousel (Multiple Slides)" },
+        { "value": "story-trust",      "label": "V4 \u2014 Story + Trust (Editorial Minimal)" },
+        { "value": "split-hero",       "label": "V5 \u2014 Split Hero (Scroll Tease)" }
+      ],
+      "default": "benefit-first"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image focal point",
+      "options": [
+        { "value": "left top",      "label": "Left top" },
+        { "value": "left center",   "label": "Left center" },
+        { "value": "center center", "label": "Center" },
+        { "value": "right center",  "label": "Right center" },
+        { "value": "right top",     "label": "Right top" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "info": "V4: try REAL INGREDIENTS. LASTING WELLNESS. Leave blank for default trust line."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Headline",
+      "info": "V1: Goodness you can feel. V2: Daily Nutrition, Naturally. V4: The Power of Moringa. V5: From Nature\u2019s Fields to Your Family\u2019s Health.",
+      "default": "Nature\u2019s Goodness, <em>Made for Every Generation.</em>"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline (V5 only)",
+      "info": "Italic accent below the headline. Example: Small Leaves. Big Benefits."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheadline",
+      "default": "Wholesome, naturally crafted nutrition made from real ingredients for your family\u2019s everyday wellness."
+    },
+    {
+      "type": "text",
+      "id": "btn1_label",
+      "label": "Primary button label",
+      "default": "Shop Moringa \u2192"
+    },
+    {
+      "type": "url",
+      "id": "btn1_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "btn2_label",
+      "label": "Secondary button label",
+      "default": "Why Annvaya \u2192"
+    },
+    {
+      "type": "url",
+      "id": "btn2_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Desktop height (px)",
+      "min": 500,
+      "max": 900,
+      "step": 10,
+      "default": 700
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Carousel speed (seconds, V3/V5)",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Carousel Slide",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "slide_image",
+          "label": "Slide image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "AnnVaya Hero",
+      "settings": { "variant": "benefit-first" }
+    }
+  ]
+}
+{% endschema %}

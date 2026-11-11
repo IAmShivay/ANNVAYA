@@ -1,0 +1,466 @@
+{% comment %}
+  ANNVAYA — Shop by Category (v2)
+  Bento asymmetric grid for 4 items. Number badges, product count pills,
+  rich gradient placeholders, animated hover. Left-aligned editorial header.
+{% endcomment %}
+
+{%- style -%}
+  .ac-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  .ac-{{ section.id }} .ac-inner {
+    max-width: var(--page-width, 1400px);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* ── HEADER ── */
+  .ac-{{ section.id }} .ac-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 2.25rem;
+    gap: 1rem;
+  }
+  .ac-{{ section.id }} .ac-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #D4A76A;
+    margin-bottom: 10px;
+  }
+  .ac-{{ section.id }} .ac-eyebrow::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 2px;
+    background: #D4A76A;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .ac-{{ section.id }} .ac-title {
+    font-size: clamp(1.9rem, 3.5vw, 2.9rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0;
+    line-height: 1.1;
+    color: inherit;
+  }
+  .ac-{{ section.id }} .ac-viewall {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #4A5740;
+    text-decoration: none;
+    border-bottom: 1.5px solid currentColor;
+    padding-bottom: 2px;
+    white-space: nowrap;
+    margin-bottom: 6px;
+    flex-shrink: 0;
+    transition: gap 0.18s, color 0.18s;
+  }
+  .ac-{{ section.id }} .ac-viewall:hover { color: #2D2A26; gap: 10px; }
+
+  /* ── BENTO GRID ── */
+  .ac-{{ section.id }} .ac-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  /* 4 blocks — asymmetric bento */
+  .ac-{{ section.id }} .ac-grid[data-count="4"] {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 340px 340px;
+  }
+  .ac-{{ section.id }} .ac-grid[data-count="4"] .ac-card:nth-child(1) { grid-column: 1 / 3; }
+  .ac-{{ section.id }} .ac-grid[data-count="4"] .ac-card:nth-child(2) { grid-column: 3; grid-row: 1 / 3; }
+  .ac-{{ section.id }} .ac-grid[data-count="4"] .ac-card:nth-child(3) { grid-column: 1; }
+  .ac-{{ section.id }} .ac-grid[data-count="4"] .ac-card:nth-child(4) { grid-column: 2 / 4; }
+
+  /* Other counts */
+  .ac-{{ section.id }} .ac-grid[data-count="1"],
+  .ac-{{ section.id }} .ac-grid[data-count="2"] {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 420px;
+  }
+  .ac-{{ section.id }} .ac-grid[data-count="3"] {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 400px;
+  }
+  .ac-{{ section.id }} .ac-grid[data-count="5"],
+  .ac-{{ section.id }} .ac-grid[data-count="6"] {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 300px;
+  }
+
+  /* ── CARD ── */
+  .ac-{{ section.id }} .ac-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    display: block;
+    text-decoration: none;
+    height: 100%;
+    background: #1A1714;
+    box-shadow: 0 4px 24px rgba(45,42,38,0.14);
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+  }
+  .ac-{{ section.id }} .ac-card:hover {
+    box-shadow: 0 24px 64px rgba(45,42,38,0.30);
+    transform: translateY(-4px);
+  }
+
+  /* Image */
+  .ac-{{ section.id }} .ac-card-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.65s ease;
+    will-change: transform;
+  }
+  .ac-{{ section.id }} .ac-card:hover .ac-card-img { transform: scale(1.08); }
+
+  /* Gradient placeholder */
+  .ac-{{ section.id }} .ac-card-placeholder {
+    position: absolute;
+    inset: 0;
+  }
+  .ac-{{ section.id }} .ac-card-placeholder.p-1 {
+    background: linear-gradient(150deg, #C8841A 0%, #8A4E0A 45%, #3D2206 100%);
+  }
+  .ac-{{ section.id }} .ac-card-placeholder.p-2 {
+    background: linear-gradient(150deg, #3E8A5A 0%, #1E5C38 45%, #0A3020 100%);
+  }
+  .ac-{{ section.id }} .ac-card-placeholder.p-3 {
+    background: linear-gradient(150deg, #2E7D32 0%, #155218 45%, #062810 100%);
+  }
+  .ac-{{ section.id }} .ac-card-placeholder.p-4 {
+    background: linear-gradient(150deg, #D4601A 0%, #922E08 45%, #4A1004 100%);
+  }
+  .ac-{{ section.id }} .ac-card-placeholder.p-5 {
+    background: linear-gradient(150deg, #5A6B4A 0%, #323E28 45%, #181E12 100%);
+  }
+
+  /* Overlay */
+  .ac-{{ section.id }} .ac-card-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      165deg,
+      rgba(8,6,4,0.02) 0%,
+      rgba(8,6,4,0.20) 45%,
+      rgba(8,6,4,0.78) 100%
+    );
+    transition: opacity 0.4s ease;
+  }
+  .ac-{{ section.id }} .ac-card:hover .ac-card-overlay { opacity: 0.9; }
+
+  /* Number badge */
+  .ac-{{ section.id }} .ac-num {
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    z-index: 3;
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.40);
+    line-height: 1;
+  }
+
+  /* Product count pill (top right) */
+  .ac-{{ section.id }} .ac-count-pill {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    z-index: 3;
+    background: rgba(255,255,255,0.14);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 20px;
+    padding: 4px 11px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.88);
+    line-height: 1.4;
+  }
+
+  /* Card body */
+  .ac-{{ section.id }} .ac-card-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    padding: 0 1.6rem 1.6rem;
+  }
+
+  .ac-{{ section.id }} .ac-emoji {
+    display: block;
+    font-size: 2.4rem;
+    line-height: 1;
+    margin-bottom: 0.6rem;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+  }
+
+  .ac-{{ section.id }} .ac-name {
+    color: #fff;
+    font-size: 1.55rem;
+    font-weight: 800;
+    margin: 0 0 0.35rem;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+  }
+
+  .ac-{{ section.id }} .ac-tagline {
+    color: rgba(255,255,255,0.70);
+    font-size: 0.9rem;
+    line-height: 1.45;
+    margin: 0 0 1rem;
+  }
+
+  .ac-{{ section.id }} .ac-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(212,167,106,0.18);
+    border: 1.5px solid rgba(212,167,106,0.55);
+    color: #F0C878;
+    font-size: 0.86rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 7px 15px;
+    border-radius: 24px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: background 0.25s, gap 0.25s, border-color 0.25s;
+  }
+  .ac-{{ section.id }} .ac-card:hover .ac-cta {
+    background: rgba(212,167,106,0.38);
+    border-color: rgba(212,167,106,0.85);
+    gap: 9px;
+  }
+  .ac-{{ section.id }} .ac-cta-arrow { transition: transform 0.25s; }
+  .ac-{{ section.id }} .ac-card:hover .ac-cta-arrow { transform: translateX(4px); }
+
+  /* ── MOBILE ── */
+  @media screen and (max-width: 749px) {
+    .ac-{{ section.id }} .ac-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 1.5rem;
+    }
+    .ac-{{ section.id }} .ac-grid[data-count] {
+      grid-template-columns: 1fr 1fr !important;
+      grid-template-rows: unset !important;
+      gap: 0.75rem;
+    }
+    .ac-{{ section.id }} .ac-grid[data-count="4"] .ac-card:nth-child(n) {
+      grid-column: unset !important;
+      grid-row: unset !important;
+    }
+    .ac-{{ section.id }} .ac-card { min-height: 210px; }
+    .ac-{{ section.id }} .ac-name { font-size: 1.1rem; }
+    .ac-{{ section.id }} .ac-tagline { display: none; }
+    .ac-{{ section.id }} .ac-title { font-size: 1.6rem; }
+  }
+  @media screen and (max-width: 480px) {
+    .ac-{{ section.id }} .ac-grid[data-count] {
+      grid-template-columns: 1fr !important;
+      gap: 0.65rem;
+    }
+    .ac-{{ section.id }} .ac-card { min-height: 240px; }
+    .ac-{{ section.id }} .ac-tagline { display: block; }
+  }
+{%- endstyle -%}
+
+<div class="ac-{{ section.id }} color-{{ section.settings.color_scheme }} gradient">
+  <div class="ac-inner">
+
+    {%- if section.settings.title != blank or section.settings.eyebrow != blank -%}
+      <div class="ac-header">
+        <div>
+          {%- if section.settings.eyebrow != blank -%}
+            <div class="ac-eyebrow">{{ section.settings.eyebrow }}</div>
+          {%- endif -%}
+          {%- if section.settings.title != blank -%}
+            <h2 class="ac-title">{{ section.settings.title | escape }}</h2>
+          {%- endif -%}
+        </div>
+        <a href="/collections" class="ac-viewall">Browse all <span aria-hidden="true">→</span></a>
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      {%- assign valid_count = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.settings.collection != blank -%}
+          {%- assign valid_count = valid_count | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+      <div class="ac-grid" data-count="{{ valid_count }}">
+        {%- for block in section.blocks -%}
+          {%- assign col = block.settings.collection -%}
+          {%- if col != blank -%}
+            {%- assign ph = 'p-' | append: forloop.index -%}
+            {%- assign num = forloop.index -%}
+            <a
+              href="{{ col.url }}"
+              class="ac-card"
+              aria-label="{{ 'Shop ' | append: col.title | escape }}"
+              {{ block.shopify_attributes }}
+            >
+              {%- if col.featured_image != blank -%}
+                <img
+                  class="ac-card-img"
+                  src="{{ col.featured_image | image_url: width: 1000 }}"
+                  alt="{{ col.featured_image.alt | default: col.title | escape }}"
+                  width="1000"
+                  height="700"
+                  loading="lazy"
+                >
+              {%- elsif block.settings.fallback_image_url != blank -%}
+                <img
+                  class="ac-card-img"
+                  src="{{ block.settings.fallback_image_url }}"
+                  alt="{{ col.title | escape }}"
+                  loading="lazy"
+                  width="1000"
+                  height="700"
+                >
+              {%- else -%}
+                <div class="ac-card-placeholder {{ ph }}" aria-hidden="true"></div>
+              {%- endif -%}
+
+              <div class="ac-card-overlay" aria-hidden="true"></div>
+
+              <span class="ac-num" aria-hidden="true">0{{ num }}</span>
+
+              {%- if col.products_count > 0 -%}
+                <span class="ac-count-pill">{{ col.products_count }} products</span>
+              {%- endif -%}
+
+              <div class="ac-card-body">
+                {%- if block.settings.emoji != blank -%}
+                  <span class="ac-emoji" aria-hidden="true">{{ block.settings.emoji }}</span>
+                {%- endif -%}
+                <p class="ac-name">{{ col.title | escape }}</p>
+                {%- if block.settings.tagline != blank -%}
+                  <p class="ac-tagline">{{ block.settings.tagline | escape }}</p>
+                {%- endif -%}
+                <span class="ac-cta">
+                  Shop now <span class="ac-cta-arrow" aria-hidden="true">→</span>
+                </span>
+              </div>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Categories Grid",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "Collections"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Shop by Category"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Warm Cream" },
+        { "value": "scheme-2", "label": "Light Linen" },
+        { "value": "scheme-3", "label": "Forest Green" },
+        { "value": "scheme-4", "label": "Dark Espresso" },
+        { "value": "scheme-5", "label": "Stone" }
+      ],
+      "default": "scheme-2"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "tagline",
+          "label": "Tagline",
+          "placeholder": "e.g. 1 tsp = 1 fresh vegetable"
+        },
+        {
+          "type": "text",
+          "id": "emoji",
+          "label": "Icon emoji",
+          "placeholder": "e.g. 🥦"
+        },
+        {
+          "type": "url",
+          "id": "fallback_image_url",
+          "label": "Fallback image URL",
+          "info": "Used when the collection has no featured image. Upload image at Admin → Content → Files, then paste the URL here."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Categories Grid" }
+  ]
+}
+{% endschema %}

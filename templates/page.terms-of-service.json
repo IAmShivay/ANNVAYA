@@ -1,0 +1,178 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "legal": {
+      "type": "annvaya-legal-page",
+      "settings": {
+        "eyebrow": "Legal",
+        "page_heading": "Terms of Service",
+        "page_subheading": "Please read these terms carefully before using our website or placing an order.",
+        "last_updated": "August 2026",
+        "hero_bg_color": "#2C3B28",
+        "hero_text_color": "#F5F2EB",
+        "hero_padding_top": 60,
+        "hero_padding_bottom": 60,
+        "body_bg_color": "#F5F2EB",
+        "padding_top": 48,
+        "padding_bottom": 64,
+        "company_name": "AnnVaya",
+        "legal_entity_name": "",
+        "registered_address": "",
+        "gstin": "",
+        "fssai_license": "",
+        "pan": "",
+        "cin": "",
+        "email": "hello@annvaya.com",
+        "phone": "",
+        "grievance_name": "",
+        "grievance_designation": "Grievance Officer",
+        "grievance_email": "",
+        "grievance_phone": "",
+        "grievance_address": ""
+      },
+      "blocks": {
+        "info_card": {
+          "type": "info_card",
+          "settings": {}
+        },
+        "s1": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "1. Introduction and Acceptance of Terms",
+            "content": "<p>Welcome to AnnVaya. These Terms of Service (\u201cTerms\u201d) govern your access to and use of the AnnVaya website at annvaya.com (the \u201cWebsite\u201d), as well as any purchase of products from us. Please read these Terms carefully before using our Website or placing an order.</p><p>By accessing or using our Website, creating an account, or placing an order, you agree to be legally bound by these Terms, our Privacy Policy, our Refund and Replacement Policy, and our Shipping Policy, all of which are incorporated herein by reference. If you do not agree to any of these Terms, please do not use our Website or purchase our products.</p><p>These Terms constitute a legally binding agreement between you and AnnVaya (the business details of which are set out in the information card above) and are governed by the laws of the Republic of India. Any dispute arising under these Terms shall be subject to the jurisdiction of courts in [Your City], India, without prejudice to any statutory rights you may exercise before Consumer Disputes Redressal Commissions.</p>"
+          }
+        },
+        "s2": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "2. About AnnVaya",
+            "content": "<p>AnnVaya is a brand that produces and sells <strong>natural dehydrated food products</strong>, including vegetable powders, baby food formulations, and superfood powders, manufactured and sold in India. Our complete business details are displayed in the Business Information card above, as required under the <strong>Consumer Protection (E-Commerce) Rules, 2020</strong>. These details include our brand name, legal entity name, registered address, GSTIN, FSSAI licence number, PAN, and customer contact information.</p><p>AnnVaya operates as an e-commerce entity and is registered under applicable Indian business laws. We hold a valid FSSAI licence for the manufacture and sale of our food products. Our GSTIN is displayed in the Business Information card above, and GST invoices are issued for all orders as required under the <strong>CGST Rules, 2017</strong>.</p><p>For all legal correspondence, please use the contact details in the Business Information card or the Grievance Officer details at the bottom of this page.</p>"
+          }
+        },
+        "s3": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "3. Eligibility",
+            "content": "<p>To use our Website and purchase products from AnnVaya, you must meet the following eligibility requirements:</p><ul><li>You must be <strong>18 years of age or older</strong>. Our products are not intended for purchase by minors. If you are under 18, a parent or legal guardian must place the order on your behalf.</li><li>You must be a <strong>resident of India</strong> with a valid delivery address within India. We currently do not ship internationally.</li><li>You must have a valid email address and, where required, a valid mobile phone number registered in India.</li><li>You must have the legal capacity to enter into a binding contract under Indian law (Indian Contract Act, 1872).</li></ul><p>By placing an order or creating an account, you represent and warrant that you meet all of the above eligibility requirements. We reserve the right to refuse orders or close accounts where we have reasonable grounds to believe that the eligibility requirements have not been met, including orders placed on behalf of third parties in a manner that violates these Terms.</p>"
+          }
+        },
+        "s4": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "4. Products and FSSAI Compliance",
+            "content": "<p>All AnnVaya products are manufactured under our valid FSSAI licence. We are committed to transparency and compliance with all applicable food safety regulations:</p><ul><li><strong>Product Descriptions:</strong> All product descriptions, ingredient lists, nutritional information, and product claims displayed on our Website are accurate and consistent with the physical product labels. We do not make unsubstantiated health claims. Any nutritional or health-related information provided is based on established scientific literature and is not intended as medical advice.</li><li><strong>Best-Before Dates:</strong> Best-before dates are printed on all product packages as required by FSSAI regulations and the <strong>Legal Metrology (Packaged Commodities) Rules, 2011</strong>. We ensure that products dispatched to consumers have adequate remaining shelf life (see our Shipping Policy for details).</li><li><strong>Vegetarian Status:</strong> All AnnVaya products are <strong>100% vegetarian</strong> unless explicitly labelled otherwise on the product page and packaging. The applicable vegetarian / non-vegetarian logo as required by FSSAI is displayed on all packages.</li><li><strong>Allergen Information:</strong> Known allergens are disclosed on product pages and on packaging. If you have a known food allergy, please review ingredient lists carefully before purchasing. When in doubt, contact us before placing an order.</li><li><strong>No Alcohol:</strong> No AnnVaya product contains alcohol or alcohol-derived ingredients.</li><li><strong>Country of Origin:</strong> All AnnVaya products are manufactured in India.</li><li><strong>MRP Compliance:</strong> Maximum Retail Price (MRP), inclusive of all taxes, is displayed on all product packages as required by the <strong>Legal Metrology (Packaged Commodities) Rules, 2011</strong>. We do not charge consumers more than the MRP displayed on the product packaging.</li></ul>"
+          }
+        },
+        "s5": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "5. Orders and Contract Formation",
+            "content": "<p>The following describes how a legally binding contract between you and AnnVaya is formed:</p><ol><li><strong>Offer:</strong> When you complete the checkout process and submit your order (including payment), you are making an <strong>offer to purchase</strong> the products in your cart at the prices displayed.</li><li><strong>Order Confirmation:</strong> After your payment is processed, you will receive an <strong>order confirmation email</strong>. This email acknowledges receipt of your order and payment, but does <strong>not</strong> constitute acceptance of your offer.</li><li><strong>Acceptance and Contract Formation:</strong> The contract between you and AnnVaya is formed only when we <strong>dispatch your order</strong> and send you a dispatch confirmation email with your tracking number. This is when legal acceptance occurs.</li><li><strong>Right to Reject Orders:</strong> We reserve the right to cancel or refuse any order before dispatch for reasons including, but not limited to: payment authorisation failure, product being out of stock, suspected fraudulent activity, or error in price or product description on our Website. If we cancel your order, we will notify you promptly and issue a full refund within 5\u20137 business days.</li></ol><p>This contract formation mechanism is consistent with standard e-commerce practice and does not limit your statutory rights under the Consumer Protection Act, 2019.</p>"
+          }
+        },
+        "s6": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "6. Pricing, GST, and MRP",
+            "content": "<p>All prices on the AnnVaya website are displayed in <strong>Indian Rupees (INR)</strong>. We are transparent about all pricing and charges:</p><ul><li><strong>GST Inclusion:</strong> Product prices displayed on our website are <strong>inclusive of applicable Goods and Services Tax (GST)</strong> unless explicitly stated otherwise. The GST amount is shown as a line item at checkout for transparency.</li><li><strong>GST Invoices:</strong> A GST invoice is generated and provided for every order, displaying our GSTIN as required under the <strong>CGST Rules, 2017</strong>. Your invoice will be emailed to you with your order confirmation.</li><li><strong>MRP:</strong> The MRP (Maximum Retail Price) printed on our physical product packages includes all taxes. The online price will not exceed the MRP on the physical product, in compliance with the <strong>Legal Metrology (Packaged Commodities) Rules, 2011</strong>.</li><li><strong>Price Changes:</strong> Product prices may be updated without prior notice. However, once you have placed an order and received an order confirmation, the price of your order is fixed at the amount shown at checkout and will not change.</li><li><strong>No Hidden Charges:</strong> The amount displayed at checkout is the total amount you will be charged. There are no undisclosed fees, surcharges, or processing fees beyond what is shown.</li></ul>"
+          }
+        },
+        "s7": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "7. Payments",
+            "content": "<p>All payments on the AnnVaya website are processed by <strong>Razorpay Software Pvt Ltd</strong>, an RBI-authorised Payment Aggregator operating under the <strong>Reserve Bank of India\u2019s Guidelines on Regulation of Payment Aggregators and Payment Gateways</strong>.</p><p><strong>Accepted Payment Methods:</strong></p><ul><li>Credit Cards (Visa, Mastercard, RuPay, Amex)</li><li>Debit Cards (Visa, Mastercard, RuPay)</li><li>UPI (Google Pay, PhonePe, Paytm, BHIM, and others)</li><li>Net Banking (major Indian banks)</li><li>Digital Wallets (as supported by Razorpay)</li><li>EMI (credit card and debit card EMI, as available)</li><li>Cash on Delivery (COD) \u2014 subject to pincode and order value limits as described in our Shipping Policy</li></ul><p><strong>Data Security:</strong> We do not store, access, or process your card numbers, CVV codes, UPI PINs, bank account credentials, or any other payment credentials. All payment data is handled exclusively by Razorpay on its PCI-DSS certified infrastructure.</p><p><strong>Razorpay Terms:</strong> By making a payment on our website, you also agree to Razorpay\u2019s Terms of Service and Privacy Policy, available at <a href=\"https://razorpay.com/terms\" target=\"_blank\" rel=\"noopener noreferrer\">razorpay.com/terms</a> and <a href=\"https://razorpay.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">razorpay.com/privacy</a>.</p><p><strong>Currency:</strong> All payments must be made in Indian Rupees (INR). We do not accept foreign currency payments.</p>"
+          }
+        },
+        "s8": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "8. Cancellations",
+            "content": "<p>Our cancellation terms are designed to be fair and comply with the <strong>Consumer Protection (E-Commerce) Rules, 2020</strong>:</p><p><strong>Cancellation by You (Before Dispatch):</strong><br>You may cancel your order within <strong>12 hours</strong> of placing it by emailing <a href=\"mailto:hello@annvaya.com\">hello@annvaya.com</a> with your order number. A full refund will be issued to your original payment method. After 12 hours, your order may already be in processing and cancellation may not be possible.</p><p><strong>Cancellation After Dispatch:</strong><br>Orders cannot be cancelled after dispatch. Please refer to our Refund and Replacement Policy for your options after receiving the product.</p><p><strong>No Cancellation Fees:</strong><br>We do not charge any cancellation fees to consumers on pre-paid orders cancelled before dispatch. This is in compliance with <strong>Consumer Protection (E-Commerce) Rules, 2020, Section 6(3)</strong>.</p><p><strong>Cancellation by AnnVaya:</strong><br>We reserve the right to cancel orders in cases of fraud, failed payment authorisation, product unavailability, breach of these Terms, or force majeure. In such cases, you will be notified and a full refund will be issued within 5\u20137 business days. We will not charge you any fee if we cancel your order.</p>"
+          }
+        },
+        "s9": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "9. Prohibited Uses",
+            "content": "<p>By using the AnnVaya website, you agree not to engage in any of the following prohibited activities:</p><ul><li><strong>Unlawful use:</strong> Using the Website for any purpose that is illegal under Indian law, including fraud, money laundering, or any activity that violates the Information Technology Act, 2000.</li><li><strong>Unauthorised access:</strong> Attempting to gain unauthorised access to any part of our website, servers, databases, or connected systems.</li><li><strong>Automated scraping:</strong> Using bots, scrapers, crawlers, or other automated tools to access, extract, or copy content from our Website without our written permission.</li><li><strong>Intellectual property infringement:</strong> Reproducing, distributing, publicly displaying, or creating derivative works from any content on our Website without prior written permission.</li><li><strong>False information:</strong> Providing false, misleading, or fraudulent information in any form, including during account registration, order placement, or return/refund requests.</li><li><strong>Policy abuse:</strong> Misusing our refund, return, or replacement policy, including making fraudulent claims or repeatedly placing and cancelling orders to manipulate our systems.</li><li><strong>Spam or harassment:</strong> Using our contact channels to send unsolicited communications, spam, or harass our team or other users.</li></ul><p>Violation of these prohibited use terms may result in immediate account suspension, cancellation of pending orders, and legal action under applicable Indian law, including the IT Act, 2000, the IPC, and the Consumer Protection Act, 2019.</p>"
+          }
+        },
+        "s10": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "10. Intellectual Property",
+            "content": "<p>All content on the AnnVaya website, including but not limited to: the AnnVaya brand name and logo, product names, product images and photography, written descriptions, nutritional information and content, website design and layout, graphics, and marketing materials, is owned by or licenced to AnnVaya and is protected under Indian and international intellectual property laws, including the <strong>Trade Marks Act, 1999</strong>, the <strong>Copyright Act, 1957</strong>, and applicable design laws.</p><p><strong>Permitted Use:</strong> You may view, download, and print content from our Website solely for your personal, non-commercial use in connection with evaluating or purchasing our products.</p><p><strong>Prohibited Use:</strong> You may not, without our prior written permission:</p><ul><li>Reproduce, republish, distribute, or create derivative works from any Website content</li><li>Use AnnVaya\u2019s name, logo, or product images for commercial purposes</li><li>Use any AnnVaya trademark or trade dress in a manner that could cause confusion or that falsely suggests affiliation with or endorsement by AnnVaya</li><li>Frame or mirror any part of our Website on any other website without written permission</li></ul><p>Requests for licensing or permission to use our intellectual property should be directed to <a href=\"mailto:hello@annvaya.com\">hello@annvaya.com</a>.</p>"
+          }
+        },
+        "s11": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "11. Third-Party Platforms and Services",
+            "content": "<p>The AnnVaya website and its operations rely on several third-party platforms and services. We disclose these for transparency:</p><ul><li><strong>Shopify Inc.:</strong> Our website is hosted and operated on Shopify\u2019s e-commerce platform. Shopify processes certain order and customer data on our behalf. Shopify\u2019s Terms of Service are available at <a href=\"https://www.shopify.com/legal/terms\" target=\"_blank\" rel=\"noopener noreferrer\">shopify.com/legal/terms</a>.</li><li><strong>Razorpay Software Pvt Ltd:</strong> All payment processing is handled by Razorpay, an RBI-authorised Payment Aggregator. Razorpay\u2019s terms are available at <a href=\"https://razorpay.com/terms\" target=\"_blank\" rel=\"noopener noreferrer\">razorpay.com/terms</a>.</li><li><strong>Logistics and Courier Partners:</strong> Delivery is handled by third-party courier companies. These partners are bound by their own terms, but are contractually required by us to handle your data and your order responsibly.</li><li><strong>Google Analytics and Meta Pixel:</strong> Analytics and advertising measurement tools operated by Google LLC and Meta Platforms, Inc. respectively. Please see our Privacy Policy for more details.</li></ul><p>AnnVaya is not responsible for the terms, privacy practices, conduct, or reliability of these third-party platforms and services. Any dispute with these third parties must be resolved directly with them under their respective terms. We recommend reviewing their policies before transacting.</p>"
+          }
+        },
+        "s12": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "12. Limitation of Liability",
+            "content": "<p>To the maximum extent permitted by applicable Indian law, AnnVaya\u2019s total liability to you for any claim arising from or related to your use of our Website or your purchase of our products shall be limited to the <strong>purchase price of the specific order giving rise to the claim</strong>.</p><p>We shall not be liable for any:</p><ul><li>Indirect, incidental, consequential, or punitive damages</li><li>Loss of profits, revenue, data, or business opportunities</li><li>Damages arising from third-party actions (including courier delays or payment gateway issues)</li><li>Damages arising from force majeure events beyond our reasonable control</li></ul><p><strong>IMPORTANT \u2014 Consumer Rights Preserved:</strong> This limitation of liability does <strong>not</strong> restrict, limit, or waive any rights you are entitled to as a consumer under the <strong>Consumer Protection Act, 2019</strong>. You retain all statutory consumer rights, including the right to approach District Consumer Disputes Redressal Commissions, State Commissions, and the National Commission. No clause in these Terms shall be construed as an unfair contract term under the Consumer Protection Act, 2019.</p>"
+          }
+        },
+        "s13": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "13. Disclaimer of Warranties",
+            "content": "<p>To the extent permitted by applicable law, AnnVaya provides its products and Website on an \u201cas is\u201d and \u201cas available\u201d basis. We make the following specific disclaimers:</p><ul><li><strong>No Health Outcome Warranty:</strong> We do not warrant or guarantee specific health outcomes, therapeutic benefits, or medical results from consuming our products. Our products are foods, not medicines. Nutritional information and descriptions are provided for informational purposes only and should not be construed as medical advice. Consult a qualified healthcare professional before making significant dietary changes.</li><li><strong>Nutritional Values:</strong> Nutritional information displayed on product pages and packaging is based on average values from standardised testing and may vary slightly from batch to batch due to the natural variation in raw ingredients. This is normal and does not constitute a defect.</li><li><strong>Product Images:</strong> Product images on our Website are representative and for illustrative purposes. Actual product colour may vary slightly from images due to natural ingredient colour variation, photography lighting, and screen display settings. This is not a grounds for return.</li><li><strong>Website Availability:</strong> We do not warrant that our Website will be available at all times, error-free, or uninterrupted. We may perform maintenance, updates, or take the site offline for operational reasons.</li></ul><p>These disclaimers do not affect your statutory rights regarding defective or misdescribed products under the Consumer Protection Act, 2019.</p>"
+          }
+        },
+        "s14": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "14. Governing Law and Jurisdiction",
+            "content": "<p>These Terms of Service and any disputes or claims arising out of or in connection with them (including non-contractual disputes or claims) are governed by and construed in accordance with the <strong>laws of the Republic of India</strong>.</p><p><strong>Jurisdiction:</strong> Subject to the consumer rights exception below, any dispute arising under or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts in <strong>[Your City], India</strong>.</p><p><strong>Dispute Resolution Process:</strong> Before initiating legal proceedings, both parties agree to first attempt to resolve any dispute in good faith through direct negotiation. Either party may notify the other of the dispute in writing, and both parties agree to engage in good-faith discussions for a period of at least <strong>30 days</strong> to attempt resolution. If the dispute remains unresolved after 30 days, either party may pursue their legal remedies.</p><p><strong>IMPORTANT \u2014 Consumer Commission Rights Preserved:</strong> Nothing in this clause prevents you, as a consumer, from approaching the <strong>District Consumer Disputes Redressal Commission</strong> in <strong>your own jurisdiction</strong> (the place where you reside or where the cause of action arises) under the Consumer Protection Act, 2019. Consumer Commissions have overriding jurisdiction in consumer disputes and cannot be restricted by contractual jurisdiction clauses. This right is non-waivable and is fully preserved.</p>"
+          }
+        },
+        "s15": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "15. Amendments to These Terms",
+            "content": "<p>We may update or amend these Terms of Service from time to time to reflect changes in our business practices, services, or applicable law. When we make changes, we will update the \u201cLast Updated\u201d date displayed at the top of this page.</p><p><strong>Notice for Material Changes:</strong> For any material changes to these Terms \u2014 changes that significantly affect your rights or obligations \u2014 we will provide you with at least <strong>30 days\u2019 advance written notice</strong> via email to your registered email address, as required under the <strong>IT (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021</strong>.</p><p><strong>Acceptance:</strong> Your continued use of our Website or placement of orders after the effective date of any updated Terms constitutes your acceptance of the revised Terms. If you do not agree with any changes, you may discontinue use of our Website and close your account before the effective date of the changes.</p><p>We encourage you to periodically review these Terms to remain informed of any updates. The current version of these Terms will always be available at annvaya.com/policies/terms-of-service.</p>"
+          }
+        },
+        "grievance_block": {
+          "type": "grievance_block",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "info_card",
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s14",
+        "s15",
+        "grievance_block"
+      ]
+    }
+  },
+  "order": ["legal"]
+}

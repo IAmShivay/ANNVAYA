@@ -1,0 +1,612 @@
+{%- comment -%}
+  ANNVAYA — Product Page Recipe Section
+  Shows blog articles relevant to the current product.
+  Matching logic (in order of priority):
+    1. Articles sharing any tag with the product
+    2. Fallback: articles tagged 'recipe' or 'recipes'
+    3. Last resort: latest articles from the blog
+  Layout: horizontal featured card (first) + 4:3 grid cards (rest).
+{%- endcomment -%}
+
+{%- liquid
+  assign blog_handle        = section.settings.blog | default: 'news'
+  assign blog_obj           = blogs[blog_handle]
+  assign show_count         = section.settings.articles_to_show | default: 3
+  assign prefix             = 'apr-' | append: section.id
+  assign product_type_lower = product.type | downcase
+-%}
+
+{%- if blog_obj == blank or blog_obj.articles_count == 0 -%}
+  {%- comment -%} Nothing to render {%- endcomment -%}
+{%- else -%}
+
+{%- comment -%}
+  Helper macro: renders one card (featured or support) inside a capture block.
+  Variables available via loop: a, hit_count
+{%- endcomment -%}
+
+{%- comment -%} ── PASS 1: product-tag matched articles ── {%- endcomment -%}
+{%- capture articles_html -%}
+  {%- assign hit_count = 0 -%}
+  {%- for a in blog_obj.articles -%}
+    {%- if hit_count >= show_count -%}{%- break -%}{%- endif -%}
+    {%- assign matched = false -%}
+    {%- for p_tag in product.tags -%}
+      {%- assign pt = p_tag | downcase -%}
+      {%- for a_tag in a.tags -%}
+        {%- assign a_tag_lower = a_tag | downcase -%}
+        {%- if a_tag_lower == pt -%}{%- assign matched = true -%}{%- break -%}{%- endif -%}
+      {%- endfor -%}
+      {%- if matched -%}{%- break -%}{%- endif -%}
+    {%- endfor -%}
+    {%- if matched == false and product_type_lower != blank -%}
+      {%- assign a_title_lower = a.title | downcase -%}
+      {%- if a_title_lower contains product_type_lower -%}{%- assign matched = true -%}{%- endif -%}
+    {%- endif -%}
+    {%- if matched -%}
+      {%- assign word_count = a.content | strip_html | split: ' ' | size -%}
+      {%- assign read_minutes = word_count | divided_by: 200 | plus: 1 -%}
+      {%- assign display_tag = '' -%}
+      {%- for tag in a.tags -%}
+        {%- assign tl = tag | downcase -%}
+        {%- if tl != 'recipe' and tl != 'recipes' and tl != 'health' and tl != 'wellness' -%}
+          {%- assign display_tag = tag -%}{%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if display_tag == blank and a.tags.size > 0 -%}{%- assign display_tag = a.tags.first -%}{%- endif -%}
+      {%- if hit_count == 0 -%}
+        <a href="{{ a.url }}" class="apr__card apr__card--featured">
+          <div class="apr__img-wrap">
+            {%- if a.image -%}
+              <img src="{{ a.image | image_url: width: 900 }}" srcset="{{ a.image | image_url: width: 600 }} 600w, {{ a.image | image_url: width: 900 }} 900w, {{ a.image | image_url: width: 1200 }} 1200w" sizes="(max-width:749px) 92vw, (max-width:989px) 46vw, 38vw" alt="{{ a.image.alt | escape | default: a.title | escape }}" width="{{ a.image.width }}" height="{{ a.image.height }}" loading="lazy" class="apr__img">
+            {%- else -%}
+              <div class="apr__img-placeholder">🌿</div>
+            {%- endif -%}
+            <span class="apr__badge">Recipe</span>
+          </div>
+          <div class="apr__card-body">
+            <div class="apr__meta">
+              {%- if display_tag != blank -%}<span class="apr__tag">{{ display_tag }}</span>{%- endif -%}
+              <span class="apr__read-time">{{ read_minutes }} min read</span>
+            </div>
+            <h3 class="apr__title">{{ a.title | escape }}</h3>
+            {%- if a.excerpt_or_content != blank -%}<p class="apr__excerpt">{{ a.excerpt_or_content | strip_html | truncatewords: 30 }}</p>{%- endif -%}
+            <span class="apr__read-link">Read recipe <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </div>
+        </a>
+        {%- if show_count > 1 -%}<div class="apr__support-grid">{%- endif -%}
+      {%- else -%}
+        <a href="{{ a.url }}" class="apr__card apr__card--support">
+          <div class="apr__img-wrap">
+            {%- if a.image -%}
+              <img src="{{ a.image | image_url: width: 600 }}" srcset="{{ a.image | image_url: width: 400 }} 400w, {{ a.image | image_url: width: 600 }} 600w, {{ a.image | image_url: width: 800 }} 800w" sizes="(max-width:749px) 92vw, (max-width:989px) 46vw, 22vw" alt="{{ a.image.alt | escape | default: a.title | escape }}" width="{{ a.image.width }}" height="{{ a.image.height }}" loading="lazy" class="apr__img">
+            {%- else -%}
+              <div class="apr__img-placeholder">🌿</div>
+            {%- endif -%}
+          </div>
+          <div class="apr__card-body">
+            <div class="apr__meta">
+              {%- if display_tag != blank -%}<span class="apr__tag">{{ display_tag }}</span>{%- endif -%}
+              <span class="apr__read-time">{{ read_minutes }} min read</span>
+            </div>
+            <h3 class="apr__title">{{ a.title | escape }}</h3>
+            <span class="apr__read-link">Read <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </div>
+        </a>
+      {%- endif -%}
+      {%- assign hit_count = hit_count | plus: 1 -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if hit_count > 1 -%}</div>{%- endif -%}
+{%- endcapture -%}
+
+{%- comment -%} ── PASS 2: recipe-tagged fallback ── {%- endcomment -%}
+{%- if articles_html == blank -%}
+  {%- capture articles_html -%}
+    {%- assign hit_count = 0 -%}
+    {%- for a in blog_obj.articles -%}
+      {%- if hit_count >= show_count -%}{%- break -%}{%- endif -%}
+      {%- assign is_recipe = false -%}
+      {%- for tag in a.tags -%}
+        {%- assign tl = tag | downcase -%}
+        {%- if tl == 'recipe' or tl == 'recipes' -%}{%- assign is_recipe = true -%}{%- break -%}{%- endif -%}
+      {%- endfor -%}
+      {%- if is_recipe -%}
+        {%- assign word_count = a.content | strip_html | split: ' ' | size -%}
+        {%- assign read_minutes = word_count | divided_by: 200 | plus: 1 -%}
+        {%- assign display_tag = '' -%}
+        {%- for tag in a.tags -%}
+          {%- assign tl = tag | downcase -%}
+          {%- if tl != 'recipe' and tl != 'recipes' and tl != 'health' and tl != 'wellness' -%}
+            {%- assign display_tag = tag -%}{%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if display_tag == blank and a.tags.size > 0 -%}{%- assign display_tag = a.tags.first -%}{%- endif -%}
+        {%- if hit_count == 0 -%}
+          <a href="{{ a.url }}" class="apr__card apr__card--featured">
+            <div class="apr__img-wrap">
+              {%- if a.image -%}
+                <img src="{{ a.image | image_url: width: 900 }}" srcset="{{ a.image | image_url: width: 600 }} 600w, {{ a.image | image_url: width: 900 }} 900w, {{ a.image | image_url: width: 1200 }} 1200w" sizes="(max-width:749px) 92vw, (max-width:989px) 46vw, 38vw" alt="{{ a.image.alt | escape | default: a.title | escape }}" width="{{ a.image.width }}" height="{{ a.image.height }}" loading="lazy" class="apr__img">
+              {%- else -%}
+                <div class="apr__img-placeholder">🌿</div>
+              {%- endif -%}
+              <span class="apr__badge">Recipe</span>
+            </div>
+            <div class="apr__card-body">
+              <div class="apr__meta">
+                {%- if display_tag != blank -%}<span class="apr__tag">{{ display_tag }}</span>{%- endif -%}
+                <span class="apr__read-time">{{ read_minutes }} min read</span>
+              </div>
+              <h3 class="apr__title">{{ a.title | escape }}</h3>
+              {%- if a.excerpt_or_content != blank -%}<p class="apr__excerpt">{{ a.excerpt_or_content | strip_html | truncatewords: 30 }}</p>{%- endif -%}
+              <span class="apr__read-link">Read recipe <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </a>
+          {%- if show_count > 1 -%}<div class="apr__support-grid">{%- endif -%}
+        {%- else -%}
+          <a href="{{ a.url }}" class="apr__card apr__card--support">
+            <div class="apr__img-wrap">
+              {%- if a.image -%}
+                <img src="{{ a.image | image_url: width: 600 }}" srcset="{{ a.image | image_url: width: 400 }} 400w, {{ a.image | image_url: width: 600 }} 600w, {{ a.image | image_url: width: 800 }} 800w" sizes="(max-width:749px) 92vw, (max-width:989px) 46vw, 22vw" alt="{{ a.image.alt | escape | default: a.title | escape }}" width="{{ a.image.width }}" height="{{ a.image.height }}" loading="lazy" class="apr__img">
+              {%- else -%}
+                <div class="apr__img-placeholder">🌿</div>
+              {%- endif -%}
+            </div>
+            <div class="apr__card-body">
+              <div class="apr__meta">
+                {%- if display_tag != blank -%}<span class="apr__tag">{{ display_tag }}</span>{%- endif -%}
+                <span class="apr__read-time">{{ read_minutes }} min read</span>
+              </div>
+              <h3 class="apr__title">{{ a.title | escape }}</h3>
+              <span class="apr__read-link">Read <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+            </div>
+          </a>
+        {%- endif -%}
+        {%- assign hit_count = hit_count | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if hit_count > 1 -%}</div>{%- endif -%}
+  {%- endcapture -%}
+{%- endif -%}
+
+{%- comment -%} ── PASS 3: latest articles absolute fallback ── {%- endcomment -%}
+{%- if articles_html == blank -%}
+  {%- capture articles_html -%}
+    {%- assign hit_count = 0 -%}
+    {%- for a in blog_obj.articles -%}
+      {%- if hit_count >= show_count -%}{%- break -%}{%- endif -%}
+      {%- assign word_count = a.content | strip_html | split: ' ' | size -%}
+      {%- assign read_minutes = word_count | divided_by: 200 | plus: 1 -%}
+      {%- assign display_tag = '' -%}
+      {%- for tag in a.tags -%}
+        {%- assign tl = tag | downcase -%}
+        {%- if tl != 'recipe' and tl != 'recipes' and tl != 'health' and tl != 'wellness' -%}
+          {%- assign display_tag = tag -%}{%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if display_tag == blank and a.tags.size > 0 -%}{%- assign display_tag = a.tags.first -%}{%- endif -%}
+      {%- if hit_count == 0 -%}
+        <a href="{{ a.url }}" class="apr__card apr__card--featured">
+          <div class="apr__img-wrap">
+            {%- if a.image -%}
+              <img src="{{ a.image | image_url: width: 900 }}" srcset="{{ a.image | image_url: width: 600 }} 600w, {{ a.image | image_url: width: 900 }} 900w, {{ a.image | image_url: width: 1200 }} 1200w" sizes="(max-width:749px) 92vw, (max-width:989px) 46vw, 38vw" alt="{{ a.image.alt | escape | default: a.title | escape }}" width="{{ a.image.width }}" height="{{ a.image.height }}" loading="lazy" class="apr__img">
+            {%- else -%}
+              <div class="apr__img-placeholder">🌿</div>
+            {%- endif -%}
+          </div>
+          <div class="apr__card-body">
+            <div class="apr__meta">
+              {%- if display_tag != blank -%}<span class="apr__tag">{{ display_tag }}</span>{%- endif -%}
+              <span class="apr__read-time">{{ read_minutes }} min read</span>
+            </div>
+            <h3 class="apr__title">{{ a.title | escape }}</h3>
+            {%- if a.excerpt_or_content != blank -%}<p class="apr__excerpt">{{ a.excerpt_or_content | strip_html | truncatewords: 30 }}</p>{%- endif -%}
+            <span class="apr__read-link">Read article <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </div>
+        </a>
+        {%- if show_count > 1 -%}<div class="apr__support-grid">{%- endif -%}
+      {%- else -%}
+        <a href="{{ a.url }}" class="apr__card apr__card--support">
+          <div class="apr__img-wrap">
+            {%- if a.image -%}
+              <img src="{{ a.image | image_url: width: 600 }}" srcset="{{ a.image | image_url: width: 400 }} 400w, {{ a.image | image_url: width: 600 }} 600w, {{ a.image | image_url: width: 800 }} 800w" sizes="(max-width:749px) 92vw, (max-width:989px) 46vw, 22vw" alt="{{ a.image.alt | escape | default: a.title | escape }}" width="{{ a.image.width }}" height="{{ a.image.height }}" loading="lazy" class="apr__img">
+            {%- else -%}
+              <div class="apr__img-placeholder">🌿</div>
+            {%- endif -%}
+          </div>
+          <div class="apr__card-body">
+            <div class="apr__meta">
+              {%- if display_tag != blank -%}<span class="apr__tag">{{ display_tag }}</span>{%- endif -%}
+              <span class="apr__read-time">{{ read_minutes }} min read</span>
+            </div>
+            <h3 class="apr__title">{{ a.title | escape }}</h3>
+            <span class="apr__read-link">Read <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </div>
+        </a>
+      {%- endif -%}
+      {%- assign hit_count = hit_count | plus: 1 -%}
+    {%- endfor -%}
+    {%- if hit_count > 1 -%}</div>{%- endif -%}
+  {%- endcapture -%}
+{%- endif -%}
+
+{%- if articles_html != blank -%}
+
+{%- style -%}
+/* ─── ANNVAYA PRODUCT RECIPES ──────────────────────────────── */
+.{{ prefix }} {
+  background: {{ section.settings.bg_color | default: '#F5F2EB' }};
+  padding: {{ section.settings.padding_top | default: 52 }}px 0 {{ section.settings.padding_bottom | default: 64 }}px;
+  border-top: 1px solid rgba(74,63,48,0.08);
+}
+
+.{{ prefix }} .apr__inner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 5rem;
+}
+
+/* ── Header ── */
+.{{ prefix }} .apr__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.{{ prefix }} .apr__eyebrow {
+  font-family: var(--font-body-family);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C8963E;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.{{ prefix }} .apr__eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: #C8963E;
+  flex-shrink: 0;
+}
+
+.{{ prefix }} .apr__heading {
+  font-family: var(--font-heading-family);
+  font-size: 30px;
+  font-weight: 700;
+  color: #2C2416;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.{{ prefix }} .apr__all-link {
+  font-family: var(--font-body-family);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4A7358;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  transition: gap 0.2s ease;
+}
+.{{ prefix }} .apr__all-link:hover { gap: 10px; }
+
+/* ── Layout wrapper ── */
+.{{ prefix }} .apr__layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Support grid (wraps support cards) ── */
+.{{ prefix }} .apr__support-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* ── Featured card — horizontal ── */
+.{{ prefix }} .apr__card--featured {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(44,36,22,0.07);
+  transition: transform 0.24s ease, box-shadow 0.24s ease;
+  min-height: 260px;
+}
+.{{ prefix }} .apr__card--featured:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(44,36,22,0.12);
+}
+
+.{{ prefix }} .apr__card--featured .apr__img-wrap {
+  position: relative;
+  overflow: hidden;
+  background: #EDE8DF;
+}
+.{{ prefix }} .apr__card--featured .apr__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.55s ease;
+}
+.{{ prefix }} .apr__card--featured:hover .apr__img { transform: scale(1.05); }
+
+.{{ prefix }} .apr__card--featured .apr__img-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  background: linear-gradient(135deg, #EDE8DF, #DDD5C6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 52px;
+}
+
+.{{ prefix }} .apr__card--featured .apr__card-body {
+  padding: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+}
+
+.{{ prefix }} .apr__card--featured .apr__title {
+  font-size: 22px;
+}
+
+.{{ prefix }} .apr__card--featured .apr__excerpt {
+  font-family: var(--font-body-family);
+  font-size: 14px;
+  color: rgba(74,63,48,0.65);
+  line-height: 1.65;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Support cards — vertical ── */
+.{{ prefix }} .apr__card--support {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: 0 1px 4px rgba(44,36,22,0.06);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.{{ prefix }} .apr__card--support:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(44,36,22,0.10);
+}
+
+.{{ prefix }} .apr__card--support .apr__img-wrap {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #EDE8DF;
+  position: relative;
+  flex-shrink: 0;
+}
+.{{ prefix }} .apr__card--support .apr__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+.{{ prefix }} .apr__card--support:hover .apr__img { transform: scale(1.05); }
+
+.{{ prefix }} .apr__card--support .apr__img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #EDE8DF, #DDD5C6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+
+.{{ prefix }} .apr__card--support .apr__card-body {
+  padding: 18px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.{{ prefix }} .apr__card--support .apr__title {
+  font-size: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Shared card elements ── */
+.{{ prefix }} .apr__badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-family: var(--font-body-family);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(200,150,62,0.9);
+  color: #fff;
+}
+
+.{{ prefix }} .apr__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.{{ prefix }} .apr__tag {
+  font-family: var(--font-body-family);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #C8963E;
+}
+
+.{{ prefix }} .apr__read-time {
+  font-family: var(--font-body-family);
+  font-size: 11px;
+  color: rgba(74,63,48,0.4);
+}
+
+.{{ prefix }} .apr__title {
+  font-family: var(--font-heading-family);
+  font-weight: 700;
+  color: #2C2416;
+  line-height: 1.32;
+  margin: 0;
+  flex: 1;
+}
+
+.{{ prefix }} .apr__read-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-body-family);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4A7358;
+  margin-top: auto;
+  transition: gap 0.2s ease;
+}
+.{{ prefix }} .apr__card--featured:hover .apr__read-link,
+.{{ prefix }} .apr__card--support:hover .apr__read-link { gap: 9px; }
+
+/* ── Responsive ── */
+@media screen and (max-width: 749px) {
+  .{{ prefix }} { padding: 40px 0 52px; }
+  .{{ prefix }} .apr__inner { padding: 0 1.5rem; }
+  .{{ prefix }} .apr__heading { font-size: 22px; }
+  .{{ prefix }} .apr__header { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 28px; }
+  .{{ prefix }} .apr__card--featured { grid-template-columns: 1fr; min-height: unset; }
+  .{{ prefix }} .apr__card--featured .apr__img-wrap { aspect-ratio: 4 / 3; height: auto; }
+  .{{ prefix }} .apr__card--featured .apr__card-body { padding: 20px 20px 24px; gap: 10px; }
+  .{{ prefix }} .apr__card--featured .apr__title { font-size: 18px; }
+  .{{ prefix }} .apr__card--featured .apr__excerpt { -webkit-line-clamp: 2; }
+  .{{ prefix }} .apr__support-grid { grid-template-columns: 1fr; }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .{{ prefix }} .apr__inner { padding: 0 3rem; }
+  .{{ prefix }} .apr__card--featured { grid-template-columns: 260px 1fr; }
+  .{{ prefix }} .apr__card--featured .apr__card-body { padding: 24px 28px; }
+  .{{ prefix }} .apr__support-grid { grid-template-columns: repeat(2, 1fr); }
+}
+{%- endstyle -%}
+
+<div class="{{ prefix }}">
+  <div class="apr__inner">
+    <div class="apr__header">
+      <div>
+        <p class="apr__eyebrow">{{ section.settings.eyebrow | default: 'From Our Kitchen' }}</p>
+        <h2 class="apr__heading">{{ section.settings.heading | default: 'Recipes Using This Product' }}</h2>
+      </div>
+      <a href="{{ blog_obj.url }}" class="apr__all-link">
+        All articles
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="apr__layout">
+      {{ articles_html }}
+    </div>
+  </div>
+</div>
+
+{%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product Recipes",
+  "tag": "section",
+  "class": "annvaya-product-recipes",
+  "settings": [
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog to pull recipes from"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "From Our Kitchen"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Recipes Using This Product"
+    },
+    {
+      "type": "range",
+      "id": "articles_to_show",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Articles to show",
+      "default": 3
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#F5F2EB"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Recipes"
+    }
+  ]
+}
+{% endschema %}

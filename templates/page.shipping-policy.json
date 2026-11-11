@@ -1,0 +1,138 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "legal": {
+      "type": "annvaya-legal-page",
+      "settings": {
+        "eyebrow": "Legal",
+        "page_heading": "Shipping Policy",
+        "page_subheading": "Everything you need to know about how AnnVaya delivers to your door across India.",
+        "last_updated": "August 2026",
+        "hero_bg_color": "#2C3B28",
+        "hero_text_color": "#F5F2EB",
+        "hero_padding_top": 60,
+        "hero_padding_bottom": 60,
+        "body_bg_color": "#F5F2EB",
+        "padding_top": 48,
+        "padding_bottom": 64,
+        "company_name": "AnnVaya",
+        "legal_entity_name": "",
+        "registered_address": "",
+        "gstin": "",
+        "fssai_license": "",
+        "pan": "",
+        "cin": "",
+        "email": "hello@annvaya.com",
+        "phone": "",
+        "grievance_name": "",
+        "grievance_designation": "Grievance Officer",
+        "grievance_email": "",
+        "grievance_phone": "",
+        "grievance_address": ""
+      },
+      "blocks": {
+        "info_card": {
+          "type": "info_card",
+          "settings": {}
+        },
+        "s1": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "1. Delivery Areas and Serviceability",
+            "content": "<p>AnnVaya ships across India through reputed courier and logistics partners. We currently do <strong>not</strong> offer international shipping. Our product is made in India, for India.</p><p><strong>Pincode Serviceability:</strong> Delivery availability depends on your pincode. Not all pincodes across India may be serviceable by our courier partners at all times. You can check serviceability by entering your pincode on the product page or at checkout before completing your order. If your pincode is not serviceable, we recommend checking back in a few weeks as we continue to expand our delivery network.</p><p><strong>Remote and Hilly Areas:</strong> Delivery to remote, rural, hilly, or island territories (including parts of North-East India, the Andaman and Nicobar Islands, and Lakshadweep) may take longer than our standard timelines. Please refer to Section 4 for estimated delivery timelines by zone.</p><p>If you are unsure about serviceability or have a special delivery requirement, please contact us at <a href=\"mailto:hello@annvaya.com\">hello@annvaya.com</a> before placing your order.</p>"
+          }
+        },
+        "s2": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "2. Shipping Charges",
+            "content": "<p>We keep our shipping simple and transparent. There are no hidden charges.</p><ul><li><strong>Orders above \u20B9499:</strong> Free shipping</li><li><strong>Orders below \u20B9499:</strong> \u20B960 flat shipping fee</li><li><strong>Remote \/ hilly pincodes:</strong> Charges may vary and will be displayed at checkout before payment</li></ul><p><strong>GST on Shipping:</strong> GST at 18% is applicable on shipping charges. Where shipping charges are levied, the displayed shipping fee at checkout is <strong>inclusive of GST</strong>. There are no additional taxes on shipping beyond what is shown at checkout.</p><p><strong>No hidden charges:</strong> The total amount displayed at checkout is the final amount you will be charged. We do not add any handling fees, processing fees, or convenience charges beyond what is shown on the checkout page.</p>"
+          }
+        },
+        "s3": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "3. Order Processing Time",
+            "content": "<p>After you place and pay for your order, we process and pack it from our fulfilment location. The following timelines apply:</p><ul><li><strong>Standard orders:</strong> Processed within <strong>1\u20132 business days</strong> of payment confirmation.</li><li><strong>Orders placed on Sundays or public holidays:</strong> Will be processed on the next business day.</li><li><strong>Custom, bundle, or large-volume orders:</strong> May require <strong>2\u20133 business days</strong> for processing due to special packaging requirements.</li></ul><p><strong>Order Confirmation Email:</strong> You will receive an order confirmation email immediately after your payment is successful. This email confirms that we have received your order and payment, but does not yet confirm dispatch.</p><p><strong>Dispatch Confirmation:</strong> A separate dispatch confirmation email, including your courier tracking number and a link to track your shipment, will be sent within <strong>24 hours of dispatch</strong>.</p><p>Business days are Monday through Saturday, excluding national public holidays. If you have not received your dispatch email within 3 business days of placing your order, please contact us at <a href=\"mailto:hello@annvaya.com\">hello@annvaya.com</a>.</p>"
+          }
+        },
+        "s4": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "4. Estimated Delivery Timelines",
+            "content": "<p>Estimated delivery timelines from the date of dispatch are as follows:</p><ul><li><strong>Metro cities</strong> (Mumbai, Delhi NCR, Bangalore, Chennai, Hyderabad, Kolkata, Pune): 3\u20135 business days</li><li><strong>Tier 2 and Tier 3 cities and towns:</strong> 5\u20137 business days</li><li><strong>Remote \/ rural areas and North-East India:</strong> 7\u201312 business days</li><li><strong>Andaman \u0026 Nicobar, Lakshadweep:</strong> 10\u201315 business days (subject to serviceability)</li></ul><p><strong>Please note:</strong> These timelines are estimates based on typical courier performance and are not guaranteed delivery dates. Actual delivery may vary due to:</p><ul><li>Courier operational delays or backlogs</li><li>Public holidays or regional shutdowns</li><li>Extreme weather events or natural calamities</li><li>Force majeure events beyond our or the courier\u2019s control</li><li>High-volume periods (such as festive sales)</li></ul><p>A delay in delivery beyond the estimated timeline does not automatically entitle you to a refund. However, <strong>significant and unexplained delays</strong> (beyond 150% of the estimated timeline without a valid force majeure reason) may entitle you to a refund under the <strong>Consumer Protection Act, 2019</strong>. In such cases, contact us and we will investigate and resolve promptly.</p>"
+          }
+        },
+        "s5": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "5. Order Tracking",
+            "content": "<p>Once your order is dispatched, you can track it using the following methods:</p><ul><li><strong>Dispatch email:</strong> Your dispatch confirmation email will contain your courier tracking number and a direct link to the courier partner\u2019s tracking page.</li><li><strong>SMS:</strong> In many cases, our courier partner will also send tracking updates via SMS to your registered mobile number.</li><li><strong>Courier partner\u2019s website:</strong> You can directly visit the courier partner\u2019s website and enter your tracking number to get real-time status updates.</li></ul><p><strong>Please note:</strong> Tracking information may take <strong>12\u201324 hours</strong> to reflect on the courier\u2019s tracking system after dispatch. If your tracking link shows no movement for more than 24 hours after receiving your dispatch email, please contact us and we will follow up with the courier.</p><p>For tracking queries, email us at <a href=\"mailto:hello@annvaya.com\">hello@annvaya.com</a> with your order number and we will assist you within 1 business day.</p>"
+          }
+        },
+        "s6": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "6. Failed Delivery / Non-Delivery Report (NDR)",
+            "content": "<p>A Non-Delivery Report (NDR) is generated when the courier is unable to deliver your package. This can happen for the following reasons:</p><ul><li>Incorrect or incomplete delivery address provided at checkout</li><li>Recipient not available or not reachable at the delivery address</li><li>Delivery refused by the recipient at the door</li><li>Gated community or building access restrictions</li></ul><p><strong>Courier Attempts:</strong> Our courier partners will typically attempt delivery <strong>2\u20133 times</strong> on different days before generating an NDR and returning the package to us.</p><p><strong>Reattempt Window:</strong> After a failed delivery attempt, the courier will hold your package for <strong>3\u20135 days</strong> at the nearest hub. You may contact the courier directly using your tracking number to schedule a re-delivery during this window.</p><p><strong>Return to Origin (RTO):</strong> If the package cannot be delivered within the hold period and is returned to us, we will contact you to arrange re-dispatch. Re-delivery charges may apply for packages returned due to incorrect address, recipient unavailability, or refusal.</p><p><strong>Important:</strong> Please ensure that the delivery address you provide at checkout is complete and accurate, and that a person is available to receive the package during standard delivery hours (9 AM \u2013 7 PM). A reachable mobile number is essential for our courier to contact you before delivery.</p>"
+          }
+        },
+        "s7": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "7. Cash on Delivery (COD)",
+            "content": "<p>We offer Cash on Delivery (COD) as a payment option subject to the following conditions:</p><ul><li>COD is available on orders <strong>up to \u20B92,000</strong> in value.</li><li>COD is available only in <strong>serviceable pincodes</strong> for COD delivery. This is determined by our courier partner\u2019s COD network and is shown at checkout.</li><li>A <strong>COD convenience fee of \u20B940</strong> is charged and displayed transparently at checkout. This fee covers the cost of cash collection and remittance by our courier partner.</li><li>We encourage customers to <strong>keep exact change</strong> ready for COD orders to facilitate smooth delivery.</li></ul><p><strong>COD Refusal Policy:</strong><br>If you refuse to accept a COD delivery after the order has been dispatched, this constitutes a breach of your purchase agreement. The product has been picked, packed, and shipped at cost to us. In such cases:</p><ul><li>You may be responsible for the forward and reverse logistics costs incurred.</li><li>Repeated refusals of COD deliveries from the same account may result in your account being <strong>restricted to prepaid orders only</strong> on future purchases.</li></ul><p>This COD refusal policy does not apply to situations where you are refusing a delivery for a valid reason such as visibly damaged packaging. Please report such issues as described in Section 8.</p>"
+          }
+        },
+        "s8": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "8. Damaged in Transit or Lost Shipment",
+            "content": "<p><strong>Package Damaged in Transit:</strong><br>If your package arrives with visibly damaged outer packaging, please follow these steps:</p><ol><li>Take clear photographs of the outer packaging before opening it.</li><li>Open the package carefully and photograph the product(s) inside.</li><li>Email us at <a href=\"mailto:hello@annvaya.com\">hello@annvaya.com</a> within <strong>48 hours of delivery</strong> with your order number and the photographs.</li><li>We will arrange a replacement at our cost or issue a full refund upon reviewing your report.</li></ol><p>Do not discard the original packaging until your complaint has been confirmed by us, as it may be required for courier insurance claims.</p><p><strong>Tracking Shows \u201cDelivered\u201d But Package Not Received:</strong><br>If the tracking status shows \u201cDelivered\u201d but you have not received the package:</p><ol><li>Check with neighbours, building security, or any other person at your delivery address who may have accepted the package.</li><li>If still not found, email us within <strong>48 hours</strong> of the reported delivery date with your order number.</li><li>We will initiate an investigation with the courier, which typically takes <strong>3\u20137 business days</strong>.</li><li>If the shipment is confirmed lost, we will re-dispatch your order or issue a full refund within <strong>7 business days</strong> of the courier confirming the loss.</li></ol>"
+          }
+        },
+        "s9": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "9. FSSAI Shelf Life Policy for Dispatched Products",
+            "content": "<p>In accordance with <strong>FSSAI guidelines for e-commerce food businesses</strong>, we have a strict shelf life policy for all products dispatched to customers:</p><ul><li>We ensure that all products delivered to consumers have a <strong>minimum of 30% of total shelf life remaining</strong> at the time of delivery, OR at least <strong>45 days before the best-before date</strong>, whichever is greater and applicable to the specific product.</li><li>Products that do not meet this shelf life threshold will not be dispatched. Such items are either returned to our production unit for quality assessment or disposed of appropriately.</li><li>The <strong>best-before date</strong> is printed on every AnnVaya product package. Please check this date upon receiving your order.</li><li>Best-before dates indicate quality, not safety. A product consumed after its best-before date may have diminished sensory qualities but is not necessarily unsafe if it has been stored correctly. However, we recommend consuming products before the printed date for the best experience.</li></ul><p>If you receive a product where the best-before date is less than 45 days away and you believe this does not meet the above standard, please contact us within 48 hours of delivery with a photograph of the label and we will address it promptly.</p>"
+          }
+        },
+        "s10": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "10. Consumer Protection and Shipping Grievances",
+            "content": "<p>Shipping delays, failed deliveries, and damaged shipments are addressed in accordance with the <strong>Consumer Protection Act, 2019</strong> and the <strong>Consumer Protection (E-Commerce) Rules, 2020</strong>.</p><p><strong>Your rights in relation to delivery:</strong></p><ul><li>You are entitled to receive the product you ordered within a reasonable time, in the condition described, and at the price agreed at checkout.</li><li>Significant and unexplained delivery delays that cause material inconvenience may entitle you to a full refund even in the absence of a policy-defined trigger.</li><li>You are entitled to a full refund for orders confirmed as lost in transit.</li></ul><p>If you have a shipping-related complaint that has not been resolved by our customer support team, please escalate to our Grievance Officer (details below). We will respond within 48 hours and resolve within 30 days as required by the IT Rules, 2021.</p><p>For unresolved disputes, you may also approach:</p><ul><li>The <strong>District Consumer Disputes Redressal Commission</strong> in your jurisdiction under the Consumer Protection Act, 2019.</li><li>The <strong>National Consumer Helpline</strong> at <strong>1800-11-4000</strong> (toll-free).</li></ul>"
+          }
+        },
+        "grievance_block": {
+          "type": "grievance_block",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "info_card",
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "grievance_block"
+      ]
+    }
+  },
+  "order": ["legal"]
+}

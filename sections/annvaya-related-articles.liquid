@@ -1,0 +1,355 @@
+{%- comment -%}
+  ANNVAYA — Related Articles Section
+  Shows articles from the same blog that share at least one tag with the current article.
+  Falls back to most recent articles (excluding current) if no tag matches found.
+  Placed after main-article in templates/article.json.
+{%- endcomment -%}
+
+{%- liquid
+  assign related_limit = section.settings.articles_to_show | default: 3
+-%}
+
+{%- comment -%} Pass 1: build related card HTML, track count {%- endcomment -%}
+{%- capture related_html -%}
+  {%- assign found_count = 0 -%}
+  {%- for a in blog.articles -%}
+    {%- if a.id == article.id -%}{%- continue -%}{%- endif -%}
+    {%- assign is_related = false -%}
+    {%- for tag in article.tags -%}
+      {%- if a.tags contains tag -%}
+        {%- assign is_related = true -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if is_related -%}
+      <a href="{{ a.url }}" class="ara__card">
+        <div class="ara__card-img-wrap">
+          {%- if a.image -%}
+            <img src="{{ a.image | image_url: width: 600 }}" srcset="{{ a.image | image_url: width: 400 }} 400w, {{ a.image | image_url: width: 600 }} 600w, {{ a.image | image_url: width: 900 }} 900w" sizes="(max-width:749px) 90vw, 30vw" alt="{{ a.image.alt | escape | default: a.title | escape }}" width="{{ a.image.width }}" height="{{ a.image.height }}" loading="lazy" class="ara__card-img">
+          {%- else -%}
+            <div class="ara__card-img-placeholder"></div>
+          {%- endif -%}
+        </div>
+        <div class="ara__card-body">
+          {%- if a.tags.size > 0 -%}<p class="ara__card-tag">{{ a.tags.first }}</p>{%- endif -%}
+          <h3 class="ara__card-title">{{ a.title | escape }}</h3>
+          {%- if a.excerpt_or_content != blank -%}<p class="ara__card-excerpt">{{ a.excerpt_or_content | strip_html | truncatewords: 18 }}</p>{%- endif -%}
+          <div class="ara__card-meta">
+            <span>{{ a.published_at | date: '%b %d, %Y' }}</span>
+            <span class="ara__card-read">Read →</span>
+          </div>
+        </div>
+      </a>
+      {%- assign found_count = found_count | plus: 1 -%}
+      {%- if found_count >= related_limit -%}{%- break -%}{%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- comment -%} Pass 2: fallback to latest articles if no tag matches {%- endcomment -%}
+{%- if found_count == 0 -%}
+  {%- capture related_html -%}
+    {%- assign fallback_count = 0 -%}
+    {%- for a in blog.articles -%}
+      {%- if a.id == article.id -%}{%- continue -%}{%- endif -%}
+      <a href="{{ a.url }}" class="ara__card">
+        <div class="ara__card-img-wrap">
+          {%- if a.image -%}
+            <img src="{{ a.image | image_url: width: 600 }}" srcset="{{ a.image | image_url: width: 400 }} 400w, {{ a.image | image_url: width: 600 }} 600w, {{ a.image | image_url: width: 900 }} 900w" sizes="(max-width:749px) 90vw, 30vw" alt="{{ a.image.alt | escape | default: a.title | escape }}" width="{{ a.image.width }}" height="{{ a.image.height }}" loading="lazy" class="ara__card-img">
+          {%- else -%}
+            <div class="ara__card-img-placeholder"></div>
+          {%- endif -%}
+        </div>
+        <div class="ara__card-body">
+          {%- if a.tags.size > 0 -%}<p class="ara__card-tag">{{ a.tags.first }}</p>{%- endif -%}
+          <h3 class="ara__card-title">{{ a.title | escape }}</h3>
+          {%- if a.excerpt_or_content != blank -%}<p class="ara__card-excerpt">{{ a.excerpt_or_content | strip_html | truncatewords: 18 }}</p>{%- endif -%}
+          <div class="ara__card-meta">
+            <span>{{ a.published_at | date: '%b %d, %Y' }}</span>
+            <span class="ara__card-read">Read →</span>
+          </div>
+        </div>
+      </a>
+      {%- assign fallback_count = fallback_count | plus: 1 -%}
+      {%- if fallback_count >= related_limit -%}{%- break -%}{%- endif -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+{%- endif -%}
+
+{%- if related_html != blank -%}
+
+{%- style -%}
+/* ─── ANNVAYA RELATED ARTICLES ──────────────────────────────────── */
+.ara-{{ section.id }} {
+  background: #F5F2EB;
+  padding: {{ section.settings.padding_top | default: 60 }}px 0 {{ section.settings.padding_bottom | default: 60 }}px;
+  border-top: 1px solid rgba(74, 63, 48, 0.1);
+}
+
+.ara-{{ section.id }} .ara__inner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 5rem;
+}
+
+.ara-{{ section.id }} .ara__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  gap: 16px;
+}
+
+.ara-{{ section.id }} .ara__eyebrow {
+  font-family: var(--font-body-family);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C8963E;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.ara-{{ section.id }} .ara__eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: #C8963E;
+  flex-shrink: 0;
+}
+
+.ara-{{ section.id }} .ara__title {
+  font-family: var(--font-heading-family);
+  font-size: 28px;
+  font-weight: 700;
+  color: #2C2416;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.ara-{{ section.id }} .ara__all-link {
+  font-family: var(--font-body-family);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4A7358;
+  text-decoration: none;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.2s ease;
+  flex-shrink: 0;
+}
+
+.ara-{{ section.id }} .ara__all-link:hover { gap: 12px; }
+
+.ara-{{ section.id }} .ara__grid {
+  display: grid;
+  grid-template-columns: repeat({{ related_limit }}, 1fr);
+  gap: 24px;
+}
+
+/* Article cards */
+.ara-{{ section.id }} .ara__card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 1px 4px rgba(44, 36, 22, 0.06);
+}
+
+.ara-{{ section.id }} .ara__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(44, 36, 22, 0.10);
+}
+
+.ara-{{ section.id }} .ara__card-img-wrap {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #EDE8DF;
+}
+
+.ara-{{ section.id }} .ara__card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.ara-{{ section.id }} .ara__card:hover .ara__card-img { transform: scale(1.04); }
+
+.ara-{{ section.id }} .ara__card-img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #EDE8DF 0%, #DDD5C6 100%);
+}
+
+.ara-{{ section.id }} .ara__card-body {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.ara-{{ section.id }} .ara__card-tag {
+  font-family: var(--font-body-family);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #C8963E;
+  margin-bottom: 8px;
+}
+
+.ara-{{ section.id }} .ara__card-title {
+  font-family: var(--font-heading-family);
+  font-size: 17px;
+  font-weight: 700;
+  color: #2C2416;
+  line-height: 1.35;
+  margin: 0 0 10px;
+  flex: 1;
+}
+
+.ara-{{ section.id }} .ara__card-excerpt {
+  font-family: var(--font-body-family);
+  font-size: 14px;
+  color: rgba(74, 63, 48, 0.7);
+  line-height: 1.55;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ara-{{ section.id }} .ara__card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-body-family);
+  font-size: 12px;
+  color: rgba(74, 63, 48, 0.5);
+  margin-top: auto;
+}
+
+.ara-{{ section.id }} .ara__card-read {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4A7358;
+}
+
+@media screen and (max-width: 749px) {
+  .ara-{{ section.id }} {
+    padding: 44px 0 52px;
+  }
+  .ara-{{ section.id }} .ara__inner {
+    padding: 0 1.5rem;
+  }
+  .ara-{{ section.id }} .ara__title {
+    font-size: 22px;
+  }
+  .ara-{{ section.id }} .ara__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .ara-{{ section.id }} .ara__header {
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .ara-{{ section.id }} .ara__inner {
+    padding: 0 5rem;
+  }
+  .ara-{{ section.id }} .ara__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+{%- endstyle -%}
+
+<div class="ara-{{ section.id }}">
+  <div class="ara__inner">
+    <div class="ara__header">
+      <div>
+        <p class="ara__eyebrow">{{ section.settings.eyebrow | default: 'More Reads' }}</p>
+        <h2 class="ara__title">{{ section.settings.heading | default: 'You Might Also Like' }}</h2>
+      </div>
+      <a href="{{ blog.url }}" class="ara__all-link">All articles <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="ara__grid">
+      {{ related_html }}
+    </div>
+  </div>
+</div>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Related Articles",
+  "tag": "section",
+  "class": "annvaya-related-articles",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "More Reads"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "You Might Also Like"
+    },
+    {
+      "type": "range",
+      "id": "articles_to_show",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Articles to show",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Related Articles"
+    }
+  ]
+}
+{% endschema %}

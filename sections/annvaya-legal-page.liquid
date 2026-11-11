@@ -1,0 +1,1002 @@
+{% comment %}
+  AnnVaya Legal Page v3 — Clean document layout, no cards for policy sections.
+  Policy sections render as a flowing document with TOC navigation.
+  Info card + grievance block remain distinct. Notice blocks stay as callouts.
+{% endcomment %}
+
+{%- liquid
+  assign prefix = 'alp-' | append: section.id
+  assign hero_pt = section.settings.hero_padding_top | default: 60
+  assign hero_pb = section.settings.hero_padding_bottom | default: 60
+  assign body_pt = section.settings.padding_top | default: 48
+  assign body_pb = section.settings.padding_bottom | default: 64
+
+  comment
+    Build TOC from policy_section blocks
+  endcomment
+  assign toc_items = ''
+  for block in section.blocks
+    if block.type == 'policy_section' and block.settings.heading != blank
+      assign toc_items = toc_items | append: block.settings.heading | append: '|||'
+    endif
+  endfor
+  assign toc_list = toc_items | split: '|||'
+-%}
+
+<style>
+/* ─── HERO ──────────────────────────────────────────────────────── */
+.{{ prefix }}-hero {
+  background-color: {{ section.settings.hero_bg_color }};
+  color: {{ section.settings.hero_text_color }};
+  padding-top: {{ hero_pt }}px;
+  padding-bottom: {{ hero_pb }}px;
+  position: relative;
+  overflow: hidden;
+}
+
+.{{ prefix }}-hero::after {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 150, 62, 0.10);
+  pointer-events: none;
+}
+
+.{{ prefix }}-hero__inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.{{ prefix }}-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body-family);
+  font-size: 12px;
+  color: rgba(255,255,255,0.38);
+  margin-bottom: 22px;
+}
+
+.{{ prefix }}-breadcrumb a {
+  color: rgba(255,255,255,0.38);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.{{ prefix }}-breadcrumb a:hover { color: rgba(255,255,255,0.70); }
+
+.{{ prefix }}-breadcrumb__sep { font-size: 10px; }
+
+.{{ prefix }}-breadcrumb__current { color: #C8963E; }
+
+.{{ prefix }}-hero__eyebrow {
+  font-family: var(--font-body-family);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C8963E;
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.{{ prefix }}-hero__eyebrow::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: #C8963E;
+  flex-shrink: 0;
+}
+
+.{{ prefix }}-hero__heading {
+  font-family: var(--font-heading-family);
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.12;
+  margin: 0 0 16px;
+  color: {{ section.settings.hero_text_color }};
+  letter-spacing: -0.02em;
+}
+
+.{{ prefix }}-hero__sub {
+  font-family: var(--font-body-family);
+  font-size: 16px;
+  line-height: 1.68;
+  color: rgba(255,255,255,0.68);
+  margin: 0 0 20px;
+  max-width: 600px;
+}
+
+.{{ prefix }}-hero__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body-family);
+  font-size: 12px;
+  color: rgba(255,255,255,0.42);
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.10);
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin: 0;
+}
+
+/* ─── BODY WRAPPER ──────────────────────────────────────────────── */
+.{{ prefix }}-body {
+  background-color: {{ section.settings.body_bg_color }};
+  padding-top: {{ body_pt }}px;
+  padding-bottom: {{ body_pb }}px;
+}
+
+/* Two-column layout on desktop: sidebar TOC + content */
+.{{ prefix }}-layout {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 0 56px;
+  align-items: start;
+}
+
+.{{ prefix }}-body__inner {
+  min-width: 0;
+}
+
+/* ─── SIDEBAR TOC (desktop sticky) ─────────────────────────────── */
+.{{ prefix }}-sidebar {
+  position: sticky;
+  top: 28px;
+}
+
+.{{ prefix }}-toc {
+  background: #FFFFFF;
+  border: 1px solid #E8E0D4;
+  border-top: 3px solid #C8963E;
+  border-radius: 0 0 10px 10px;
+  padding: 20px 22px;
+}
+
+.{{ prefix }}-toc__label {
+  font-family: var(--font-body-family);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #C8963E;
+  margin: 0 0 14px;
+}
+
+.{{ prefix }}-toc__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.{{ prefix }}-toc__link {
+  font-family: var(--font-body-family);
+  font-size: 13px;
+  color: #6B5E4E;
+  text-decoration: none;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  transition: background 0.15s, color 0.15s;
+  line-height: 1.45;
+}
+
+.{{ prefix }}-toc__link:hover {
+  background: rgba(74,115,88,0.08);
+  color: #4A7358;
+}
+
+.{{ prefix }}-toc__link.is-active {
+  background: rgba(74,115,88,0.10);
+  color: #4A7358;
+  font-weight: 600;
+}
+
+.{{ prefix }}-toc__link-num {
+  font-size: 10px;
+  font-weight: 700;
+  color: #C8963E;
+  min-width: 16px;
+  flex-shrink: 0;
+}
+
+/* ─── INFO CARD (kept as card — distinct from policy text) ──────── */
+.{{ prefix }}-info-card {
+  background: #FFFFFF;
+  border: 1px solid #E8E0D4;
+  border-left: 4px solid #4A7358;
+  border-radius: 0 10px 10px 0;
+  padding: 24px 28px;
+  margin-bottom: 40px;
+  box-shadow: 0 2px 8px rgba(44,36,22,0.05);
+}
+
+.{{ prefix }}-info-card__heading {
+  font-family: var(--font-heading-family);
+  font-size: 15px;
+  font-weight: 700;
+  color: #2C3B28;
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #F0EAE0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.{{ prefix }}-info-card__heading::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4A7358;
+  flex-shrink: 0;
+}
+
+.{{ prefix }}-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 32px;
+}
+
+.{{ prefix }}-info-item__label {
+  font-family: var(--font-body-family);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: #8A7A68;
+  margin: 0 0 3px;
+}
+
+.{{ prefix }}-info-item__value {
+  font-family: var(--font-body-family);
+  font-size: 14px;
+  font-weight: 500;
+  color: #2C3B28;
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* ─── NOTICE BLOCKS ─────────────────────────────────────────────── */
+.{{ prefix }}-notice {
+  border-radius: 8px;
+  padding: 18px 22px;
+  border-left: 4px solid;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
+.{{ prefix }}-notice__icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+}
+
+.{{ prefix }}-notice__body { flex: 1; min-width: 0; }
+
+.{{ prefix }}-notice--amber { background-color: #FEF3C7; border-color: #D97706; }
+.{{ prefix }}-notice--amber .{{ prefix }}-notice__icon { color: #D97706; }
+.{{ prefix }}-notice--amber .{{ prefix }}-notice__heading { color: #92400E; }
+.{{ prefix }}-notice--amber .{{ prefix }}-notice__content { color: #78350F; }
+
+.{{ prefix }}-notice--green { background-color: #ECFDF5; border-color: #059669; }
+.{{ prefix }}-notice--green .{{ prefix }}-notice__icon { color: #059669; }
+.{{ prefix }}-notice--green .{{ prefix }}-notice__heading { color: #065F46; }
+.{{ prefix }}-notice--green .{{ prefix }}-notice__content { color: #047857; }
+
+.{{ prefix }}-notice--red { background-color: #FEF2F2; border-color: #DC2626; }
+.{{ prefix }}-notice--red .{{ prefix }}-notice__icon { color: #DC2626; }
+.{{ prefix }}-notice--red .{{ prefix }}-notice__heading { color: #991B1B; }
+.{{ prefix }}-notice--red .{{ prefix }}-notice__content { color: #7F1D1D; }
+
+.{{ prefix }}-notice__heading {
+  font-family: var(--font-heading-family);
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.{{ prefix }}-notice__content {
+  font-family: var(--font-body-family);
+  font-size: 14px;
+  line-height: 1.68;
+  margin: 0;
+}
+
+.{{ prefix }}-notice__content p { margin: 0 0 8px; }
+.{{ prefix }}-notice__content p:last-child { margin-bottom: 0; }
+
+/* ─── POLICY SECTIONS — document style, no card ─────────────────── */
+.{{ prefix }}-doc-section {
+  padding: 36px 0;
+  border-bottom: 1px solid #E8E0D4;
+  scroll-margin-top: 80px;
+}
+
+.{{ prefix }}-doc-section:first-of-type { padding-top: 0; }
+.{{ prefix }}-doc-section:last-of-type { border-bottom: none; }
+
+.{{ prefix }}-doc-section__header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.{{ prefix }}-doc-section__num {
+  font-family: var(--font-body-family);
+  font-size: 11px;
+  font-weight: 800;
+  color: #C8963E;
+  background: rgba(200, 150, 62, 0.10);
+  border: 1px solid rgba(200, 150, 62, 0.25);
+  border-radius: 4px;
+  padding: 3px 9px;
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+}
+
+.{{ prefix }}-doc-section__heading {
+  font-family: var(--font-heading-family);
+  font-size: 19px;
+  font-weight: 700;
+  color: #2C3B28;
+  margin: 0;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.{{ prefix }}-doc-section__content {
+  font-family: var(--font-body-family);
+  font-size: 15px;
+  line-height: 1.78;
+  color: #5C5044;
+}
+
+.{{ prefix }}-doc-section__content p { margin: 0 0 14px; }
+.{{ prefix }}-doc-section__content p:last-child { margin-bottom: 0; }
+.{{ prefix }}-doc-section__content ul,
+.{{ prefix }}-doc-section__content ol {
+  margin: 10px 0 16px;
+  padding-left: 24px;
+}
+.{{ prefix }}-doc-section__content li { margin-bottom: 8px; line-height: 1.65; }
+.{{ prefix }}-doc-section__content li:last-child { margin-bottom: 0; }
+.{{ prefix }}-doc-section__content strong { color: #2C3B28; font-weight: 600; }
+.{{ prefix }}-doc-section__content a { color: #4A7358; text-decoration: underline; }
+.{{ prefix }}-doc-section__content a:hover { color: #2C3B28; }
+.{{ prefix }}-doc-section__content ol li { list-style-type: decimal; }
+
+/* ─── GRIEVANCE BLOCK ───────────────────────────────────────────── */
+.{{ prefix }}-grievance {
+  background: linear-gradient(135deg, #2C3B28 0%, #1E2A1C 100%);
+  border-radius: 12px;
+  padding: 36px 40px;
+  color: #F5F2EB;
+  margin-top: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.{{ prefix }}-grievance::before {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  right: -50px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 1px solid rgba(200,150,62,0.10);
+  pointer-events: none;
+}
+
+.{{ prefix }}-grievance__eyebrow {
+  font-family: var(--font-body-family);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #C8963E;
+  margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.{{ prefix }}-grievance__eyebrow::before {
+  content: '';
+  display: block;
+  width: 16px;
+  height: 1.5px;
+  background: #C8963E;
+}
+
+.{{ prefix }}-grievance__heading {
+  font-family: var(--font-heading-family);
+  font-size: 22px;
+  font-weight: 700;
+  color: #F5F2EB;
+  margin: 0 0 4px;
+}
+
+.{{ prefix }}-grievance__sub {
+  font-family: var(--font-body-family);
+  font-size: 13px;
+  color: rgba(200,150,62,0.75);
+  margin: 0 0 24px;
+  font-style: italic;
+}
+
+.{{ prefix }}-grievance-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 36px;
+}
+
+.{{ prefix }}-grievance-item__label {
+  font-family: var(--font-body-family);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: #7A9E84;
+  margin: 0 0 4px;
+}
+
+.{{ prefix }}-grievance-item__value {
+  font-family: var(--font-body-family);
+  font-size: 14px;
+  font-weight: 500;
+  color: #F5F2EB;
+  margin: 0;
+  line-height: 1.55;
+}
+
+.{{ prefix }}-grievance-item__value a { color: #C8963E; text-decoration: underline; }
+
+.{{ prefix }}-grievance__sla {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-family: var(--font-body-family);
+  font-size: 13px;
+  color: rgba(245,242,235,0.48);
+  line-height: 1.68;
+}
+
+.{{ prefix }}-grievance__sla strong { color: #C8963E; }
+
+/* ─── OTHER POLICIES STRIP ──────────────────────────────────────── */
+.{{ prefix }}-other-policies {
+  background-color: {{ section.settings.body_bg_color }};
+  border-top: 1px solid #E8E0D4;
+  padding: 32px 40px;
+}
+
+.{{ prefix }}-other-policies__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.{{ prefix }}-other-policies__label {
+  font-family: var(--font-body-family);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8A7A68;
+  margin: 0 0 14px;
+}
+
+.{{ prefix }}-other-policies__links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.{{ prefix }}-other-policies__link {
+  font-family: var(--font-body-family);
+  font-size: 13px;
+  font-weight: 600;
+  color: #4A7358;
+  text-decoration: none;
+  padding: 8px 18px;
+  border: 1.5px solid rgba(74,115,88,0.35);
+  border-radius: 20px;
+  transition: all 0.2s;
+  background: transparent;
+}
+
+.{{ prefix }}-other-policies__link:hover {
+  background: #4A7358;
+  border-color: #4A7358;
+  color: #F5F2EB;
+}
+
+.{{ prefix }}-other-policies__link--current {
+  background: #4A7358;
+  border-color: #4A7358;
+  color: #F5F2EB;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+/* ─── BACK TO TOP ───────────────────────────────────────────────── */
+.{{ prefix }}-btt {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  background: #2C3B28;
+  color: #F5F2EB;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(44,59,40,0.28);
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s, transform 0.3s, background 0.2s;
+  pointer-events: none;
+}
+
+.{{ prefix }}-btt.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.{{ prefix }}-btt:hover { background: #4A7358; }
+
+/* ─── TABLET ────────────────────────────────────────────────────── */
+@media screen and (max-width: 989px) {
+  /* Stack sidebar above content on tablet + mobile */
+  .{{ prefix }}-layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 28px;
+  }
+
+  .{{ prefix }}-sidebar {
+    position: static;
+    margin-bottom: 32px;
+  }
+
+  .{{ prefix }}-toc {
+    border-top: 3px solid #C8963E;
+    border-left: 1px solid #E8E0D4;
+  }
+
+  .{{ prefix }}-hero__inner { padding: 0 28px; }
+  .{{ prefix }}-other-policies { padding-left: 28px; padding-right: 28px; }
+  .{{ prefix }}-hero__heading { font-size: 32px; }
+  .{{ prefix }}-doc-section { padding: 28px 0; }
+  .{{ prefix }}-doc-section__heading { font-size: 17px; }
+  .{{ prefix }}-grievance { padding: 28px 32px; }
+}
+
+/* ─── MOBILE ────────────────────────────────────────────────────── */
+@media screen and (max-width: 749px) {
+  .{{ prefix }}-hero {
+    padding-top: {{ hero_pt | times: 0.65 | round }}px;
+    padding-bottom: {{ hero_pb | times: 0.65 | round }}px;
+  }
+
+  .{{ prefix }}-hero__inner,
+  .{{ prefix }}-layout,
+  .{{ prefix }}-other-policies { padding-left: 20px; padding-right: 20px; }
+
+  .{{ prefix }}-hero__heading { font-size: 26px; }
+  .{{ prefix }}-hero__sub { font-size: 14px; }
+
+  .{{ prefix }}-toc { padding: 16px 18px; }
+  .{{ prefix }}-toc__link { font-size: 12px; padding: 4px 6px; }
+
+  .{{ prefix }}-info-card { padding: 18px; }
+  .{{ prefix }}-info-grid { grid-template-columns: 1fr; gap: 14px; }
+
+  .{{ prefix }}-notice { padding: 14px 16px; gap: 10px; }
+
+  .{{ prefix }}-doc-section { padding: 22px 0; }
+  .{{ prefix }}-doc-section__heading { font-size: 16px; }
+  .{{ prefix }}-doc-section__content { font-size: 14px; line-height: 1.70; }
+
+  .{{ prefix }}-grievance { padding: 22px 18px; }
+  .{{ prefix }}-grievance__heading { font-size: 18px; }
+  .{{ prefix }}-grievance-grid { grid-template-columns: 1fr; gap: 14px; }
+
+  .{{ prefix }}-other-policies { padding-top: 24px; padding-bottom: 24px; }
+  .{{ prefix }}-other-policies__link { font-size: 12px; padding: 7px 14px; }
+
+  .{{ prefix }}-btt { bottom: 20px; right: 20px; width: 40px; height: 40px; }
+}
+</style>
+
+<!-- Hero -->
+<section class="{{ prefix }}-hero">
+  <div class="{{ prefix }}-hero__inner">
+
+    <nav class="{{ prefix }}-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="{{ prefix }}-breadcrumb__sep">›</span>
+      <span class="{{ prefix }}-breadcrumb__current">{{ section.settings.page_heading | default: 'Policy' }}</span>
+    </nav>
+
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="{{ prefix }}-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+    {%- if section.settings.page_heading != blank -%}
+      <h1 class="{{ prefix }}-hero__heading">{{ section.settings.page_heading }}</h1>
+    {%- endif -%}
+    {%- if section.settings.page_subheading != blank -%}
+      <p class="{{ prefix }}-hero__sub">{{ section.settings.page_subheading }}</p>
+    {%- endif -%}
+    {%- if section.settings.last_updated != blank -%}
+      <p class="{{ prefix }}-hero__meta">Last updated: {{ section.settings.last_updated }}</p>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<!-- Body -->
+<div class="{{ prefix }}-body">
+  <div class="{{ prefix }}-layout">
+
+    {%- comment -%} Sidebar TOC — sticky on desktop {%- endcomment -%}
+    {%- assign has_sections = false -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'policy_section' and block.settings.heading != blank -%}
+        {%- assign has_sections = true -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if has_sections -%}
+      <aside class="{{ prefix }}-sidebar">
+        <nav class="{{ prefix }}-toc" aria-label="Page contents">
+          <p class="{{ prefix }}-toc__label">Contents</p>
+          <ul class="{{ prefix }}-toc__list">
+            {%- assign toc_counter = 0 -%}
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'policy_section' and block.settings.heading != blank -%}
+                {%- assign toc_counter = toc_counter | plus: 1 -%}
+                {%- assign h_parts = block.settings.heading | split: '. ' -%}
+                {%- if h_parts.size > 1 and h_parts[0].size <= 2 -%}
+                  {%- assign badge_num = h_parts[0] -%}
+                  {%- assign badge_prefix_str = badge_num | append: '. ' -%}
+                  {%- assign toc_title = block.settings.heading | remove_first: badge_prefix_str -%}
+                {%- else -%}
+                  {%- assign badge_num = toc_counter | append: '' -%}
+                  {%- assign toc_title = block.settings.heading -%}
+                {%- endif -%}
+                <li>
+                  <a href="#{{ prefix }}-s{{ toc_counter }}" class="{{ prefix }}-toc__link" data-section="{{ prefix }}-s{{ toc_counter }}">
+                    <span class="{{ prefix }}-toc__link-num">{{ badge_num }}.</span>
+                    {{ toc_title }}
+                  </a>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </nav>
+      </aside>
+    {%- else -%}
+      <div></div>
+    {%- endif -%}
+
+    {%- comment -%} Main content {%- endcomment -%}
+    <div class="{{ prefix }}-body__inner">
+
+    {%- comment -%} Render blocks {%- endcomment -%}
+    {%- assign section_counter = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+
+        {%- when 'info_card' -%}
+          <div class="{{ prefix }}-info-card" {{ block.shopify_attributes }}>
+            <h2 class="{{ prefix }}-info-card__heading">Business Information</h2>
+            <div class="{{ prefix }}-info-grid">
+              {%- if section.settings.company_name != blank -%}
+                <div>
+                  <p class="{{ prefix }}-info-item__label">Brand Name</p>
+                  <p class="{{ prefix }}-info-item__value">{{ section.settings.company_name }}</p>
+                </div>
+              {%- endif -%}
+              {%- if section.settings.legal_entity_name != blank -%}
+                <div>
+                  <p class="{{ prefix }}-info-item__label">Legal Entity Name</p>
+                  <p class="{{ prefix }}-info-item__value">{{ section.settings.legal_entity_name }}</p>
+                </div>
+              {%- endif -%}
+              {%- if section.settings.gstin != blank -%}
+                <div>
+                  <p class="{{ prefix }}-info-item__label">GSTIN</p>
+                  <p class="{{ prefix }}-info-item__value">{{ section.settings.gstin }}</p>
+                </div>
+              {%- endif -%}
+              {%- if section.settings.fssai_license != blank -%}
+                <div>
+                  <p class="{{ prefix }}-info-item__label">FSSAI License No.</p>
+                  <p class="{{ prefix }}-info-item__value">{{ section.settings.fssai_license }}</p>
+                </div>
+              {%- endif -%}
+              {%- if section.settings.pan != blank -%}
+                <div>
+                  <p class="{{ prefix }}-info-item__label">PAN</p>
+                  <p class="{{ prefix }}-info-item__value">{{ section.settings.pan }}</p>
+                </div>
+              {%- endif -%}
+              {%- if section.settings.cin != blank -%}
+                <div>
+                  <p class="{{ prefix }}-info-item__label">CIN</p>
+                  <p class="{{ prefix }}-info-item__value">{{ section.settings.cin }}</p>
+                </div>
+              {%- endif -%}
+              {%- if section.settings.email != blank -%}
+                <div>
+                  <p class="{{ prefix }}-info-item__label">Email</p>
+                  <p class="{{ prefix }}-info-item__value"><a href="mailto:{{ section.settings.email }}" style="color:#4A7358;">{{ section.settings.email }}</a></p>
+                </div>
+              {%- endif -%}
+              {%- if section.settings.phone != blank -%}
+                <div>
+                  <p class="{{ prefix }}-info-item__label">Phone / WhatsApp</p>
+                  <p class="{{ prefix }}-info-item__value">{{ section.settings.phone }}</p>
+                </div>
+              {%- endif -%}
+              {%- if section.settings.registered_address != blank -%}
+                <div style="grid-column: 1 / -1;">
+                  <p class="{{ prefix }}-info-item__label">Registered Address</p>
+                  <p class="{{ prefix }}-info-item__value">{{ section.settings.registered_address | newline_to_br }}</p>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+
+        {%- when 'notice' -%}
+          {%- assign notice_style = block.settings.style | default: 'amber' -%}
+          <div class="{{ prefix }}-notice {{ prefix }}-notice--{{ notice_style }}" {{ block.shopify_attributes }}>
+            {%- if notice_style == 'amber' -%}
+              <svg class="{{ prefix }}-notice__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 2L1 21h22L12 2zM11 10h2v4h-2v-4zm0 6h2v2h-2v-2z" clip-rule="evenodd"/></svg>
+            {%- elsif notice_style == 'green' -%}
+              <svg class="{{ prefix }}-notice__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5l-3.5-3.5 1.41-1.41L10 13.67l6.59-6.59L18 8.5l-8 8z" clip-rule="evenodd"/></svg>
+            {%- else -%}
+              <svg class="{{ prefix }}-notice__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" clip-rule="evenodd"/></svg>
+            {%- endif -%}
+            <div class="{{ prefix }}-notice__body">
+              {%- if block.settings.heading != blank -%}
+                <p class="{{ prefix }}-notice__heading">{{ block.settings.heading }}</p>
+              {%- endif -%}
+              {%- if block.settings.content != blank -%}
+                <div class="{{ prefix }}-notice__content">{{ block.settings.content }}</div>
+              {%- endif -%}
+            </div>
+          </div>
+
+        {%- when 'policy_section' -%}
+          {%- assign section_counter = section_counter | plus: 1 -%}
+          {%- assign h_parts = block.settings.heading | split: '. ' -%}
+          {%- if h_parts.size > 1 and h_parts[0].size <= 2 -%}
+            {%- assign badge_num = h_parts[0] -%}
+            {%- assign badge_prefix_str = badge_num | append: '. ' -%}
+            {%- assign heading_title = block.settings.heading | remove_first: badge_prefix_str -%}
+          {%- else -%}
+            {%- assign badge_num = section_counter | append: '' -%}
+            {%- assign heading_title = block.settings.heading -%}
+          {%- endif -%}
+          <div
+            class="{{ prefix }}-doc-section"
+            id="{{ prefix }}-s{{ section_counter }}"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.heading != blank -%}
+              <div class="{{ prefix }}-doc-section__header">
+                <span class="{{ prefix }}-doc-section__num">{{ badge_num }}</span>
+                <h2 class="{{ prefix }}-doc-section__heading">{{ heading_title }}</h2>
+              </div>
+            {%- endif -%}
+            {%- if block.settings.content != blank -%}
+              <div class="{{ prefix }}-doc-section__content">{{ block.settings.content }}</div>
+            {%- endif -%}
+          </div>
+
+        {%- when 'grievance_block' -%}
+          <div class="{{ prefix }}-grievance" {{ block.shopify_attributes }}>
+            <p class="{{ prefix }}-grievance__eyebrow">Grievance Redressal</p>
+            <h2 class="{{ prefix }}-grievance__heading">
+              {%- if section.settings.grievance_name != blank -%}{{ section.settings.grievance_name }}{%- else -%}Grievance Officer{%- endif -%}
+            </h2>
+            {%- if section.settings.grievance_designation != blank -%}
+              <p class="{{ prefix }}-grievance__sub">{{ section.settings.grievance_designation }}</p>
+            {%- endif -%}
+            <div class="{{ prefix }}-grievance-grid">
+              {%- if section.settings.company_name != blank -%}
+                <div>
+                  <p class="{{ prefix }}-grievance-item__label">Company</p>
+                  <p class="{{ prefix }}-grievance-item__value">{{ section.settings.company_name }}</p>
+                </div>
+              {%- endif -%}
+              {%- if section.settings.grievance_email != blank -%}
+                <div>
+                  <p class="{{ prefix }}-grievance-item__label">Email</p>
+                  <p class="{{ prefix }}-grievance-item__value"><a href="mailto:{{ section.settings.grievance_email }}">{{ section.settings.grievance_email }}</a></p>
+                </div>
+              {%- endif -%}
+              {%- if section.settings.grievance_phone != blank -%}
+                <div>
+                  <p class="{{ prefix }}-grievance-item__label">Phone / WhatsApp</p>
+                  <p class="{{ prefix }}-grievance-item__value">{{ section.settings.grievance_phone }}</p>
+                </div>
+              {%- endif -%}
+              {%- if section.settings.grievance_address != blank -%}
+                <div style="grid-column: 1 / -1;">
+                  <p class="{{ prefix }}-grievance-item__label">Address</p>
+                  <p class="{{ prefix }}-grievance-item__value">{{ section.settings.grievance_address | newline_to_br }}</p>
+                </div>
+              {%- endif -%}
+            </div>
+            <div class="{{ prefix }}-grievance__sla">
+              <strong>Response timelines (IT Rules, 2021):</strong> We acknowledge within <strong>48 hours</strong> and resolve within <strong>30 days</strong>. For unresolved disputes, contact the District Consumer Disputes Redressal Commission or FSSAI helpline at <strong>1800-112-100</strong>.
+            </div>
+          </div>
+
+      {%- endcase -%}
+    {%- endfor -%}
+
+    </div>{%- comment -%} end body__inner {%- endcomment -%}
+  </div>{%- comment -%} end layout {%- endcomment -%}
+</div>
+
+<!-- Other policy pages strip -->
+<div class="{{ prefix }}-other-policies">
+  <div class="{{ prefix }}-other-policies__inner">
+    <p class="{{ prefix }}-other-policies__label">Other Policies</p>
+    <div class="{{ prefix }}-other-policies__links">
+      {%- assign current_handle = page.handle -%}
+      {%- assign policy_pages = 'privacy-policy,refund-policy,shipping-policy,terms-of-service' | split: ',' -%}
+      {%- assign policy_labels = 'Privacy Policy,Refund & Replacement,Shipping Policy,Terms of Service' | split: ',' -%}
+      {%- for policy_handle in policy_pages -%}
+        {%- assign p_index = forloop.index0 -%}
+        {%- if policy_handle == current_handle -%}
+          <span class="{{ prefix }}-other-policies__link {{ prefix }}-other-policies__link--current">{{ policy_labels[p_index] }}</span>
+        {%- else -%}
+          <a href="/pages/{{ policy_handle }}" class="{{ prefix }}-other-policies__link">{{ policy_labels[p_index] }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<!-- Back to top -->
+<button class="{{ prefix }}-btt" id="{{ prefix }}-btt" aria-label="Back to top">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
+
+<script>
+  (function() {
+    var btn = document.getElementById('{{ prefix }}-btt');
+    if (btn) {
+      window.addEventListener('scroll', function() {
+        btn.classList.toggle('is-visible', window.scrollY > 400);
+      }, { passive: true });
+      btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Scroll-spy: highlight active TOC link
+    var tocLinks = document.querySelectorAll('.{{ prefix }}-toc__link[data-section]');
+    if (tocLinks.length === 0) return;
+
+    var sections = Array.from(tocLinks).map(function(link) {
+      return document.getElementById(link.dataset.section);
+    }).filter(Boolean);
+
+    function onScroll() {
+      var scrollY = window.scrollY + 120;
+      var active = sections[0];
+      sections.forEach(function(sec) {
+        if (sec.offsetTop <= scrollY) active = sec;
+      });
+      tocLinks.forEach(function(link) {
+        link.classList.toggle('is-active', link.dataset.section === active.id);
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "AnnVaya Legal Page",
+  "tag": "div",
+  "class": "annvaya-legal-page",
+  "settings": [
+    { "type": "header", "content": "Page Header" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow Label", "default": "Legal" },
+    { "type": "text", "id": "page_heading", "label": "Page Heading" },
+    { "type": "textarea", "id": "page_subheading", "label": "Page Subheading" },
+    { "type": "text", "id": "last_updated", "label": "Last Updated Date", "default": "August 2026" },
+    { "type": "header", "content": "Hero Colors and Spacing" },
+    { "type": "color", "id": "hero_bg_color", "label": "Hero Background Color", "default": "#2C3B28" },
+    { "type": "color", "id": "hero_text_color", "label": "Hero Text Color", "default": "#F5F2EB" },
+    { "type": "range", "id": "hero_padding_top", "label": "Hero Padding Top", "min": 20, "max": 120, "step": 4, "default": 60, "unit": "px" },
+    { "type": "range", "id": "hero_padding_bottom", "label": "Hero Padding Bottom", "min": 20, "max": 120, "step": 4, "default": 60, "unit": "px" },
+    { "type": "header", "content": "Body Colors and Spacing" },
+    { "type": "color", "id": "body_bg_color", "label": "Body Background Color", "default": "#F5F2EB" },
+    { "type": "range", "id": "padding_top", "label": "Body Padding Top", "min": 0, "max": 100, "step": 4, "default": 48, "unit": "px" },
+    { "type": "range", "id": "padding_bottom", "label": "Body Padding Bottom", "min": 0, "max": 100, "step": 4, "default": 64, "unit": "px" },
+    { "type": "header", "content": "Business Details" },
+    { "type": "text", "id": "company_name", "label": "Brand Name", "default": "AnnVaya" },
+    { "type": "text", "id": "legal_entity_name", "label": "Legal Entity Name", "info": "Registered company / LLP / proprietorship name" },
+    { "type": "textarea", "id": "registered_address", "label": "Registered Address" },
+    { "type": "text", "id": "gstin", "label": "GSTIN" },
+    { "type": "text", "id": "fssai_license", "label": "FSSAI License Number" },
+    { "type": "text", "id": "pan", "label": "PAN" },
+    { "type": "text", "id": "cin", "label": "CIN (if company)", "info": "Leave blank for proprietorship or LLP" },
+    { "type": "text", "id": "email", "label": "Contact Email", "default": "hello@annvaya.com" },
+    { "type": "text", "id": "phone", "label": "Contact Phone / WhatsApp" },
+    { "type": "header", "content": "Grievance Officer Details" },
+    { "type": "text", "id": "grievance_name", "label": "Grievance Officer Name" },
+    { "type": "text", "id": "grievance_designation", "label": "Grievance Officer Designation", "default": "Grievance Officer" },
+    { "type": "text", "id": "grievance_email", "label": "Grievance Officer Email" },
+    { "type": "text", "id": "grievance_phone", "label": "Grievance Officer Phone" },
+    { "type": "textarea", "id": "grievance_address", "label": "Grievance Officer Address" }
+  ],
+  "blocks": [
+    { "type": "info_card", "name": "Business Information Card", "limit": 1, "settings": [] },
+    {
+      "type": "notice",
+      "name": "Notice / Alert",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Notice Heading" },
+        { "type": "richtext", "id": "content", "label": "Notice Content" },
+        { "type": "select", "id": "style", "label": "Notice Style", "default": "amber", "options": [
+          { "value": "amber", "label": "Amber (Warning)" },
+          { "value": "green", "label": "Green (Info)" },
+          { "value": "red", "label": "Red (Alert)" }
+        ]}
+      ]
+    },
+    {
+      "type": "policy_section",
+      "name": "Policy Section",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Section Heading" },
+        { "type": "richtext", "id": "content", "label": "Section Content" }
+      ]
+    },
+    { "type": "grievance_block", "name": "Grievance Officer Block", "limit": 1, "settings": [] }
+  ],
+  "presets": [{ "name": "AnnVaya Legal Page" }]
+}
+{% endschema %}

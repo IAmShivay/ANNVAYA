@@ -1,0 +1,272 @@
+{%- style -%}
+  .annvaya-legal-{{ section.id }} {}
+  .annvaya-legal-hero-{{ section.id }} {
+    background: {{ section.settings.hero_bg_color }};
+    color: {{ section.settings.hero_text_color }};
+    padding: {{ section.settings.hero_padding_top }}px 20px {{ section.settings.hero_padding_bottom }}px;
+    text-align: center;
+  }
+  .annvaya-legal-eyebrow-{{ section.id }} {
+    display: inline-block;
+    background: rgba(212,167,106,0.18);
+    color: #D4A76A;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  .annvaya-legal-hero-{{ section.id }} h1 {
+    font-size: clamp(1.9rem, 5vw, 2.9rem);
+    font-weight: 700;
+    margin: 0 0 14px;
+    color: {{ section.settings.hero_text_color }};
+  }
+  .annvaya-legal-hero-{{ section.id }} p {
+    font-size: 1rem;
+    opacity: 0.82;
+    max-width: 540px;
+    margin: 0 auto 16px;
+    line-height: 1.65;
+  }
+  .annvaya-legal-date-{{ section.id }} { font-size: 0.78rem; opacity: 0.55; }
+  .annvaya-legal-body-{{ section.id }} {
+    background: {{ section.settings.body_bg_color }};
+    padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+  }
+  .annvaya-legal-inner-{{ section.id }} { max-width: 800px; margin: 0 auto; }
+  .annvaya-legal-content-{{ section.id }} {
+    background: #fff;
+    border: 1px solid #E8E0D4;
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin-bottom: 20px;
+  }
+  .annvaya-legal-content-{{ section.id }} h2,
+  .annvaya-legal-content-{{ section.id }} h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2D2A26;
+    margin: 0 0 14px;
+    padding-top: 8px;
+  }
+  .annvaya-legal-content-{{ section.id }} h2:first-child,
+  .annvaya-legal-content-{{ section.id }} h3:first-child { padding-top: 0; }
+  .annvaya-legal-content-{{ section.id }} p {
+    font-size: 0.95rem;
+    color: #4A4540;
+    line-height: 1.72;
+    margin: 0 0 12px;
+  }
+  .annvaya-legal-content-{{ section.id }} ul,
+  .annvaya-legal-content-{{ section.id }} ol {
+    padding-left: 20px;
+    margin: 0 0 12px;
+  }
+  .annvaya-legal-content-{{ section.id }} li {
+    font-size: 0.95rem;
+    color: #4A4540;
+    line-height: 1.68;
+    margin-bottom: 6px;
+  }
+  .annvaya-legal-content-{{ section.id }} strong { color: #2D2A26; }
+  .annvaya-legal-contact-{{ section.id }} {
+    background: {{ section.settings.hero_bg_color }};
+    color: {{ section.settings.hero_text_color }};
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    margin-top: 8px;
+  }
+  .annvaya-legal-contact-{{ section.id }} h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 10px;
+    color: {{ section.settings.hero_text_color }};
+  }
+  .annvaya-legal-contact-{{ section.id }} p {
+    font-size: 0.94rem;
+    opacity: 0.82;
+    margin: 0 0 18px;
+    line-height: 1.6;
+  }
+  .annvaya-legal-contact-btn-{{ section.id }} {
+    display: inline-block;
+    background: #D4A76A;
+    color: #2D2A26;
+    font-weight: 700;
+    font-size: 0.92rem;
+    padding: 12px 28px;
+    border-radius: 40px;
+    text-decoration: none;
+  }
+  @media (max-width: 600px) {
+    .annvaya-legal-content-{{ section.id }} { padding: 22px 18px; }
+    .annvaya-legal-contact-{{ section.id }} { padding: 24px 18px; }
+  }
+{%- endstyle -%}
+
+<section class="annvaya-legal-{{ section.id }}">
+
+  <div class="annvaya-legal-hero-{{ section.id }}">
+    {%- unless section.settings.eyebrow == blank -%}
+      <div class="annvaya-legal-eyebrow-{{ section.id }}">{{ section.settings.eyebrow }}</div>
+    {%- endunless -%}
+    <h1>{{ section.settings.heading }}</h1>
+    {%- unless section.settings.subheading == blank -%}
+      <p>{{ section.settings.subheading }}</p>
+    {%- endunless -%}
+    {%- unless section.settings.last_updated == blank -%}
+      <div class="annvaya-legal-date-{{ section.id }}">{{ section.settings.last_updated }}</div>
+    {%- endunless -%}
+  </div>
+
+  <div class="annvaya-legal-body-{{ section.id }}">
+    <div class="annvaya-legal-inner-{{ section.id }}">
+
+      <div class="annvaya-legal-content-{{ section.id }}">
+        {{ page.content }}
+      </div>
+
+      {%- if section.settings.show_contact -%}
+        <div class="annvaya-legal-contact-{{ section.id }}">
+          <h2>{{ section.settings.contact_heading }}</h2>
+          <p>{{ section.settings.contact_subtext }}</p>
+          <a href="mailto:{{ section.settings.contact_email }}" class="annvaya-legal-contact-btn-{{ section.id }}">
+            {{ section.settings.contact_email }}
+          </a>
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Privacy Policy Page",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "Legal"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Page heading",
+      "default": "Privacy Policy"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "How AnnVaya collects, uses and protects the information you share when you shop with us."
+    },
+    {
+      "type": "text",
+      "id": "last_updated",
+      "label": "Last updated text",
+      "default": "Last updated: August 2026"
+    },
+    {
+      "type": "color",
+      "id": "hero_bg_color",
+      "label": "Hero background colour",
+      "default": "#4A5740"
+    },
+    {
+      "type": "color",
+      "id": "hero_text_color",
+      "label": "Hero text colour",
+      "default": "#FAF7F2"
+    },
+    {
+      "type": "range",
+      "id": "hero_padding_top",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "default": 60,
+      "label": "Hero padding top (px)"
+    },
+    {
+      "type": "range",
+      "id": "hero_padding_bottom",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "default": 48,
+      "label": "Hero padding bottom (px)"
+    },
+    {
+      "type": "header",
+      "content": "Body"
+    },
+    {
+      "type": "color",
+      "id": "body_bg_color",
+      "label": "Body background colour",
+      "default": "#FAF7F2"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 52,
+      "label": "Body padding top (px)"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 60,
+      "label": "Body padding bottom (px)"
+    },
+    {
+      "type": "header",
+      "content": "Contact block"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact",
+      "label": "Show contact block",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "contact_heading",
+      "label": "Contact heading",
+      "default": "Privacy questions?"
+    },
+    {
+      "type": "text",
+      "id": "contact_subtext",
+      "label": "Contact subtext",
+      "default": "Email us and we will respond within 2 business days."
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Contact email",
+      "default": "support@annvaya.com"
+    }
+  ],
+  "presets": [
+    { "name": "Privacy Policy Page" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,139 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "legal": {
+      "type": "annvaya-legal-page",
+      "settings": {
+        "eyebrow": "Legal",
+        "page_heading": "Refund \u0026 Replacement Policy",
+        "page_subheading": "We stand behind every AnnVaya product. Here is what we cover and how to raise a request.",
+        "last_updated": "August 2026",
+        "hero_bg_color": "#2C3B28",
+        "hero_text_color": "#F5F2EB",
+        "hero_padding_top": 60,
+        "hero_padding_bottom": 60,
+        "body_bg_color": "#F5F2EB",
+        "padding_top": 48,
+        "padding_bottom": 64,
+        "company_name": "AnnVaya",
+        "legal_entity_name": "",
+        "registered_address": "",
+        "gstin": "",
+        "fssai_license": "",
+        "pan": "",
+        "cin": "",
+        "email": "hello@annvaya.com",
+        "phone": "",
+        "grievance_name": "",
+        "grievance_designation": "Grievance Officer",
+        "grievance_email": "",
+        "grievance_phone": "",
+        "grievance_address": ""
+      },
+      "blocks": {
+        "notice1": {
+          "type": "notice",
+          "settings": {
+            "heading": "Important \u2014 Food Product Policy",
+            "style": "amber",
+            "content": "<p>AnnVaya products are <strong>natural dehydrated food items</strong>. Due to food safety and hygiene requirements under FSSAI guidelines, we are unable to accept returns of products that have been opened, unsealed, or partially consumed. This is a food safety requirement and not a restriction on your consumer rights.</p><p><strong>However, this does not affect your right to a replacement or full refund if your product arrives damaged, is defective, is not as described on our website, or is the wrong item.</strong> Your statutory rights under the Consumer Protection Act, 2019 are fully preserved. In all such cases, we will make it right \u2014 no questions asked.</p>"
+          }
+        },
+        "info_card": {
+          "type": "info_card",
+          "settings": {}
+        },
+        "s1": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "1. Our Promise to You",
+            "content": "<p>At AnnVaya, we take quality seriously. Every batch of our dehydrated food powders is manufactured under our FSSAI licence and subject to quality checks before dispatch. We stand behind our products and are committed to resolving any issue you face with your order promptly and fairly.</p><p>This policy sets out the circumstances under which you are entitled to a return, replacement, or refund. We do not operate a blanket \u201call sales final\u201d policy. Your rights as a consumer under the <strong>Consumer Protection Act, 2019</strong> and the <strong>Consumer Protection (E-Commerce) Rules, 2020</strong> are fully preserved by this policy. Nothing in this policy is intended to limit or waive any statutory right you are entitled to under Indian law.</p><p>If you have any doubt about whether your situation is covered, please contact us and we will guide you. Our goal is your satisfaction with every AnnVaya order.</p>"
+          }
+        },
+        "s2": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "2. Valid Reasons for Return or Replacement",
+            "content": "<p>You are entitled to raise a return or replacement request for any of the following reasons:</p><ul><li><strong>Damaged packaging or product:</strong> The product arrived with visibly broken, crushed, or tampered packaging, or the product itself is damaged or has spilled.</li><li><strong>Wrong product delivered:</strong> You received a product that does not match what you ordered (wrong SKU, wrong flavour, wrong quantity, or wrong size).</li><li><strong>Product does not match website description:</strong> The product significantly differs from the description, ingredient list, or images displayed on the AnnVaya website at the time of purchase. This includes claims about ingredients, nutritional profile, or net weight.</li><li><strong>Signs of spoilage within best-before date:</strong> The product is within its printed best-before date but shows signs of spoilage, abnormal odour, colour, or texture that indicate a product quality defect. Note: natural colour variation due to seasonal ingredient variation is not grounds for return.</li></ul><p><strong>Time limit for raising requests:</strong> All return or replacement requests for the above reasons must be raised within <strong>48 hours of delivery</strong> with supporting photos. We are unable to process requests raised after this window unless the defect could not reasonably have been discovered at the time of delivery (for example, spoilage that becomes apparent after proper storage within the best-before date). In such cases, contact us with details and photos and we will review on a case-by-case basis.</p>"
+          }
+        },
+        "s3": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "3. Products Not Eligible for Return",
+            "content": "<p>The following situations are not eligible for a standard return, subject to the exceptions described in Sections 2 and 7:</p><ul><li><strong>Opened or unsealed products:</strong> Due to food safety requirements under FSSAI guidelines, products that have been opened, unsealed, or partially consumed cannot be returned. This applies even if you did not like the taste or flavour. We recommend purchasing single-unit quantities to try a new product before committing to a larger order.</li><li><strong>Late reports:</strong> Products reported more than 48 hours after delivery without a valid reason that could not have been discovered at delivery (for example, spoilage discovered within the best-before period is still eligible).</li><li><strong>Customer-caused damage:</strong> Products that were damaged due to improper storage by the customer after delivery (for example, exposure to moisture, extreme heat, or contamination after opening).</li><li><strong>Change of mind:</strong> If you change your mind about a purchase after receiving the product in the condition described on our website, we are unable to accept a return for that reason alone.</li></ul><p><strong>Note on COD orders:</strong> Under the <strong>Consumer Protection (E-Commerce) Rules, 2020 Section 6(3)</strong>, we do not charge cancellation fees to consumers on pre-paid orders. For COD orders, please refer to Section 6 (Cancellation Policy) and Section 8 (Failed Delivery) for the consequences of refusing delivery at the door.</p>"
+          }
+        },
+        "s4": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "4. How to Raise a Return or Replacement Request",
+            "content": "<p>Follow these steps to raise a return or replacement request:</p><ol><li><strong>Email us</strong> at <a href=\"mailto:hello@annvaya.com\">hello@annvaya.com</a> with the subject line: <strong>\u201cReturn Request \u2014 Order #[Your Order Number]\u201d</strong></li><li>Include the following in your email:<ul><li>Your order number</li><li>The specific reason for your return request (from the valid reasons listed in Section 2)</li><li>Clear, well-lit photographs of the product and packaging showing the issue (damaged packaging, wrong product label, evidence of spoilage, etc.)</li><li>Your preferred resolution: replacement or refund</li></ul></li><li>We will respond within <strong>1\u20132 business days</strong> to acknowledge your request and confirm whether it is approved or if we need additional information.</li><li>Upon approval, we will either arrange a pickup from your delivery address (at no cost to you) or, in some cases, ask you to self-ship the product to us. We will provide a reference/ticket number for your request at this stage.</li><li>Once the return is received and inspected (or waived, at our discretion for small-value items), we will process your replacement or refund.</li></ol><p>Please do not discard the original packaging until your return request has been confirmed by us, as it may be required for our logistics partner to process the pickup.</p>"
+          }
+        },
+        "s5": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "5. Refund Timelines and Method",
+            "content": "<p>All refunds will be issued to the <strong>original payment instrument</strong> used at the time of purchase. This is a requirement under <strong>RBI Payment Aggregator Guidelines</strong>. We are unable to issue refunds to a different bank account, card, or UPI ID than the one used for the original transaction.</p><ul><li><strong>Credit Card \/ Debit Card:</strong> 5\u20137 business days after approval</li><li><strong>Net Banking:</strong> 5\u20137 business days after approval</li><li><strong>UPI (GPay, PhonePe, Paytm, etc.):</strong> 5\u20137 business days after approval</li><li><strong>Wallets (Paytm Wallet, etc.):</strong> 5\u20137 business days after approval</li><li><strong>Cash on Delivery (COD):</strong> 7\u201310 business days via bank transfer (NEFT\/IMPS). We will request your bank account details by email after approval.</li></ul><p><strong>If you do not receive your refund after the above timeline:</strong></p><ol><li>First, check your bank or card statement and allow 1\u20132 additional business days for the refund to reflect.</li><li>Contact your bank or card issuer\u2019s customer service to confirm whether a credit is pending.</li><li>If still unresolved, email us at <a href=\"mailto:hello@annvaya.com\">hello@annvaya.com</a> with your order number and our refund confirmation, and we will follow up with Razorpay on your behalf.</li></ol><p>The outer limit for completion of a refund is <strong>30 days from the date of our approval</strong> of your request, as prescribed by the <strong>Consumer Protection Act, 2019</strong>.</p>"
+          }
+        },
+        "s6": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "6. Order Cancellation Policy",
+            "content": "<p><strong>Before Dispatch (within 12 hours of placing order):</strong><br>You may cancel your order within 12 hours of placing it by emailing <a href=\"mailto:hello@annvaya.com\">hello@annvaya.com</a> with your order number. A full refund will be issued to your original payment method within 5\u20137 business days. Once the order has been dispatched (you have received a tracking number), cancellation is no longer possible as the product is in transit.</p><p><strong>After Dispatch:</strong><br>Orders cannot be cancelled once dispatched. If you no longer wish to keep the product, you may raise a return request after delivery for valid reasons as listed in Section 2. Change of mind after dispatch is not a valid return reason.</p><p><strong>No Cancellation Fees:</strong><br>We do not charge any cancellation fees to consumers for pre-paid orders cancelled before dispatch. This is in accordance with <strong>Consumer Protection (E-Commerce) Rules, 2020, Section 6(3)</strong>, which prohibits e-commerce entities from levying cancellation charges on consumers.</p><p><strong>If We Cancel Your Order:</strong><br>We reserve the right to cancel your order in the following circumstances: out-of-stock or unavailable products, payment authorisation failure, suspected fraudulent activity, or force majeure events. If we cancel your order, we will notify you by email and process a <strong>full refund within 5\u20137 business days</strong>. You will not be charged any penalty or fee.</p>"
+          }
+        },
+        "s7": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "7. Damaged or Defective Products",
+            "content": "<p>We treat damaged and defective products as a priority. Even if a product has been opened, if it is <strong>defective, unsafe, or poses a food safety concern</strong>, you are fully entitled to a replacement or refund.</p><p><strong>How to report:</strong></p><ol><li>Raise the issue within <strong>48 hours of delivery</strong> by emailing <a href=\"mailto:hello@annvaya.com\">hello@annvaya.com</a> with the subject \u201cDamaged/Defective Product \u2014 Order #[Order Number]\u201d.</li><li>Attach clear photographs of: (a) the outer packaging, (b) the product label showing the batch number and best-before date, and (c) the issue you have identified (damage, spoilage, foreign matter, etc.).</li><li>We will assess your report within 1\u20132 business days and either arrange a replacement at our cost or issue a full refund.</li></ol><p><strong>No return shipping cost:</strong> For products that are damaged, defective, or incorrect through our fault, we will bear all costs of return logistics. We will not ask you to pay for return shipping in these cases.</p><p><strong>FSSAI Food Safety Complaint:</strong> If you believe a product poses a food safety risk, you also have the right to raise a complaint directly with FSSAI through the consumer grievance portal at <a href=\"https://www.fssai.gov.in/home/consumer-affairs.html\" target=\"_blank\" rel=\"noopener noreferrer\">fssai.gov.in/home/consumer-affairs.html</a> or by calling the FSSAI consumer helpline at <strong>1800-112-100</strong> (toll-free).</p>"
+          }
+        },
+        "s8": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "8. Lost or Missing Orders",
+            "content": "<p>If your order has not been delivered within the estimated delivery window shown at checkout or in your order confirmation email, please follow these steps:</p><ol><li>First, check the tracking status using the tracking number provided in your dispatch email.</li><li>If the tracking shows \u201cDelivered\u201d but you have not received the package, email us within <strong>48 hours</strong> of the reported delivery date with your order number. Delays beyond 48 hours may make investigation difficult.</li><li>If tracking shows no movement for 5 or more business days, email us and we will initiate an investigation with our courier partner.</li></ol><p><strong>Investigation and Resolution:</strong><br>Courier investigations typically take <strong>3\u20137 business days</strong>. Once a shipment is confirmed as lost, we will offer you the choice of:</p><ul><li>A full refund to your original payment method, processed within 7 business days of confirmation of loss, or</li><li>A re-dispatch of your order at no additional charge, subject to product availability.</li></ul><p>AnnVaya is not responsible for delivery delays or failures caused by incorrect or incomplete delivery address information provided by you at checkout. Please ensure your address and contact number are accurate before placing an order.</p>"
+          }
+        },
+        "s9": {
+          "type": "policy_section",
+          "settings": {
+            "heading": "9. Your Consumer Rights",
+            "content": "<p>Nothing in this Refund and Replacement Policy is intended to limit, restrict, or waive any right you are entitled to as a consumer under Indian law. In particular:</p><ul><li>Under the <strong>Consumer Protection Act, 2019</strong>, you have the right to be protected against unfair trade practices, defective goods, and restrictive trade practices. You retain all rights conferred by this Act regardless of any clause in this policy.</li><li>If you are dissatisfied with our resolution of your complaint, you may approach the <strong>District Consumer Disputes Redressal Commission (DCDRC)</strong> in your jurisdiction, which has jurisdiction over consumer disputes up to \u20B950 lakhs in value.</li><li>For higher-value disputes, the <strong>State Consumer Disputes Redressal Commission</strong> and the <strong>National Consumer Disputes Redressal Commission</strong> are available.</li><li>You may also access the <strong>National Consumer Helpline</strong> at <strong>1800-11-4000</strong> (toll-free, Monday to Saturday) for guidance.</li><li>For food safety-specific complaints, the <strong>FSSAI Consumer Helpline</strong> is available at <strong>1800-112-100</strong>.</li></ul><p>We encourage you to first contact us and our Grievance Officer before approaching external authorities, as we are committed to resolving all legitimate complaints fairly and promptly.</p>"
+          }
+        },
+        "grievance_block": {
+          "type": "grievance_block",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "notice1",
+        "info_card",
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "grievance_block"
+      ]
+    }
+  },
+  "order": ["legal"]
+}

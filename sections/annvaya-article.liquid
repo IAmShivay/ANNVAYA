@@ -1,0 +1,541 @@
+{%- comment -%}
+  ANNVAYA — Article Page
+  Layout:
+    - Dark header: back link, badge, title, meta
+    - Full-width hero image (constrained, 16:9 max)
+    - Two-column: narrow content (left) + sticky sidebar (right) on desktop
+    - Tags + share at bottom
+{%- endcomment -%}
+
+{%- liquid
+  assign word_count = article.content | strip_html | split: ' ' | size
+  assign read_min   = word_count | divided_by: 200 | plus: 1
+
+  assign badge_class = ''
+  assign badge_label = ''
+  for tag in article.tags
+    assign tl = tag | downcase
+    if tl == 'recipe' or tl == 'recipes'
+      assign badge_class = 'recipe'
+      assign badge_label = 'Recipe'
+      break
+    elsif tl == 'health' or tl == 'wellness' or tl == 'nutrition'
+      assign badge_class = 'health'
+      assign badge_label = 'Health & Wellness'
+      break
+    endif
+  endfor
+-%}
+
+{%- style -%}
+/* ─── ANNVAYA ARTICLE ───────────────────────────────────────── */
+
+/* ── Dark header ── */
+.av-art {
+  background: #F5F2EB;
+}
+.av-art__header {
+  background: #2C2416;
+  padding: 60px 0 52px;
+}
+.av-art__header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 5rem;
+}
+
+.av-art__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-body-family);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(245,242,235,0.45);
+  text-decoration: none;
+  margin-bottom: 28px;
+  transition: color 0.2s;
+}
+.av-art__back:hover { color: #F5F2EB; }
+
+.av-art__badge {
+  display: inline-block;
+  font-family: var(--font-body-family);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+}
+.av-art__badge--recipe { background: rgba(200,150,62,0.9); color: #fff; }
+.av-art__badge--health  { background: rgba(74,115,88,0.9); color: #fff; }
+
+.av-art__title {
+  font-family: var(--font-heading-family);
+  font-size: 40px;
+  font-weight: 700;
+  color: #F5F2EB;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 22px;
+}
+
+.av-art__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.av-art__meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body-family);
+  font-size: 12px;
+  color: rgba(245,242,235,0.5);
+  background: rgba(245,242,235,0.07);
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+.av-art__meta-pill svg { opacity: 0.6; flex-shrink: 0; }
+
+/* ── Hero image ── */
+.av-art__hero-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 5rem;
+  position: relative;
+  top: -24px;
+}
+.av-art__hero-img-box {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #2C2416;
+  box-shadow: 0 8px 40px rgba(20,14,6,0.25);
+  aspect-ratio: 16 / 7;
+}
+.av-art__hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Body layout: content + sidebar ── */
+.av-art__layout {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 8px 5rem 80px;
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 56px;
+  align-items: start;
+}
+
+/* ── Article content ── */
+.av-art__content {
+  min-width: 0;
+}
+.av-art__body {
+  font-family: var(--font-body-family);
+  font-size: 17px;
+  line-height: 1.82;
+  color: #3A3028;
+}
+.av-art__body > * + * { margin-top: 0; }
+
+.av-art__body h2 {
+  font-family: var(--font-heading-family);
+  font-size: 24px;
+  font-weight: 700;
+  color: #2C2416;
+  margin: 44px 0 14px;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #C8963E;
+  display: inline-block;
+}
+.av-art__body h3 {
+  font-family: var(--font-heading-family);
+  font-size: 19px;
+  font-weight: 700;
+  color: #2C2416;
+  margin: 36px 0 10px;
+  line-height: 1.3;
+}
+.av-art__body h4 {
+  font-family: var(--font-body-family);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C8963E;
+  margin: 28px 0 8px;
+}
+.av-art__body p { margin: 0 0 20px; }
+.av-art__body p:last-child { margin-bottom: 0; }
+
+.av-art__body strong { color: #2C2416; }
+
+.av-art__body a {
+  color: #4A7358;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+.av-art__body a:hover { color: #2C2416; }
+
+.av-art__body ul,
+.av-art__body ol {
+  margin: 0 0 20px 4px;
+  padding-left: 20px;
+}
+.av-art__body li { margin-bottom: 8px; line-height: 1.7; }
+
+.av-art__body blockquote {
+  margin: 36px 0;
+  padding: 20px 28px;
+  border-left: 4px solid #C8963E;
+  background: rgba(200,150,62,0.06);
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+  font-size: 18px;
+  color: rgba(74,63,48,0.8);
+  line-height: 1.7;
+}
+.av-art__body blockquote p { margin: 0; }
+
+.av-art__body img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 32px 0;
+  display: block;
+}
+
+.av-art__body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 14px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.av-art__body th {
+  background: #EDE8DF;
+  font-weight: 700;
+  color: #2C2416;
+  padding: 12px 16px;
+  text-align: left;
+}
+.av-art__body td {
+  padding: 11px 16px;
+  border-bottom: 1px solid rgba(74,63,48,0.08);
+  color: rgba(74,63,48,0.8);
+}
+.av-art__body tr:last-child td { border-bottom: none; }
+.av-art__body tr:nth-child(even) td { background: rgba(74,63,48,0.025); }
+
+/* Article footer: tags */
+.av-art__footer {
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(74,63,48,0.1);
+}
+.av-art__tags-label {
+  font-family: var(--font-body-family);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(74,63,48,0.4);
+  margin-bottom: 10px;
+  display: block;
+}
+.av-art__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.av-art__tag-pill {
+  display: inline-block;
+  font-family: var(--font-body-family);
+  font-size: 12px;
+  font-weight: 600;
+  color: #4A3B2A;
+  background: rgba(74,63,48,0.07);
+  padding: 6px 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  border: 1px solid rgba(74,63,48,0.1);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.av-art__tag-pill:hover { background: #2C2416; color: #F5F2EB; border-color: #2C2416; }
+
+/* ── Sidebar (sticky) ── */
+.av-art__sidebar {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Share card */
+.av-art__share-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(44,36,22,0.07);
+}
+.av-art__share-heading {
+  font-family: var(--font-body-family);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(74,63,48,0.4);
+  margin: 0 0 14px;
+}
+.av-art__share-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.av-art__share-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body-family);
+  font-size: 12px;
+  font-weight: 600;
+  color: #4A3B2A;
+  text-decoration: none;
+  padding: 9px 14px;
+  border-radius: 7px;
+  background: rgba(74,63,48,0.05);
+  border: 1px solid rgba(74,63,48,0.08);
+  transition: background 0.2s, color 0.2s;
+}
+.av-art__share-btn:hover { background: #2C2416; color: #F5F2EB; }
+
+/* Read time card */
+.av-art__info-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(44,36,22,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.av-art__info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.av-art__info-label {
+  font-family: var(--font-body-family);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(74,63,48,0.38);
+}
+.av-art__info-value {
+  font-family: var(--font-body-family);
+  font-size: 14px;
+  font-weight: 600;
+  color: #2C2416;
+}
+
+/* Back link */
+.av-art__back-row {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 5rem 52px;
+}
+.av-art__back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body-family);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4A7358;
+  text-decoration: none;
+  transition: gap 0.2s;
+}
+.av-art__back-link:hover { gap: 12px; }
+
+/* ── Responsive ── */
+@media screen and (max-width: 749px) {
+  .av-art__header { padding: 40px 0 36px; }
+  .av-art__header-inner { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .av-art__title { font-size: 26px; }
+  .av-art__hero-wrap { padding-left: 1.5rem; padding-right: 1.5rem; top: -16px; }
+  .av-art__hero-img-box { aspect-ratio: 4 / 3; border-radius: 8px; }
+  .av-art__layout {
+    grid-template-columns: 1fr;
+    padding: 0 1.5rem 52px;
+    gap: 0;
+  }
+  .av-art__sidebar { position: static; flex-direction: row; flex-wrap: wrap; margin-top: 36px; }
+  .av-art__share-card, .av-art__info-card { flex: 1; min-width: 140px; }
+  .av-art__body { font-size: 16px; line-height: 1.75; }
+  .av-art__body h2 { font-size: 20px; }
+  .av-art__back-row { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .av-art__header-inner { padding-left: 3rem; padding-right: 3rem; }
+  .av-art__hero-wrap { padding-left: 3rem; padding-right: 3rem; }
+  .av-art__layout { padding-left: 3rem; padding-right: 3rem; grid-template-columns: 1fr 180px; gap: 40px; }
+  .av-art__title { font-size: 32px; }
+  .av-art__back-row { padding-left: 3rem; padding-right: 3rem; }
+}
+{%- endstyle -%}
+
+<article class="av-art">
+
+  {{- 'section-blog-post.css' | asset_url | stylesheet_tag -}}
+
+  <!-- Dark header -->
+  <div class="av-art__header">
+    <div class="av-art__header-inner">
+      <a href="{{ blog.url }}" class="av-art__back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to Journal
+      </a>
+
+      {%- if badge_label != blank -%}
+        <div><span class="av-art__badge av-art__badge--{{ badge_class }}">{{ badge_label }}</span></div>
+      {%- endif -%}
+
+      <h1 class="av-art__title">{{ article.title | escape }}</h1>
+
+      <div class="av-art__meta">
+        <span class="av-art__meta-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          {{ article.published_at | date: '%B %d, %Y' }}
+        </span>
+        <span class="av-art__meta-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          {{ read_min }} min read
+        </span>
+        <span class="av-art__meta-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          AnnVaya
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero image (overlaps header slightly) -->
+  {%- if article.image -%}
+    <div class="av-art__hero-wrap">
+      <div class="av-art__hero-img-box">
+        <img
+          src="{{ article.image | image_url: width: 1200 }}"
+          srcset="{{ article.image | image_url: width: 750 }} 750w, {{ article.image | image_url: width: 1000 }} 1000w, {{ article.image | image_url: width: 1200 }} 1200w"
+          sizes="(max-width:749px) 90vw, (max-width:989px) 84vw, 800px"
+          alt="{{ article.image.alt | escape | default: article.title | escape }}"
+          width="{{ article.image.width }}"
+          height="{{ article.image.height }}"
+          loading="eager"
+          fetchpriority="high"
+          class="av-art__hero-img">
+      </div>
+    </div>
+  {%- endif -%}
+
+  <!-- Content + sidebar -->
+  <div class="av-art__layout">
+
+    <div class="av-art__content">
+      <div class="av-art__body">{{ article.content }}</div>
+
+      <!-- Tags footer -->
+      {%- if article.tags.size > 0 -%}
+        <footer class="av-art__footer">
+          <span class="av-art__tags-label">Filed under</span>
+          <div class="av-art__tags">
+            {%- for tag in article.tags -%}
+              <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="av-art__tag-pill">{{ tag }}</a>
+            {%- endfor -%}
+          </div>
+        </footer>
+      {%- endif -%}
+    </div>
+
+    <!-- Sticky sidebar -->
+    <aside class="av-art__sidebar" aria-label="Article sidebar">
+
+      <!-- Info card -->
+      <div class="av-art__info-card">
+        <div class="av-art__info-row">
+          <span class="av-art__info-label">Read time</span>
+          <span class="av-art__info-value">{{ read_min }} min</span>
+        </div>
+        <div class="av-art__info-row">
+          <span class="av-art__info-label">Published</span>
+          <span class="av-art__info-value">{{ article.published_at | date: '%b %Y' }}</span>
+        </div>
+        <div class="av-art__info-row">
+          <span class="av-art__info-label">Author</span>
+          <span class="av-art__info-value">AnnVaya</span>
+        </div>
+      </div>
+
+      <!-- Share card -->
+      {%- assign share_url = request.origin | append: article.url | url_encode -%}
+      {%- assign share_title = article.title | url_encode -%}
+      <div class="av-art__share-card">
+        <p class="av-art__share-heading">Share</p>
+        <div class="av-art__share-btns">
+          <a href="https://api.whatsapp.com/send?text={{ share_title }}%20{{ share_url }}" target="_blank" rel="noopener" class="av-art__share-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp
+          </a>
+          <a href="https://twitter.com/intent/tweet?url={{ share_url }}&text={{ share_title }}" target="_blank" rel="noopener" class="av-art__share-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.254 5.623zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            X / Twitter
+          </a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}" target="_blank" rel="noopener" class="av-art__share-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Facebook
+          </a>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- Back link -->
+  <div class="av-art__back-row">
+    <a href="{{ blog.url }}" class="av-art__back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to {{ blog.title | escape }}
+    </a>
+  </div>
+
+</article>
+
+<script type="application/ld+json">
+  {{ article | structured_data }}
+</script>
+
+{% schema %}
+{
+  "name": "Article",
+  "tag": "section",
+  "class": "annvaya-article"
+}
+{% endschema %}

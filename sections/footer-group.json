@@ -1,0 +1,36 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "annvaya-footer",
+      "settings": {
+        "bg_color": "#2C2416",
+        "text_color": "#F5F2EB",
+        "newsletter_enable": true,
+        "newsletter_heading": "Get 10% Off Your First Order",
+        "brand_tagline": "100% natural dehydrated food powders made in small batches. Kitchen essentials, baby food, and superfoods — without preservatives, additives, or artificial colors. From farm to your kitchen, nothing added.",
+        "shop_menu": "footer",
+        "company_menu": "footer-company",
+        "legal_menu": "footer-legal",
+        "contact_email": "hello@annvaya.com",
+        "contact_phone": "",
+        "business_hours": "Mon – Sat, 10 AM – 6 PM IST",
+        "office_address": "",
+        "padding_top": 48
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

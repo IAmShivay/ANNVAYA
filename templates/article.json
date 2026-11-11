@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "main": {
+      "type": "annvaya-article",
+      "settings": {}
+    },
+    "related_articles": {
+      "type": "annvaya-related-articles",
+      "settings": {
+        "eyebrow": "More Reads",
+        "heading": "You Might Also Like",
+        "articles_to_show": 3,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related_articles"
+  ]
+}
